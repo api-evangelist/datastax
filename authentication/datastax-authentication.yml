@@ -1,0 +1,13 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/datastax-devops-openapi.json
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
+  sources:
+  - openapi/datastax-devops-openapi.json
