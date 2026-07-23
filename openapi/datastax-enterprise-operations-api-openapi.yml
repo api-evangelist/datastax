@@ -1,0 +1,425 @@
+openapi: 3.0.0
+info:
+  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  version: 2.3.0
+  title: Astra DevOps Access List Enterprise Operations API
+  contact:
+    email: ad-astra@datastax.com
+servers:
+- url: https://api.astra.datastax.com/
+security:
+- BearerAuth:
+  - org-admin
+  - org-db-create
+  - org-db-terminate
+  - org-db-view
+  - org-db-expand
+  - org-db-suspend
+  - org-db-addpeering
+  - org-db-readpeering
+  - db-keyspace-create
+  - db-cql
+  - accesslist-write
+  - accesslist-read
+  - db-manage-privateendpoint
+  - db-manage-telemetry
+  - db-manage-backupconfiguration
+tags:
+- name: Enterprise Operations
+  description: DevOps APIs for your Astra enterprise.
+paths:
+  /v2/enterprises/organizations:
+    post:
+      tags:
+      - Enterprise Operations
+      summary: Create an organization under an enterprise.
+      description: Create a new organization under the given enterprise.
+      operationId: createOrganizationInEnterprise
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrgInEnterpriseRequest'
+      responses:
+        '201':
+          description: Organization created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrgInEnterpriseResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/enterprises/consumption:
+    post:
+      tags:
+      - Enterprise Operations
+      summary: Get enterprise usage within a date range for a given enterprise ID and request payload
+      description: Provides the usage for a given enterprise ID and request payload breakdown across multiple cluster region combination within given date range (not more than 31 days)
+      operationId: GetEnterpriseConsumption
+      requestBody:
+        description: Consists of the fromDate and toDate for the usage, requested orgids, clusters
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnterpriseConsumptionRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnterpriseConsumptionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/enterprises/billing-reports/generate-report:
+    post:
+      tags:
+      - Enterprise Operations
+      summary: Generate a report for the specified enterprise
+      description: This endpoint generates a report for the specified enterprise based on the provided month and year.
+      operationId: generateReport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnterpriseGenerateReportRequest'
+      responses:
+        '200':
+          description: Report generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnterpriseGenerateReportResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+      - BearerAuth: []
+  /v2/enterprises/billing-reports/{reportId}:
+    get:
+      tags:
+      - Enterprise Operations
+      summary: Get details of a specific report
+      description: This endpoint retrieves the details of the specified report for the given enterprise.
+      operationId: getReportDetails
+      parameters:
+      - name: reportId
+        in: path
+        required: true
+        description: Unique identifier for the report.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Report details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnterpriseReportStatusResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+      - BearerAuth: []
+components:
+  schemas:
+    EnterpriseGenerateReportRequest:
+      type: object
+      properties:
+        month:
+          type: string
+          description: Month represented as a string.
+        year:
+          type: string
+          description: Year represented as a string.
+      required:
+      - month
+      - year
+    EnterpriseReportStatusResponse:
+      type: object
+      properties:
+        reportId:
+          type: string
+          format: uuid
+          description: Unique identifier for the report.
+        status:
+          type: string
+          description: Status of the report.
+          enum:
+          - COMPLETED
+          - PENDING
+          - FAILED
+        month:
+          type: string
+          description: Month of the report.
+        year:
+          type: string
+          description: Year of the report.
+        reportDetails:
+          type: object
+          properties:
+            csvDownloadUrl:
+              type: string
+              format: uri
+              description: URL to download the report in CSV format.
+            generatedAt:
+              type: string
+              format: date-time
+              description: Timestamp when the report was generated.
+            expirationAt:
+              type: string
+              format: date-time
+              description: Timestamp when the report download link expires.
+            isStale:
+              type: boolean
+              default: true
+              description: The indication if the report csv file does not exist in S3 or if the report is outdated.
+              example: true
+      required:
+      - reportId
+      - status
+      - month
+      - year
+      - reportDetails
+    EnterpriseConsumptionResponse:
+      description: enterprise consumption response
+      type: object
+      properties:
+        totalCost:
+          type: double
+          description: Total dollar amount
+        costs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostBreakdown'
+          description: List of the cost breakdown at cluster region level
+    CreateOrgInEnterpriseRequest:
+      type: object
+      description: The create organization in enterprise model
+      required:
+      - name
+      - email
+      - enterpriseID
+      - adminUserID
+      properties:
+        name:
+          type: string
+          description: The name of the organization
+        email:
+          type: string
+          description: The email of the organization
+        adminUserID:
+          type: string
+          description: The datastax UUID of the user who will be the admin of the organization
+        enterpriseID:
+          type: string
+          description: The UUID of the enterprise under which the organization needs to be created
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    CreateOrgInEnterpriseResponse:
+      type: object
+      properties:
+        OrganizationName:
+          type: string
+          example: acme production org
+        OrganizationID:
+          type: string
+          format: uuid
+          example: 8f112467-7b55-4f0a-877f-c97e2bc10074
+        OrganizationEmail:
+          type: string
+          format: email
+          example: admin@acme-enterprises.com
+        MarketplaceData:
+          type: object
+          nullable: true
+        CreatedAt:
+          type: string
+          format: date-time
+          example: '2024-06-14T15:41:45.395919529Z'
+        LastModified:
+          type: string
+          format: date-time
+          example: '2024-06-14T15:41:45.395919529Z'
+        OrgType:
+          type: string
+          example: organization
+        EnterpriseId:
+          type: string
+          format: uuid
+          example: 9df02cbd-fb84-47c0-a5cf-b7a912928a4e
+        OrganizationGroupId:
+          type: string
+          format: uuid
+          example: f9336a4e-e489-4db2-ab29-0939af587268
+    EnterpriseGenerateReportResponse:
+      type: object
+      properties:
+        reportId:
+          type: string
+          format: uuid
+          description: Unique identifier for the report.
+        status:
+          type: string
+          description: Current status of the report.
+          enum:
+          - INITIATED
+          - COMPLETED
+          - PENDING
+          - FAILED
+        month:
+          type: string
+          description: Month of the report.
+        year:
+          type: string
+          description: Year of the report.
+      required:
+      - reportId
+      - status
+      - month
+      - year
+    CostBreakdown:
+      description: Cost breakdown at cluster region level
+      type: object
+      required:
+      - orgId
+      - clusterID
+      - region
+      - cost
+      properties:
+        orgId:
+          type: string
+          description: Org ID
+          example: abcfc07b-3217-494e-9831-b5058a92961f
+        clusterID:
+          type: string
+          description: Cluster ID
+          example: d75f25b7-d668-4ff9-9ed6-21a2f22f4568
+        region:
+          type: string
+          description: region
+          example: us-east-1
+        cost:
+          type: double
+          description: breakdown cost
+          example: '101.57878268880637'
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    EnterpriseConsumptionRequest:
+      description: enterprise consumption request
+      type: object
+      properties:
+        fromDate:
+          type: string
+          example: '2021-05-06T06:13:23.57Z'
+          description: The start of the target date range in ISO RFC3339 format
+        toDate:
+          type: string
+          example: '2021-05-06T06:13:23.57Z'
+          description: The end of the target date range in ISO RFC3339 format
+        resourceIDs:
+          type: array
+          items:
+            type: string
+          description: List of the resource IDs
+        orgIDs:
+          type: array
+          items:
+            type: string
+          description: List of the organization IDs
+  responses:
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    UnprocessableEntity:
+      description: The structured data in the request could not be parsed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  securitySchemes:
+    BearerAuth:
+      description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
+      type: http
+      scheme: bearer

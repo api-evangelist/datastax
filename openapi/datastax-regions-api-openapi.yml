@@ -1,0 +1,287 @@
+openapi: 3.0.0
+info:
+  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  version: 2.3.0
+  title: Astra DevOps Access List Regions API
+  contact:
+    email: ad-astra@datastax.com
+servers:
+- url: https://api.astra.datastax.com/
+security:
+- BearerAuth:
+  - org-admin
+  - org-db-create
+  - org-db-terminate
+  - org-db-view
+  - org-db-expand
+  - org-db-suspend
+  - org-db-addpeering
+  - org-db-readpeering
+  - db-keyspace-create
+  - db-cql
+  - accesslist-write
+  - accesslist-read
+  - db-manage-privateendpoint
+  - db-manage-telemetry
+  - db-manage-backupconfiguration
+tags:
+- name: Regions
+  description: Get available regions by database type, user, or organization.
+paths:
+  /v2/availableRegions:
+    get:
+      tags:
+      - Regions
+      summary: Returns supported regions and availability for a given user / org
+      description: Returns all supported tier, cloud, region, count, and capacity combinations
+      security:
+      - BearerAuth:
+        - org-db-create
+      operationId: listAvailableRegions
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvailableRegionCombination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/regions/serverless:
+    get:
+      tags:
+      - Regions
+      summary: Returns the list of available regions for serverless
+      description: Returns all region, cloud, name, zone and classification info available in serverless
+      security:
+      - BearerAuth:
+        - org-db-create
+      operationId: listServerlessRegions
+      parameters:
+      - $ref: '#/components/parameters/RegionTypeQueryParam'
+      - $ref: '#/components/parameters/OrgFilteringQueryParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServerlessRegion'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    ServerlessRegion:
+      type: object
+      description: Serverless region information
+      required:
+      - cloudProvider
+      - name
+      - displayName
+      - zone
+      - classification
+      - enabled
+      - reservedForQualifiedUsers
+      - region_type
+      properties:
+        cloudProvider:
+          type: string
+          example: aws
+        name:
+          type: string
+          example: us-west-2
+        displayName:
+          type: string
+          example: US West (Oregon)
+        zone:
+          type: string
+          example: na
+        classification:
+          type: string
+          example: standard
+        enabled:
+          type: boolean
+          example: true
+        reservedForQualifiedUsers:
+          type: boolean
+          example: true
+        region_type:
+          type: string
+          description: region type. Supported values are "vector" or "serverless"
+          enum:
+          - serverless
+          - vector
+          example: vector
+        pcu_types:
+          type: array
+          items:
+            $ref: '#/components/schemas/PCUGroupType'
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    PCUGroupType:
+      type: object
+      description: This object is used for the response of the PCU Group types request
+      properties:
+        type:
+          type: string
+          description: the size of the PCU Group type given the PCU Group types request
+          example: standard
+        details:
+          $ref: '#/components/schemas/PCUGroupTypeDetails'
+    AvailableRegionCombination:
+      type: object
+      description: AvailableRegionCombination defines a Tier, cloud provider, region combination
+      required:
+      - tier
+      - cloudProvider
+      - region
+      - cost
+      - databaseCountUsed
+      - databaseCountLimit
+      - capacityUnitsUsed
+      - capacityUnitsLimit
+      - defaultStoragePerCapacityUnitGb
+      properties:
+        tier:
+          type: string
+          example: Free
+        cloudProvider:
+          type: string
+          example: GCP
+        region:
+          type: string
+          example: us-east1
+        cost:
+          $ref: '#/components/schemas/Costs'
+        databaseCountUsed:
+          type: integer
+          example: 0
+        databaseCountLimit:
+          type: integer
+          example: 1
+        capacityUnitsUsed:
+          type: integer
+          example: 0
+          description: Describes capacity unit usage for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+        capacityUnitsLimit:
+          type: integer
+          example: 30
+          description: Describes maximum capacity units allocated to a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+        defaultStoragePerCapacityUnitGb:
+          type: integer
+          example: 500
+          description: Describes capacity unit storage size for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Costs:
+      properties:
+        costPerMinCents:
+          type: number
+          format: double
+          example: 0
+        costPerHourCents:
+          type: number
+          format: double
+          example: 0
+        costPerDayCents:
+          type: number
+          format: double
+          example: 0
+        costPerMonthCents:
+          type: number
+          format: double
+          example: 0
+        costPerMinParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerHourParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerDayParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerMonthParkedCents:
+          type: number
+          format: double
+          example: 0
+    PCUGroupTypeDetails:
+      type: object
+      description: This object holds the details regarding the PCU Type
+      properties:
+        vCPU:
+          type: integer
+          format: int32
+          description: vCPUs for this pcu type
+        memory:
+          type: string
+          description: memory for this pcu type
+        disk_cache:
+          type: string
+          description: disk cache for this pcu type
+  responses:
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  parameters:
+    OrgFilteringQueryParam:
+      in: query
+      name: filter-by-org
+      required: false
+      schema:
+        type: string
+        default: disabled
+      description: Filter by org query parameter retrieves regions based on current organization ID. By default this API returns all regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Another valid values for this parameter is 'disabled' (default), i.e. retrieve serverless regions without  filtering out by current org. Any invalid value will be ignored and API will show the default behavior.
+    RegionTypeQueryParam:
+      in: query
+      name: region-type
+      required: false
+      schema:
+        type: string
+        default: ''
+      description: Region type query parameter to retrieve regions supporting serverless and/or vector dbs. By default this API only returns serverless db regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Valid values for this parameter are empty region-type query parameter (default behavior to retrieve serverless regions), all (to retrieve both vector and serverless regions) and vector (to retrieve vector regions). Any invalid value will be ignored and API will show the default behavior i.e. return serverless regions only.
+  securitySchemes:
+    BearerAuth:
+      description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
+      type: http
+      scheme: bearer

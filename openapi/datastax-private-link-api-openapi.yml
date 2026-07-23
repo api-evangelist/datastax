@@ -1,0 +1,650 @@
+openapi: 3.0.0
+info:
+  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  version: 2.3.0
+  title: Astra DevOps Access List Private Link API
+  contact:
+    email: ad-astra@datastax.com
+servers:
+- url: https://api.astra.datastax.com/
+security:
+- BearerAuth:
+  - org-admin
+  - org-db-create
+  - org-db-terminate
+  - org-db-view
+  - org-db-expand
+  - org-db-suspend
+  - org-db-addpeering
+  - org-db-readpeering
+  - db-keyspace-create
+  - db-cql
+  - accesslist-write
+  - accesslist-read
+  - db-manage-privateendpoint
+  - db-manage-telemetry
+  - db-manage-backupconfiguration
+tags:
+- name: Private Link
+  description: Use the DevOps Private Link APIs to manage private link endpoints for your Astra databases.
+paths:
+  /v2/organizations/private-link:
+    get:
+      tags:
+      - Private Link
+      summary: Gets info about all private link connections for a specific org
+      description: Gets info about all private link connections for a specific org
+      operationId: ListPrivateLinksForOrg
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkOrgOutput'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/organizations/clusters/{clusterID}/private-link:
+    get:
+      tags:
+      - Private Link
+      summary: Gets info about all private link connections for a specific cluster
+      description: Gets info about all private link connections for a cluster
+      operationId: ListPrivateLinksForCluster
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkClusterOutput'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/organizations/clusters/{clusterID}/datacenters/{datacenterID}/private-link:
+    get:
+      tags:
+      - Private Link
+      summary: Gets info about private link in a datacenter
+      description: Gets info about a private link connection in a specific datacenter
+      operationId: GetPrivateLinksForDatacenter
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: datacenterID
+        in: path
+        description: Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkDatacenterOutput'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      tags:
+      - Private Link
+      summary: Add an allowed principal to the private link service
+      description: Configure private link by providing the allowed principal to connect with
+      operationId: AddAllowedPrincipalToService
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: datacenterID
+        in: path
+        description: Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The model for adding a private link allowed principal
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrivateLinkCreateConfigInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkCreateConfigOutput'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/organizations/clusters/{clusterID}/datacenters/{datacenterID}/allowed-principals:
+    post:
+      tags:
+      - Private Link
+      summary: Add an allowed principal to the private link service
+      description: Configure private link by providing the allowed principal to connect with
+      operationId: AddAllowedPrincipal
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: datacenterID
+        in: path
+        description: Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The model for adding a private link allowed principal
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrivateLinkCreateConfigInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkCreateConfigOutput'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      tags:
+      - Private Link
+      summary: Remove an allowed principal from the private link service
+      description: Remove an allowed principal from the private link service
+      operationId: RemoveAllowedPrincipalFromService
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: datacenterID
+        in: path
+        description: Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The model for removing a private link allowed principal
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrivateLinkDeleteConfigInput'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/organizations/clusters/{clusterID}/datacenters/{datacenterID}/endpoints:
+    post:
+      tags:
+      - Private Link
+      summary: Accept an endpoint to the private link service
+      description: Complete Private Link connection by providing your endpoint
+      operationId: AcceptEndpointToService
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: datacenterID
+        in: path
+        description: Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The model for an AWS Private Link connection creation request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrivateLinkCreateEndpointInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkEndpoint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/organizations/clusters/{clusterID}/datacenters/{datacenterID}/endpoints/{endpointID}:
+    get:
+      tags:
+      - Private Link
+      summary: Gets info about a private link endpoint
+      description: Gets info about a private link endpoint
+      operationId: GetPrivateLinkEndpoint
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: datacenterID
+        in: path
+        description: Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: endpointID
+        in: path
+        description: Endpoint ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkEndpoint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    put:
+      tags:
+      - Private Link
+      summary: Update the description for a private link endpoint
+      description: Update the description for a private link endpoint
+      operationId: UpdateEndpointDescription
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: datacenterID
+        in: path
+        description: Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: endpointID
+        in: path
+        description: Endpoint ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The model for updating the description for an endpoint
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrivateLinkUpdateEndpointInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateLinkEndpoint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      tags:
+      - Private Link
+      summary: Reject an endpoint from the private link service
+      description: Reject an endpoint from the private link service
+      operationId: RejectEndpoint
+      parameters:
+      - name: clusterID
+        in: path
+        description: Database ID
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: datacenterID
+        in: path
+        description: Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: endpointID
+        in: path
+        description: Endpoint ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/organizations/customDomains:
+    get:
+      tags:
+      - Private Link
+      summary: Return the list of custom domains used by an organization for access via one or more private links.
+      description: Returns a list of custom domains used by an organization. The list contains those user defined domain names or domain name prefixes that are used as suffixes when accessing the databases in the various datacenters via private links.
+      operationId: getCustomDomains
+      responses:
+        '200':
+          description: success fetching the current list of custom domains.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+    post:
+      tags:
+      - Private Link
+      summary: Define a new set of custom domains for usage with private links.
+      description: Sets a set of custom domains used by an organization. The input list should contain those user defined domain names or domain name prefixes that will be used as suffixes when accessing the databases in the various datacenters via private links.
+      operationId: setCustomDomains
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '202':
+          description: successful operation
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    PrivateLinkUpdateEndpointInput:
+      type: object
+      properties:
+        description:
+          type: string
+          description: User defined description of the endpoint
+          example: ecomm-team-billing-app
+    PrivateLinkDatacenterOutput:
+      type: object
+      properties:
+        serviceName:
+          $ref: '#/components/schemas/ServiceName'
+        allowedPrincipals:
+          $ref: '#/components/schemas/AllowedPrincipals'
+        datacenterID:
+          type: string
+          description: Datacenter ID for the private link endpoint
+        endpoints:
+          type: array
+          description: List of endpoints associated with the given org-cluster-dc combo
+          items:
+            $ref: '#/components/schemas/PrivateLinkEndpoint'
+    PrivateLinkClusterOutput:
+      type: object
+      properties:
+        clusterID:
+          type: string
+          description: Cluster ID for all private links connected to the cluster's datacenters
+        datacenters:
+          type: array
+          description: List of endpoints for a datacenter
+          items:
+            $ref: '#/components/schemas/PrivateLinkDatacenterOutput'
+    PrivateLinkOrgOutput:
+      type: object
+      properties:
+        clusters:
+          type: array
+          description: List of endpoints for a cluster
+          items:
+            $ref: '#/components/schemas/PrivateLinkClusterOutput'
+    AllowedPrincipals:
+      type: array
+      description: List of principals to do action for private link
+      example:
+      - arn:aws:iam::123456789012:role/admin
+      items:
+        type: string
+    ServiceName:
+      type: string
+      description: The given endpoint service for the user to connect to
+      example: com.amazonaws.vpce.us-east-1.vpce-svc-1148ea04af491da11
+    PrivateLinkCreateConfigInput:
+      type: object
+      properties:
+        allowedPrincipals:
+          $ref: '#/components/schemas/AllowedPrincipals'
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    PrivateLinkCreateConfigOutput:
+      type: object
+      properties:
+        serviceName:
+          $ref: '#/components/schemas/ServiceName'
+        allowedPrincipals:
+          $ref: '#/components/schemas/AllowedPrincipals'
+    PrivateLinkDeleteConfigInput:
+      type: object
+      properties:
+        allowedPrincipal:
+          type: string
+          description: The allowed-principal
+          example: arn:aws:iam::123456789012:role/admin
+    PrivateLinkEndpoint:
+      type: object
+      properties:
+        endpointID:
+          type: string
+          description: Endpoint ID of the user side private link
+          example: vpce-svc-1148ea04af491da11
+        description:
+          type: string
+          description: User defined description of the endpoint
+          example: ecomm-team-billing-app
+        linkID:
+          type: string
+          description: Link ID for the private link service and endpoint connection
+          example: '126845687'
+        status:
+          type: string
+          description: The current status of the connection
+          example: Accepted
+          enum:
+          - Accepted
+          - Rejected
+        createdDateTime:
+          type: string
+          description: The datetime that the private link connection was created
+          example: '2009-11-10T23:00:00'
+    PrivateLinkCreateEndpointInput:
+      type: object
+      properties:
+        endpointID:
+          type: string
+          description: The user's endpoint created in their cloud provider account
+          example: vpce-svc-1148ea04af8675309
+        description:
+          type: string
+          description: The human readable description of the endpoint
+          example: ecomm-team-billing-app-prod
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+  responses:
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Conflict:
+      description: The database is not in a valid state to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  securitySchemes:
+    BearerAuth:
+      description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
+      type: http
+      scheme: bearer

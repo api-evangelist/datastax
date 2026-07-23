@@ -1,0 +1,1764 @@
+openapi: 3.0.0
+info:
+  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  version: 2.3.0
+  title: Astra DevOps Access List Database Operations API
+  contact:
+    email: ad-astra@datastax.com
+servers:
+- url: https://api.astra.datastax.com/
+security:
+- BearerAuth:
+  - org-admin
+  - org-db-create
+  - org-db-terminate
+  - org-db-view
+  - org-db-expand
+  - org-db-suspend
+  - org-db-addpeering
+  - org-db-readpeering
+  - db-keyspace-create
+  - db-cql
+  - accesslist-write
+  - accesslist-read
+  - db-manage-privateendpoint
+  - db-manage-telemetry
+  - db-manage-backupconfiguration
+tags:
+- name: Database Operations
+  description: Use these DevOps APIs to manage Astra databases.
+paths:
+  /v2/databases:
+    get:
+      tags:
+      - Database Operations
+      summary: Returns a list of databases
+      description: Get a list of databases visible to the user
+      security:
+      - BearerAuth:
+        - org-db-view
+      operationId: listDatabases
+      parameters:
+      - in: query
+        name: include
+        description: Allows filtering so that databases in listed states are returned
+        required: false
+        schema:
+          type: string
+          enum:
+          - nonterminated
+          - all
+          - active
+          - pending
+          - preparing
+          - prepared
+          - initializing
+          - parked
+          - parking
+          - unparking
+          - terminating
+          - terminated
+          - resizing
+          - error
+          - maintenance
+          - suspended
+          - suspending
+          default: nonterminated
+      - in: query
+        name: provider
+        description: Allows filtering so that databases from a given provider are returned
+        required: false
+        schema:
+          type: string
+          enum:
+          - ALL
+          - GCP
+          - AWS
+          - AZURE
+          default: ALL
+      - in: query
+        name: starting_after
+        schema:
+          type: string
+        required: false
+        description: Optional parameter for pagination purposes. Used as this value for starting retrieving a specific page of results
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 25
+          minimum: 1
+          maximum: 100
+        required: false
+        description: Optional parameter for pagination purposes. Specify the number of items for one page of data
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Database'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+    post:
+      tags:
+      - Database Operations
+      summary: Create a new database
+      description: Takes a user provided databaseInfo and returns the uuid for a new database
+      security:
+      - BearerAuth:
+        - org-db-create
+      operationId: createDatabase
+      requestBody:
+        description: Definition of new database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatabaseInfoCreate'
+      responses:
+        '201':
+          description: created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: Database UUID
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}:
+    get:
+      tags:
+      - Database Operations
+      summary: Finds database by ID
+      description: Returns specified database
+      security:
+      - BearerAuth:
+        - org-db-view
+      operationId: getDatabase
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/keyspaces/{keyspaceName}:
+    post:
+      tags:
+      - Database Operations
+      summary: Adds keyspace into database
+      description: Adds the specified keyspace to the database
+      security:
+      - BearerAuth:
+        - db-keyspace-create
+      operationId: addKeyspace
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - $ref: '#/components/parameters/KeyspaceNameParam'
+      responses:
+        '201':
+          description: created
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+    delete:
+      tags:
+      - Database Operations
+      description: Removes the specified keyspace from the database
+      operationId: removeKeyspace
+      parameters:
+      - description: String representation of the database ID
+        explode: false
+        in: path
+        name: databaseID
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Name of database keyspace
+        explode: false
+        in: path
+        name: keyspaceName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        '204':
+          description: successful operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: Bad request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: The user is unauthorized to perform the operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: The specified database was not found
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+          description: A server error occurred
+      summary: Removes keyspace
+  /v2/databases/{databaseID}/keyspaces/{keyspaceName}/actions/alterWithGraphEngine:
+    post:
+      tags:
+      - Database Operations
+      summary: Alter keyspace to enable graph engine
+      description: Alter the specified keyspace to enable graph engine capabilities. Only supports Managed Cluster (Classic) databases.
+      operationId: alterKeyspaceWithGraphEngine
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - $ref: '#/components/parameters/KeyspaceNameParam'
+      responses:
+        '202':
+          description: keyspace has been well updated with graph engine capabilities.
+        '204':
+          description: keyspace doesn't exists.
+        '400':
+          description: Not a valid E Tier.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/secureBundleURL:
+    post:
+      summary: Obtain zip for connecting to the database
+      description: 'Returns a temporary URL to download a zip file with certificates for connecting to the database. The URL expires after five minutes.<p>There are two types of the secure bundle URL: <ul><li><b>Internal</b> - Use with VPC peering connections to use private networking and avoid public internet for communication.</li> <li><b>External</b> - Use with any connection where the public internet is sufficient for communication between the application and the Astra database with MTLS.</li></ul> Both types support MTLS for communication via the driver.</p>'
+      security:
+      - BearerAuth:
+        - db-cql
+      operationId: generateSecureBundleURL
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - $ref: '#/components/parameters/AllDatacentersParam'
+      responses:
+        '200':
+          description: Credentials provides a link to download cluster secure-connect-*.zip file
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/CredsURL'
+                - $ref: '#/components/schemas/CredsURLList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/telemetry/metrics:
+    post:
+      summary: Configure Astra Remote Telemetry
+      description: 'Enables metrics exporting to an external system. Note: updates replace any existing config.'
+      security:
+      - BearerAuth:
+        - telemetry
+      operationId: configureTelemetry
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      tags:
+      - Database Operations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/KafkaTelemetryRequest'
+              - $ref: '#/components/schemas/RemotePrometheusTelemetryRequest'
+              - $ref: '#/components/schemas/CloudWatchTelemetryRequest'
+              - $ref: '#/components/schemas/SplunkTelemetryRequest'
+              - $ref: '#/components/schemas/PulsarTelemetryRequest'
+              - $ref: '#/components/schemas/DatadogTelemetryRequest'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+    get:
+      summary: Retrieve Remote Telemetry configuration
+      description: Get the current Telemetry configuration for the database
+      operationId: getTelemetryConfig
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      responses:
+        '200':
+          description: The current stored Remote Telemetry configuration for this database
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/KafkaTelemetryRequest'
+                - $ref: '#/components/schemas/RemotePrometheusTelemetryRequest'
+                - $ref: '#/components/schemas/CloudWatchTelemetryRequest'
+                - $ref: '#/components/schemas/SplunkTelemetryRequest'
+                - $ref: '#/components/schemas/PulsarTelemetryRequest'
+                - $ref: '#/components/schemas/DatadogTelemetryRequest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/terminate:
+    post:
+      summary: Terminates a database
+      description: Terminates a database
+      security:
+      - BearerAuth:
+        - org-db-terminate
+      operationId: terminateDatabase
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: query
+        name: preparedStateOnly
+        description: For internal use only.  Used to safely terminate prepared databases.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/resize:
+    post:
+      summary: Resizes a database
+      description: Resizes a Managed Cluster (Classic) database, specifying the desired total number of capacity units. This operation isn't applicable to Astra DB Serverless databases, and it has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+      security:
+      - BearerAuth:
+        - org-db-expand
+      operationId: resizeDatabase
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: Map containing the capacityUnits key and a value greater than the current number of capacity units. You can increase the number of CUs by no more than 3 units per operation.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CapacityUnits'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/datacenters:
+    get:
+      summary: List all database datacenters
+      description: Returns the list of configured ACTIVE datacenters for the given database, if you want to get the TERMINATED along with ACTIVE send query param all=true
+      operationId: listDatacenters
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: query
+        name: all
+        description: Allows retrieving datacenters in TERMINATED state along with ACTIVE ones
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Datacenter'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+    post:
+      summary: Adds datacenters
+      description: Deploy a multi-region database to an additional AWS, Azure, or Google Cloud datacenter.
+      operationId: addDatacenters
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: List of values necessary to add the datacenter. Can be used to add multiple datacenters at once.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Datacenter'
+      responses:
+        '201':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/datacenters/{datacenterID}/terminate:
+    post:
+      summary: Terminates a datacenter
+      description: Terminates a datacenter
+      operationId: terminateDatacenter
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - $ref: '#/components/parameters/DatacenterIdParam'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/resetPassword:
+    post:
+      summary: Resets Password
+      description: Sets a database password to the one specified in POST body
+      security:
+      - BearerAuth:
+        - org-db-create
+      operationId: resetPassword
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: Map containing username and password. The specified password will be updated for the specified database user
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPassword'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/engineType:
+    put:
+      summary: Updates the database engine type
+      description: Updates the engine type for the specified database. This operation is only applicable to Astra DB Serverless databases.
+      security:
+      - BearerAuth:
+        - org-db-create
+      operationId: updateEngineType
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: Map containing the new engine type.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EngineType'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v3/databases/{databaseID}/cdc:
+    post:
+      summary: Enable CDC for a Database
+      description: Configure CDC for specified tables in a given database
+      security:
+      - BearerAuth:
+        - org-db-create
+      operationId: enableCDC
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: Request payload containing the necessary configuration for enabling CDC, including tables and regions
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnableCDCRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+    put:
+      summary: Update CDC config
+      description: Update CDC config for tables in a given database
+      security:
+      - BearerAuth:
+        - org-db-create
+      operationId: updateCDC
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: Request payload with CDC config to add, remove, or update tables and regions
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnableCDCRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+    get:
+      summary: List all active CDC configs
+      description: Returns a list of all tables with active CDC configurations for the specified database
+      security:
+      - BearerAuth:
+        - org-db-view
+      operationId: getCDC
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCDCResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+    delete:
+      summary: Delete CDC for tables in Database
+      description: Delete CDC for specified tables in a given database
+      security:
+      - BearerAuth:
+        - org-db-terminate
+      operationId: deleteCDC
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      requestBody:
+        description: Request payload containing details of the tables for which CDC should be removed
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteCDCRequest'
+      responses:
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v3/databases/{databaseID}/keyspaces/{keyspaceName}/tables/{tableName}/cdc:
+    get:
+      summary: Check CDC status for a table
+      description: Fetches the CDC status and configuration for the specified table in the given database
+      security:
+      - BearerAuth:
+        - org-db-view
+      operationId: getCDCStatus
+      tags:
+      - Database Operations
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - $ref: '#/components/parameters/TableNameParam'
+      - $ref: '#/components/parameters/KeyspaceNameParam'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetCDCResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        5XX:
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/keyspaces/{keyspaceName}/tables/{tableName}/solr/createCorewithconfigs:
+    post:
+      tags:
+      - Database Operations
+      summary: Create a Solr index for an E tier Managed Cluster (Classic) database.
+      description: 'If `generateResources` is set to `true`, the Solr index is automatically generated based on existing CQL table metadata. If `generateResources` is set to `false`, provide `<schema.xml>` and `<solrconfig.xml>` resources to create the search index.
+
+        '
+      operationId: createSolrIndex
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - $ref: '#/components/parameters/KeyspaceNameParam'
+      - $ref: '#/components/parameters/TableNameParam'
+      - name: generateResources
+        in: query
+        required: true
+        schema:
+          type: boolean
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: string
+          format: binary
+          example: '@/mylocal/schema.xml'
+      - name: solrconfig
+        in: query
+        required: false
+        schema:
+          type: string
+          format: binary
+          example: '@/mylocal/solrconfig.xml'
+      responses:
+        '202':
+          description: The registration for SolrIndex creation has been accepted and is proceeding. Please note that this does not guarantee success at this step.
+        '204':
+          description: Keyspace doesn't exist.
+        '400':
+          description: Not a valid E Tier.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    CredsURL:
+      description: CredsURL from which the creds zip may be downloaded
+      type: object
+      required:
+      - downloadURL
+      properties:
+        downloadURL:
+          type: string
+          example: nifty.cloud.datastax.com:9092
+          description: DownloadURL is only valid for about 5 minutes
+        downloadURLInternal:
+          type: string
+          example: internal-nifty.cloud.datastax.com:9092
+          description: Internal DownloadURL is only valid for about 5 minutes
+        downloadURLMigrationProxy:
+          type: string
+          example: proxy-nifty.cloud.datastax.com:9092
+          description: Migration Proxy DownloadURL is only valid for about 5 minutes
+        downloadURLMigrationProxyInternal:
+          type: string
+          example: proxy-nifty.cloud.datastax.com:9092
+          description: Internal Migration Proxy DownloadURL is only valid for about 5 minutes
+        datcenterID:
+          type: string
+          example: dde308f5-a8b0-474d-afd6-81e5689e3e25
+        region:
+          type: string
+          example: us-east-1
+        cloudProvider:
+          type: string
+          example: AWS
+        customDomainBundles:
+          type: array
+          items:
+            type: object
+            properties:
+              domain:
+                type: string
+                example: example.domain.com
+              cqlFQDN:
+                type: string
+                example: dde308f5-a8b0-474d-afd6-81e5689e3e25-us-east-1.db.example.domain.com
+              apiFQDN:
+                type: string
+                example: dde308f5-a8b0-474d-afd6-81e5689e3e25-us-east-1.apps.example.domain.com
+              dashboardFQDN:
+                type: string
+                example: dde308f5-a8b0-474d-afd6-81e5689e3e25-us-east-1.dashboard.example.domain.com
+              downloadURL:
+                type: string
+                example: nifty.cloud.datastax.com:9092
+    RemotePrometheusBasicAuthTelemetryRequest:
+      allOf:
+      - $ref: '#/components/schemas/RemotePrometheusAuthRequest'
+      - type: object
+        description: Telemetry Config for Prometheus Remote Write with Basic Authentication
+        required:
+        - user
+        - password
+        properties:
+          user:
+            type: string
+            example: promuser
+            description: Username for Prometheus Remote Write Authentication
+          password:
+            type: string
+            format: password
+            example: prompassword
+            description: Password for Prometheus Remote Write Authentication
+    SplunkTelemetryRequest:
+      description: Telemetry Config for Splunk. The metric name is formatted differently from other sinks, using dot to connect namespaces. The format entails default_namespace.kubernetes_grouping_namespace. For example, a metric_name in Splunk sink would be astra.db_range_latency_seconds:rate1m.
+      type: object
+      properties:
+        splunk:
+          $ref: '#/components/schemas/SplunkTelemetryRequestBlock'
+      required:
+      - splunk
+    DeleteCDCRequest:
+      description: Request schema for deleting CDC on a database
+      type: object
+      required:
+      - databaseID
+      - tables
+      properties:
+        databaseID:
+          type: string
+          example: 1234-5678-91011121-3141
+          description: Unique identifier for the database
+        tables:
+          type: array
+          description: List of tables for which CDC needs to be deleted
+          items:
+            type: object
+            required:
+            - tableName
+            - keyspaceName
+            properties:
+              tableName:
+                type: string
+                example: tableName
+                description: Name of the table
+              keyspaceName:
+                type: string
+                example: default
+                description: Name of the keyspace
+    Database:
+      type: object
+      description: Database contains the key information about a database
+      required:
+      - id
+      - orgId
+      - ownerId
+      - info
+      - status
+      properties:
+        id:
+          type: string
+          example: 1234-5678-91011121-3141
+        orgId:
+          type: string
+          example: organizations/7142-1283-54249566-3707
+        ownerId:
+          type: string
+          example: users/8243-2404-85664728-0889
+        info:
+          $ref: '#/components/schemas/DatabaseInfo'
+        creationTime:
+          type: string
+          description: CreationTime in ISO RFC3339 format
+          example: '2012-11-01T22:08:41+00:00'
+        terminationTime:
+          type: string
+          description: TerminationTime in ISO RFC3339 format
+          example: '2019-11-01T22:08:41+00:00'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        storage:
+          $ref: '#/components/schemas/Storage'
+        availableActions:
+          type: array
+          items:
+            type: string
+            enum:
+            - park
+            - unpark
+            - resize
+            - resetPassword
+            - addKeyspace
+            - addDatacenters
+            - terminateDatacenter
+            - getCreds
+            - terminate
+            - removeKeyspace
+            - removeMigrationProxy
+            - launchMigrationProxy
+            example: addKeyspace, terminate
+        message:
+          type: string
+          description: Message to the customer about the cluster
+          example: Auto parked due to inactivity
+        grafanaUrl:
+          type: string
+          example: http://path-to-grafana:port
+        cqlshUrl:
+          type: string
+          example: http://path-to-cqlsh:port/cqlsh
+        graphqlUrl:
+          type: string
+          example: http://path-to-graqphl:port/api/graphql
+        dataEndpointUrl:
+          type: string
+          example: http://path-to-dataendpoint:port/api/rest
+    KafkaTelemetryRequest:
+      description: Telemetry Config for Kafka
+      type: object
+      properties:
+        kafka:
+          $ref: '#/components/schemas/KafkaTelemetryRequestBlock'
+      required:
+      - kafka
+    CredsURLList:
+      type: array
+      description: an array of credsURL
+      items:
+        $ref: '#/components/schemas/CredsURL'
+    Datacenter:
+      type: object
+      description: Datacenter is the definition of a cassandra datacenter
+      required:
+      - tier
+      - cloudProvider
+      - region
+      - status
+      properties:
+        id:
+          type: string
+          example: 1234-5678-91011121-3141-1
+        name:
+          type: string
+          example: dc-1234-5678-91011121-3141
+        tier:
+          type: string
+          example: Developer
+        status:
+          type: string
+          example: ACTIVE
+        cloudProvider:
+          type: string
+          example: GCP
+        region:
+          type: string
+          example: us-east1
+        regionZone:
+          type: string
+          example: na
+          enum:
+          - emea
+          - apac
+          - na
+          - sa
+        regionClassification:
+          type: string
+          example: standard
+          enum:
+          - standard
+          - premium
+          - premium_plus
+        capacityUnits:
+          type: integer
+          example: 1
+          description: CapacityUnits is the amount of space available for horizontal scaling for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+        grafanaUrl:
+          type: string
+          example: http://path-to-grafana:port
+        cqlshUrl:
+          type: string
+          example: http://path-to-cqlsh:port/cqlsh
+        graphqlUrl:
+          type: string
+          example: http://path-to-graqphl:port/api/graphql
+        dataEndpointUrl:
+          type: string
+          example: http://path-to-dataendpoint:port/api/rest
+        secureBundleUrl:
+          type: string
+          example: http://s3-signed-bundle-url
+        secureBundleInternalUrl:
+          type: string
+          example: http://s3-signed-internal-bundle-url
+        secureBundleMigrationProxyUrl:
+          type: string
+          example: http://s3-signed-proxy-bundle-url
+        secureBundleMigrationProxyInternalUrl:
+          type: string
+          example: http://s3-signed-proxy-internal-bundle-url
+        streamingTenant:
+          type: object
+          properties:
+            streamingClusterName:
+              type: string
+              example: pulsar-gcp-useast1
+            streamingTenantName:
+              type: string
+              example: cdc-streaming
+        pcuGroupUUID:
+          type: string
+          example: 9c531886-ddde-401d-bc0f-a708394975c2
+          description: If pcuGroupUUID is set, it will create the DB and put it into this PCU
+    DatadogTelemetryRequestBlock:
+      description: Telemetry Config Block for Datadog servers
+      type: object
+      required:
+      - api_key
+      properties:
+        api_key:
+          type: string
+          description: API key to authenticate to the Datadog API
+        site:
+          type: string
+          description: The Datadog site to send data to, which should be the site parameter corresponding to the Datadog site URL
+          example: datadoghq.com
+    DatabaseInfoCreate:
+      type: object
+      required:
+      - name
+      - cloudProvider
+      - tier
+      - capacityUnits
+      - region
+      description: DatabaseInfo is the user-provided information describing a database
+      properties:
+        name:
+          type: string
+          example: mySplendidDatabase
+          description: Name of the database--user friendly identifier
+        keyspace:
+          type: string
+          example: myKeyspace
+          description: Optional name for the database's initial keyspace. If not passed, the initial keyspace is created with the name "default_keyspace".
+        cloudProvider:
+          type: string
+          example: AWS
+          enum:
+          - AWS
+          - GCP
+          - AZURE
+          description: CloudProvider where the database lives
+        tier:
+          type: string
+          example: developer
+          enum:
+          - developer
+          - C10
+          - C20
+          - C40
+          - D10
+          - D20
+          - D40
+          - serverless
+          description: Tier defines the compute power (vertical scaling) for the database, developer gcp is the free tier.
+        capacityUnits:
+          type: integer
+          example: 1
+          minimum: 1
+          maximum: 100
+          description: CapacityUnits is the amount of space available for horizontal scaling for a Managed Cluster (Classic) database. For the free tier, the max CU is 1. For Cxx and Dxx tiers, the max CU on startup is 12. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+        region:
+          type: string
+          example: us-west-2
+          description: Region refers to the cloud region.
+        dbType:
+          type: string
+          example: vector
+          enum:
+          - vector
+          description: Type of the serverless database, currently only supported value is "vector". "vector" creates a cassandra database with vector support. Field not being inputted creates default serverless database.
+        pcuGroupUUID:
+          type: string
+          example: 9c531886-ddde-401d-bc0f-a708394975c2
+          description: If pcuGroupUUID is set, it will create the DB and put it into this PCU
+    RemotePrometheusTelemetryRequestBlock:
+      description: Telemetry Config for Prometheus Remote Write
+      oneOf:
+      - $ref: '#/components/schemas/RemotePrometheusBasicAuthTelemetryRequest'
+      - $ref: '#/components/schemas/RemotePrometheusBearerAuthTelemetryRequest'
+      discriminator:
+        propertyName: auth_strategy
+        mapping:
+          basic: '#/components/schemas/RemotePrometheusBasicAuthTelemetryRequest'
+          bearer: '#/components/schemas/RemotePrometheusBearerAuthTelemetryRequest'
+    KafkaTelemetryRequestBlock:
+      description: Telemetry Config Block for Kafka servers
+      type: object
+      required:
+      - bootstrap_servers
+      - topic
+      - sasl_mechanism
+      - sasl_username
+      - sasl_password
+      properties:
+        bootstrap_servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/KafkaBootstrapServer'
+        topic:
+          type: string
+          example: astra_metrics_events
+          description: Kafka topic to write metrics to; user must create this topic on their server(s)
+        sasl_mechanism:
+          type: string
+          enum:
+          - GSSAPI
+          - PLAIN
+          - SCRAM-SHA-256
+          - SCRAM-SHA-512
+          description: Kafka SASL mechanism
+        sasl_username:
+          type: string
+          example: kafkauser
+          description: Username for Kafka Authentication
+        sasl_password:
+          type: string
+          example: kafkapassword
+          description: Password for Kafka Authentication
+        security_protocol:
+          type: string
+          enum:
+          - SASL_PLAINTEXT
+          - SASL_SSL
+          description: "NOTE: This is an advanced option, which most users will not need to set. Most Kafka installations will not require this setting for us to connect. Users of hosted Kafka on Confluent Cloud may need to set 'SASL_SSL'. Valid Options:\n  * `SASL_PLAINTEXT` - SASL Authenticated, non-encrypted channel\n  * `SASL_SSL` - SASL Authenticated, encrypted channel\n! Non-Authenticated options (i.e., `SSL` and `PLAINTEXT`) are not supported.\n"
+    PulsarTelemetryRequestBlock:
+      description: Telemetry Config
+      oneOf:
+      - $ref: '#/components/schemas/PulsarTokenAuthTelemetryRequest'
+      - $ref: '#/components/schemas/PulsarOAuth2TelemetryRequest'
+      discriminator:
+        propertyName: auth_strategy
+        mapping:
+          token: '#/components/schemas/PulsarTokenAuthTelemetryRequest'
+          oauth2: '#/components/schemas/PulsarOAuth2TelemetryRequest'
+    StatusEnum:
+      type: string
+      enum:
+      - ACTIVE
+      - PENDING
+      - PREPARING
+      - PREPARED
+      - INITIALIZING
+      - PARKED
+      - PARKING
+      - UNPARKING
+      - TERMINATED
+      - TERMINATING
+      - RESIZING
+      - ERROR
+      - MAINTENANCE
+      - SUSPENDED
+      - UNKNOWN
+      example: ACTIVE
+    DatabaseInfo:
+      type: object
+      description: DatabaseInfo is the user-provided information describing a database
+      properties:
+        name:
+          type: string
+          example: mySplendidDatabase
+          description: Name of the database--user friendly identifier
+        keyspace:
+          type: string
+          example: myKeyspace
+          description: Keyspace name in database
+        cloudProvider:
+          type: string
+          example: AWS
+          enum:
+          - AWS
+          - GCP
+          - AZURE
+          description: CloudProvider where the database lives
+        tier:
+          type: string
+          example: developer
+          enum:
+          - developer
+          - C10
+          - C20
+          - C40
+          - D10
+          - D20
+          - D40
+          - serverless
+          description: Tier defines the compute power (vertical scaling) for the database
+        capacityUnits:
+          type: integer
+          example: 1
+          minimum: 1
+          maximum: 100
+          description: CapacityUnits is the amount of space available for horizontal scaling for a Managed Cluster (Classic) database. For the free tier, the max CU is 1. For Cxx and Dxx tiers, the max CU on startup is 12. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+        region:
+          type: string
+          example: us-west-2
+          description: Region refers to the cloud region.
+        additionalKeyspaces:
+          type: array
+          maximum: 1
+          items:
+            type: string
+            example: additionalKeyspace
+          description: Additional keyspaces names in database
+        dbType:
+          type: string
+          example: vector
+          enum:
+          - vector
+          description: Type of the serverless database, currently only supported value is "vector". "vector" creates a cassandra database with vector support. Field not being inputted creates default serverless database.
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    PulsarOAuth2TelemetryRequest:
+      allOf:
+      - $ref: '#/components/schemas/PulsarAuthRequest'
+      - type: object
+        description: Telemetry config
+        required:
+        - oauth2_credentials_url
+        - oauth2_issuer_url
+        properties:
+          oauth2_credentials_url:
+            type: string
+            description: Credentials URL For OAuth2
+          oauth2_issuer_url:
+            type: string
+            description: Issuer URL for OAuth2
+            example: https://astra-oauth2.example.com
+          oauth2_audience:
+            type: string
+            description: Audience for OAuth2
+            example: astra-pulsar
+          oauth2_scope:
+            type: string
+            description: Scope for OAuth2
+            example: db-telemetry
+    RemotePrometheusBearerAuthTelemetryRequest:
+      allOf:
+      - $ref: '#/components/schemas/RemotePrometheusAuthRequest'
+      - type: object
+        description: Telemetry Config for Prometheus Remote Write with Bearer Token
+        required:
+        - token
+        properties:
+          token:
+            type: string
+            format: password
+            example: AstraTelemetry123
+            description: Bearer Token for Prometheus Remote Write Authentication
+    GetCDCResponse:
+      description: Request schema for enabling CDC on a database
+      type: object
+      required:
+      - orgID
+      - databaseID
+      - databaseName
+      - tables
+      - regions
+      - status
+      properties:
+        orgID:
+          type: string
+          example: 7142-1283-54249566-3707
+          description: Unique identifier for the user org
+        databaseID:
+          type: string
+          example: 1234-5678-91011121-3141
+          description: Unique identifier for the database
+        databaseName:
+          type: string
+          example: dbName
+          description: Name of the database
+        regions:
+          type: array
+          description: List of regions where CDC is enabled
+          items:
+            type: object
+            required:
+            - datacenterID
+            - datacenterRegion
+            - streamingClusterName
+            - streamingTenantName
+            properties:
+              datacenterID:
+                type: string
+                example: 1234-5678-91011121-3141-1
+                description: Unique identifier for the data center
+              datacenterRegion:
+                type: string
+                example: us-east1
+                description: Cloud region where the data center is located
+              streamingClusterName:
+                type: string
+                example: pulsar-gcp-useast1-dev
+                description: Name of the streaming cluster
+              streamingTenantName:
+                type: string
+                example: cdc-streaming
+                description: Name of the streaming tenant
+        status:
+          type: string
+          example: Active
+          description: CDC config status
+    RemotePrometheusTelemetryRequest:
+      description: Telemetry Config for Prometheus Remote Write
+      type: object
+      properties:
+        prometheus_remote:
+          $ref: '#/components/schemas/RemotePrometheusTelemetryRequestBlock'
+      required:
+      - prometheus_remote
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    RemotePrometheusAuthRequest:
+      description: The base object for a Prometheus Remote Write object
+      type: object
+      required:
+      - endpoint
+      - auth_strategy
+      properties:
+        endpoint:
+          type: string
+          example: https://prometheus.example.com/api/prom/push
+          description: full HTTP or HTTPS address and path for prometheus endpoint
+        auth_strategy:
+          type: string
+          enum:
+          - basic
+          - bearer
+          description: "The authentication strategy used by your Prometheus setup.\n  * `basic` - Basic Authentication (Username & Password)\n  * `bearer` - Bearer Token Authentication\n"
+    EnableCDCRequest:
+      description: Request schema for enabling CDC on a database
+      type: object
+      required:
+      - databaseName
+      - tables
+      - regions
+      properties:
+        databaseName:
+          type: string
+          example: dbName
+          description: Name of the database
+        tables:
+          type: array
+          description: List of tables for which CDC needs to be enabled
+          items:
+            type: object
+            required:
+            - tableName
+            - keyspaceName
+            properties:
+              tableName:
+                type: string
+                example: tableName
+                description: Name of the table
+              keyspaceName:
+                type: string
+                example: default
+                description: Name of the keyspace
+        regions:
+          type: array
+          description: List of regions where CDC will be enabled
+          items:
+            type: object
+            required:
+            - datacenterID
+            - datacenterRegion
+            - streamingClusterName
+            - streamingTenantName
+            properties:
+              datacenterID:
+                type: string
+                example: 1234-5678-91011121-3141-1
+                description: Unique identifier for the data center
+              datacenterRegion:
+                type: string
+                example: us-east1
+                description: Cloud region where the data center is located
+              streamingClusterName:
+                type: string
+                example: pulsar-gcp-useast1-dev
+                description: Name of the streaming cluster
+              streamingTenantName:
+                type: string
+                example: cdc-streaming
+                description: Name of the streaming tenant
+    KafkaBootstrapServer:
+      description: A Hostname and Port combination for a Kafka Bootstrap Server
+      type: string
+      example: kafka-0.yourdomain.com:9092
+    UserPassword:
+      description: UserPassword specifies a username and new password. The specified password will be updated for the specified database user
+      type: object
+      properties:
+        username:
+          type: string
+          example: dbusername
+        password:
+          type: string
+          example: MyNewSecur3Passw0rd
+          description: New password (min 6 characters)
+    PulsarTelemetryRequest:
+      description: Telemetry Config for Pulsar servers
+      type: object
+      properties:
+        pulsar:
+          $ref: '#/components/schemas/PulsarTelemetryRequestBlock'
+      required:
+      - pulsar
+    PulsarTokenAuthTelemetryRequest:
+      allOf:
+      - $ref: '#/components/schemas/PulsarAuthRequest'
+      - type: object
+        description: Telemetry config
+        required:
+        - token
+        properties:
+          token:
+            type: string
+            format: password
+            example: AstraTelemetry123
+            description: Bearer Token for Pulsar Authentication
+    CapacityUnits:
+      description: CapacityUnits is the amount of space available for horizontal scaling for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+      type: object
+      properties:
+        capacityUnits:
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 4
+          description: For Managed Cluster (Classic) databases, you can increase CapacityUnits by a maximum of three additional CUs per operation. You cannot reduce a database's CUs.
+    CloudWatchTelemetryRequestBlock:
+      description: Telemetry Config Block for CloudWatch servers
+      type: object
+      required:
+      - access_key
+      - secret_key
+      - region
+      properties:
+        access_key:
+          type: string
+          description: AWS access key
+        secret:
+          type: string
+          description: AWS secret
+        region:
+          type: string
+          description: AWS region for CloudWatch
+          example: us-east-1
+    Storage:
+      description: Storage contains the information about how much storage space a cluster has available
+      type: object
+      required:
+      - nodeCount
+      - replicationFactor
+      - totalStorage
+      properties:
+        nodeCount:
+          type: integer
+          example: 6
+          description: NodeCount for the cluster
+        replicationFactor:
+          type: integer
+          example: 3
+          description: ReplicationFactor is the number of nodes storing a piece of data
+        totalStorage:
+          type: integer
+          example: 800
+          description: TotalStorage of the cluster in GB
+        usedStorage:
+          type: integer
+          example: 348
+          description: UsedStorage in GB
+        displayStorage:
+          type: integer
+          example: 348
+          description: DisplayStorage in GB
+    SplunkTelemetryRequestBlock:
+      description: Telemetry Config Block for Splunk servers
+      type: object
+      required:
+      - endpoint
+      - index
+      - token
+      properties:
+        endpoint:
+          type: string
+          example: https://http-inputs-YOURCOMPANY.splunkcloud.com
+          description: Path for Splunk endpoint, which should always be a full HTTPS address.
+        index:
+          type: string
+          example: astra_third_party_metrics_test
+          description: Splunk index to write metrics to. Index must be set so the Splunk token has permission to write to it.
+        token:
+          type: string
+          example: splunk-token
+          description: Token for Splunk Authentication
+        source:
+          type: string
+          example: splunk-source
+          description: Source of events sent to this sink. If unset, we set it to a default value, eg. "astradb".
+        sourcetype:
+          type: string
+          example: splunk-sourcetype
+          description: Sourcetype of events sent to this sink. If unset, we set it to a default value, eg. "astradb-metrics".
+    ListCDCResponse:
+      description: Request schema for enabling CDC on a database
+      type: object
+      required:
+      - orgID
+      - databaseID
+      - databaseName
+      - tables
+      - regions
+      properties:
+        orgID:
+          type: string
+          example: 7142-1283-54249566-3707
+          description: Unique identifier for the user org
+        databaseID:
+          type: string
+          example: 1234-5678-91011121-3141
+          description: Unique identifier for the database
+        databaseName:
+          type: string
+          example: dbName
+          description: Name of the database
+        tables:
+          type: array
+          description: List of tables where CDC is enabled
+          items:
+            type: object
+            required:
+            - tableName
+            - keyspaceName
+            properties:
+              tableName:
+                type: string
+                example: tableName
+                description: Name of the table
+              keyspaceName:
+                type: string
+                example: default
+                description: Name of the keyspace
+        regions:
+          type: array
+          description: List of regions where CDC is enabled
+          items:
+            type: object
+            required:
+            - datacenterID
+            - datacenterRegion
+            - streamingClusterName
+            - streamingTenantName
+            properties:
+              datacenterID:
+                type: string
+                example: 1234-5678-91011121-3141-1
+                description: Unique identifier for the data center
+              datacenterRegion:
+                type: string
+                example: us-east1
+                description: Cloud region where the data center is located
+              streamingClusterName:
+                type: string
+                example: pulsar-gcp-useast1-dev
+                description: Name of the streaming cluster
+              streamingTenantName:
+                type: string
+                example: cdc-streaming
+                description: Name of the streaming tenant
+    PulsarAuthRequest:
+      description: The base object for a Pulsar object
+      type: object
+      required:
+      - endpoint
+      - topic
+      - auth_strategy
+      properties:
+        endpoint:
+          type: string
+          example: pulsar+ssl://pulsar.example.com
+          description: URL for your Pulsar Broker
+        auth_strategy:
+          type: string
+          enum:
+          - token
+          - oauth2
+          description: "The authentication strategy used by your Pulsar broker.\n  * `token` - a bearer token is provided to authenticate\n  * `oauth2` - OAuth2 is used to authenticate\n"
+        topic:
+          type: string
+          example: persistent://test/default/my-topic-123
+          description: The full name of Pulsar topic to publish telemetry to
+        auth_name:
+          type: string
+          example: foobar
+          description: The basic authentication name.
+    EngineType:
+      description: EngineType is the type of database engine used by the database
+      type: object
+      properties:
+        engineType:
+          type: string
+          example: serverless
+          description: The type of database engine used by the database. Currently, the supported values are "cassandra-vector" and "serverless", respectively for Cassandra with vector support and Astra DB Serverless with no vector support.
+    CloudWatchTelemetryRequest:
+      description: Telemetry Config Block for AWS CloudWatch
+      type: object
+      properties:
+        cloudwatch:
+          $ref: '#/components/schemas/CloudWatchTelemetryRequestBlock'
+      required:
+      - cloudwatch
+    DatadogTelemetryRequest:
+      description: Telemetry Config Block for Datadog
+      type: object
+      properties:
+        Datadog:
+          $ref: '#/components/schemas/DatadogTelemetryRequestBlock'
+      required:
+      - Datadog
+  parameters:
+    TableNameParam:
+      in: path
+      name: tableName
+      required: true
+      description: Name of database table
+      schema:
+        type: string
+    DatabaseIdParam:
+      in: path
+      name: databaseID
+      required: true
+      description: String representation of the database ID
+      schema:
+        type: string
+    AllDatacentersParam:
+      in: query
+      name: all
+      required: false
+      schema:
+        type: boolean
+        default: false
+      description: Optional parameter to obtain secure-connect-*.zip for one (false) or many (true) datacenters. If false, `200` returns `CredsURL` (download URLs for one datacenter). If true, `200` returns `CredsURLList` (download URLs for multiple datacenters).
+    DatacenterIdParam:
+      in: path
+      name: datacenterID
+      required: true
+      description: String representation of the datacenter ID
+      schema:
+        type: string
+    KeyspaceNameParam:
+      in: path
+      name: keyspaceName
+      required: true
+      description: Name of database keyspace
+      schema:
+        type: null
+  responses:
+    NoContent:
+      description: The request succeeded and no content is returned in response body
+    Conflict:
+      description: The database is not in a valid state to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Accepted:
+      description: The request was accepted
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    UnprocessableEntity:
+      description: The structured data in the request could not be parsed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Created:
+      description: The request completed successfully and created an object
+  securitySchemes:
+    BearerAuth:
+      description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
+      type: http
+      scheme: bearer

@@ -1,0 +1,446 @@
+openapi: 3.0.0
+info:
+  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  version: 2.3.0
+  title: Astra DevOps Access List Customer Keys API
+  contact:
+    email: ad-astra@datastax.com
+servers:
+- url: https://api.astra.datastax.com/
+security:
+- BearerAuth:
+  - org-admin
+  - org-db-create
+  - org-db-terminate
+  - org-db-view
+  - org-db-expand
+  - org-db-suspend
+  - org-db-addpeering
+  - org-db-readpeering
+  - db-keyspace-create
+  - db-cql
+  - accesslist-write
+  - accesslist-read
+  - db-manage-privateendpoint
+  - db-manage-telemetry
+  - db-manage-backupconfiguration
+tags:
+- name: Customer Keys
+  description: Manage customer keys for your Astra organization.
+paths:
+  /v2/kms:
+    post:
+      tags:
+      - Customer Keys
+      summary: Creates a new Customer Key used for serverless database encryption for an organization
+      description: A service to create a new Customer Key registration used for serverless database encryption in an organization.
+      operationId: CreateServerlessKey
+      requestBody:
+        description: KMS details that need to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalKMS'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    get:
+      tags:
+      - Customer Keys
+      summary: Retrieves all Serverless keys in an organization
+      description: A service to retrieve the existing Customer Keys of an organization.
+      operationId: ListServerlessKeys
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllCustomerKeys'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/kms/classic:
+    post:
+      tags:
+      - Customer Keys
+      summary: Creates a new Customer Key used for Managed Cluster (Classic) database encryption for an organization
+      description: A service to create a new Customer Key registration used for Managed Cluster (Classic) database encryption in an organization.
+      operationId: CreateClassicKey
+      requestBody:
+        description: KMS details that need to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalKMS'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    get:
+      tags:
+      - Customer Keys
+      summary: Retrieves all Managed Cluster (Classic) keys in an organization
+      description: A service to retrieve the existing Customer Keys of an organization.
+      operationId: ListClassicKeys
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllCustomerKeys'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/kms/provider/{provider}/region/{region}:
+    get:
+      tags:
+      - Customer Keys
+      summary: Retrieves a Serverless Customer Key in an organization
+      description: Retrieves a Serverless Customer Key in an organization for a given cloud-provider & region combination.
+      operationId: GetServerlessKey
+      parameters:
+      - in: path
+        name: provider
+        description: 'The name of the provider, such as: aws.'
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: region
+        description: The region in which the key exists.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetParticularCustomerKey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/kms/classic/provider/{provider}/region/{region}:
+    get:
+      tags:
+      - Customer Keys
+      summary: Retrieves a Managed Cluster (Classic) Customer Key in an organization
+      description: Retrieves a Managed Cluster (Classic) Customer Key in an organization for a given cloud-provider & region combination.
+      operationId: GetClassicKey
+      parameters:
+      - in: path
+        name: provider
+        description: 'The name of the provider, such as: aws.'
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: region
+        description: The region in which the key exists.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetParticularCustomerKey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/kms/provider/{provider}/region/{region}/accounts:
+    get:
+      tags:
+      - Customer Keys
+      summary: Retrieves an array of Serverless Storage Cloud provider accounts
+      description: Retrieves an array of Cloud provider accounts for a given cloud-provider & region combination to which customers need to grant their KMS keys access to for serverless keys.
+      operationId: GetServerlessCloudAccounts
+      parameters:
+      - in: path
+        name: provider
+        description: 'The name of the provider, such as: aws.'
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: region
+        description: The region in which the key exists.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCloudProviderAccounts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/kms/classic/provider/{provider}/accounts:
+    post:
+      tags:
+      - Customer Keys
+      summary: Assigns a new cloud account to an organization that will be used for Managed Cluster (Classic) database encryption
+      description: Assigns a new cloud account for an organization given a cloud provider that will be used for Managed Cluster (Classic) database encryption.
+      operationId: AssignCloudAccount
+      responses:
+        '201':
+          description: Created
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/kms/classic/provider/{provider}/region/{region}/accounts:
+    get:
+      tags:
+      - Customer Keys
+      summary: Retrieves an array of Managed Cluster (Classic) Cloud provider accounts
+      description: Retrieves an array of Cloud provider accounts for a given cloud-provider & region combination to which customers need to grant their KMS keys access to for Managed Cluster (Classic) keys.
+      operationId: GetClassicCloudAccounts
+      parameters:
+      - in: path
+        name: provider
+        description: 'The name of the provider, such as: aws.'
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: region
+        description: The region in which the key exists.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCloudProviderAccounts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    ExternalKMSResponse:
+      type: object
+      properties:
+        OrganizationID:
+          type: string
+        CloudProvider:
+          type: string
+        KeyID:
+          type: string
+        Region:
+          type: string
+    ExternalKMS:
+      type: object
+      properties:
+        orgId:
+          type: string
+          format: uuid
+          description: The unique identifier for the organization.
+          example: 368600f6-a1e7-42f1-8266-2960de5313f3
+        aws:
+          $ref: '#/components/schemas/AWS-KMS'
+        gcp:
+          $ref: '#/components/schemas/GCP-KMS'
+        azure:
+          $ref: '#/components/schemas/AZURE-KMS'
+    CloudProviderAccountDetails:
+      type: object
+      properties:
+        organization_id:
+          type: string
+        provider_id:
+          type: string
+        provider:
+          type: string
+    AZURE-KMS:
+      type: object
+      properties:
+        keyID:
+          type: string
+          description: The unique identifier of the customer-key.
+        region:
+          type: string
+          description: The region in which the key exists.
+    GCP-KMS:
+      type: object
+      properties:
+        keyID:
+          type: string
+          description: The unique identifier of the customer-key.
+        region:
+          type: string
+          description: The region in which the key exists.
+    GetAllCustomerKeys:
+      type: array
+      description: List of Customer Keys in an organization
+      items:
+        $ref: '#/components/schemas/ExternalKMSResponse'
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    GetParticularCustomerKey:
+      type: object
+      description: Retrieves a Customer Key for the specified provider and region combination
+      properties:
+        orgId:
+          type: string
+          example: ccd0aa59-facd-4a42-b27f-49dba057833d
+        aws:
+          type: object
+          properties:
+            keyID:
+              type: string
+              example: arn:aws:kms:us-east-1:111111111:key/aabbbb-a00f-4c38-9e92-b46ff1ed181d
+            region:
+              type: string
+              example: us-east-1
+    AWS-KMS:
+      type: object
+      properties:
+        keyID:
+          type: string
+          description: The unique identifier of the customer-key.
+        region:
+          type: string
+          description: The region in which the master key exists.
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    GetCloudProviderAccounts:
+      type: array
+      description: List of Cloud provider accounts in an organization for a cloud-provider & region combination
+      items:
+        $ref: '#/components/schemas/CloudProviderAccountDetails'
+  responses:
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  securitySchemes:
+    BearerAuth:
+      description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
+      type: http
+      scheme: bearer

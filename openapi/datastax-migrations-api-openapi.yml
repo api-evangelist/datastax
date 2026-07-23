@@ -1,0 +1,422 @@
+openapi: 3.0.0
+info:
+  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  version: 2.3.0
+  title: Astra DevOps Access List Migrations API
+  contact:
+    email: ad-astra@datastax.com
+servers:
+- url: https://api.astra.datastax.com/
+security:
+- BearerAuth:
+  - org-admin
+  - org-db-create
+  - org-db-terminate
+  - org-db-view
+  - org-db-expand
+  - org-db-suspend
+  - org-db-addpeering
+  - org-db-readpeering
+  - db-keyspace-create
+  - db-cql
+  - accesslist-write
+  - accesslist-read
+  - db-manage-privateendpoint
+  - db-manage-telemetry
+  - db-manage-backupconfiguration
+tags:
+- name: Migrations
+  description: Use the DevOps API to manage SSTables-based migrations.
+paths:
+  /v2/databases/{databaseID}/migrations/initialize:
+    post:
+      tags:
+      - Migrations
+      summary: initialize a new migration
+      description: Initialize a new SSTables based migration.
+      operationId: initializeMigration
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: query
+        name: concurrency
+        description: Sets the desired concurrency for the import.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: targetSubsetSizeGB
+        description: Sets the target subset size for the import.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: SSTables based migration initialization started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/datacenters/{datacenterID}/migrations/initialize:
+    post:
+      tags:
+      - Migrations
+      summary: initialize a new migration
+      description: Initialize a new SSTables based migration.
+      operationId: initializeMigrationDC
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - $ref: '#/components/parameters/DatacenterIdParam'
+      - in: query
+        name: concurrency
+        description: Sets the desired concurrency for the import.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: targetSubsetSizeGB
+        description: Sets the target subset size for the import.
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: option.*
+        description: Optional SSTable Import parameters. E.g. ?option.targetSubsetSizeGb=6.5. These options are not exposed via the devops API.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: SSTables based migration initialization started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/migrations/{migrationID}/launch:
+    post:
+      tags:
+      - Migrations
+      summary: launch a migration
+      description: Launch an SSTables based migration.
+      operationId: launchMigration
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: path
+        name: migrationID
+        required: true
+        description: String representation of the active migration ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: SSTables based migration launched.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/migrations/{migrationID}/pause:
+    post:
+      tags:
+      - Migrations
+      summary: pause a migration
+      description: pause a migration in the import phase
+      operationId: pauseMigration
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: path
+        name: migrationID
+        required: true
+        description: string representation of the active migration ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: pausing the migration has been initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/migrations/{migrationID}/resume:
+    post:
+      tags:
+      - Migrations
+      summary: resume a paused migration
+      description: resume a migration in the paused phase
+      operationId: resumeMigration
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: path
+        name: migrationID
+        required: true
+        description: string representation of the active migration ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: resuming the migration has been initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/migrations/{migrationID}/abort:
+    post:
+      tags:
+      - Migrations
+      summary: abort a migration
+      description: abort a migration
+      operationId: abortMigration
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: path
+        name: migrationID
+        required: true
+        description: string representation of the active migration ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: aborting the migration has been initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/migrations/{migrationID}/cleanup:
+    post:
+      tags:
+      - Migrations
+      summary: cleanup a migration
+      description: deletes all artifacts after a concluded migration (complete/failed/aborted)
+      operationId: cleanupMigration
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: path
+        name: migrationID
+        required: true
+        description: string representation of the active migration ID
+        schema:
+          type: string
+      - in: query
+        name: option.cleanupTime
+        description: 'Optional parameter indicating the desired time of the cleanup. Format: unix timestamp, e.g. 2024-09-06T15:30:00Z'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: cleaning up the migration has been initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /v2/databases/{databaseID}/migrations/{migrationID}:
+    get:
+      tags:
+      - Migrations
+      summary: get migration status
+      description: Get status information about an SSTables based migration.
+      operationId: getMigrationStatus
+      parameters:
+      - $ref: '#/components/parameters/DatabaseIdParam'
+      - in: path
+        name: migrationID
+        required: true
+        description: String representation of the active migration ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully received status of an SSTables based migration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Conflict:
+      description: The database is not in a valid state to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+  parameters:
+    DatacenterIdParam:
+      in: path
+      name: datacenterID
+      required: true
+      description: String representation of the datacenter ID
+      schema:
+        type: string
+    DatabaseIdParam:
+      in: path
+      name: databaseID
+      required: true
+      description: String representation of the database ID
+      schema:
+        type: string
+  schemas:
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    MigrationStatus:
+      description: Status information about an ongoing SSTables based migration.
+      type: object
+      properties:
+        migrationID:
+          type: string
+          description: ID of an ongoing SSTables based migration.
+        status:
+          type: string
+          enum:
+          - INITIALIZING
+          - READY
+          - STARTING
+          - IN_PROGRESS
+          - ERROR
+          - DONE
+        concurrency:
+          type: integer
+          description: Configured concurrency for the import.
+        targetSubsetSizeGB:
+          type: number
+          format: double
+          description: Configured target subset size for the import.
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
+      type: http
+      scheme: bearer
