@@ -1,0 +1,37 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/datastax/astra-cli
+name: Astra CLI
+binary: astra
+language: java
+repository: https://github.com/datastax/astra-cli
+docs: https://docs.datastax.com/en/astra-cli/index.html
+description: >-
+  Command Line Interface for DataStax Astra. Manages databases, keyspaces, tokens,
+  roles, users, and the CQL shell, and downloads secure-connect bundles. Wraps the
+  Astra DevOps API and the database CQL/Data API surface.
+install:
+- method: homebrew
+  command: brew install datastax/astra-cli/astra-cli
+- method: script
+  command: curl -Ls "https://dtsx.io/get-astra-cli" | bash
+- method: manual
+  note: Download the release archive from https://github.com/datastax/astra-cli/releases (requires Java).
+auth:
+  command: astra setup
+  note: Prompts for an Astra application token (AstraCS:...).
+command_groups:
+- name: db
+  description: Create, list, delete, resize, park/unpark databases; download secure bundles; open CQL shell.
+- name: role
+  description: List and view organization roles.
+- name: user
+  description: Invite, list, and delete organization users.
+- name: token
+  description: Create, list, and revoke application tokens.
+- name: keyspace
+  description: Create and list keyspaces within a database.
+- name: config
+  description: Manage local CLI configuration and named profiles.
+- name: streaming
+  description: Manage Astra Streaming tenants.

@@ -1,0 +1,102 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/datastax-devops-openapi.json
+docs: https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
+note: Astra application tokens carry permission scopes (not OAuth2). These scope strings are declared
+  on the BearerAuth security requirement in the DevOps API OpenAPI. Astra also supports fine-grained custom
+  roles; this list captures the built-in permission scopes present in the spec.
+schemes:
+- name: BearerAuth
+  type: http-bearer
+  source: openapi/datastax-devops-openapi.json
+scopes:
+- scope: org-admin
+  description: Full administrative access to the organization.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: org-db-create
+  description: Create databases in the organization.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: org-db-terminate
+  description: Terminate databases in the organization.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: org-db-view
+  description: View databases and their details.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: org-db-expand
+  description: Resize / expand databases (add capacity or regions).
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: org-db-suspend
+  description: Suspend / park databases.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: org-db-addpeering
+  description: Add VPC peering / private-link connections.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: org-db-readpeering
+  description: Read VPC peering / private-link configuration.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: db-keyspace-create
+  description: Create keyspaces within a database.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: db-cql
+  description: Execute CQL against a database.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: accesslist-write
+  description: Create and modify database access lists (IP allowlists).
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: accesslist-read
+  description: Read database access lists.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: db-manage-privateendpoint
+  description: Manage private endpoints for a database.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: db-manage-telemetry
+  description: Configure telemetry / metrics export for a database.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json
+- scope: db-manage-backupconfiguration
+  description: Manage backup configuration for a database.
+  schemes:
+  - BearerAuth
+  sources:
+  - openapi/datastax-devops-openapi.json

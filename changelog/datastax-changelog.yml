@@ -1,0 +1,12 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.datastax.com/en/astra-db-serverless/databases/release-notes.html
+scheme: uri-path-version
+current_version: 'DevOps API 2.3.0'
+note: >-
+  DataStax publishes dated Astra DB Serverless release notes at the docs URL above.
+  The Astra DevOps API is versioned in the URI path (v2 for core operations, v3 for
+  CDC); the current OpenAPI info.version is 2.3.0. A full dated entry list is
+  maintained on the live release-notes page; this artifact records the pointer and
+  the current version rather than duplicating the changelog.
+entries: []

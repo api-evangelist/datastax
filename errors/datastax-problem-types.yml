@@ -1,0 +1,47 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/datastax-devops-openapi.json
+format: custom
+envelope:
+  description: Errors are returned as a JSON object with an "errors" array; each item has an integer "ID"
+    (API-specific error code) and a user-friendly "message".
+  schema: '#/components/schemas/Errors'
+  example:
+    errors:
+    - ID: 123
+      message: Something is broken
+note: The Astra DevOps API does not use RFC 9457 application/problem+json; it uses a custom {errors:[{ID,message}]}
+  envelope.
+problems:
+- status: 5XX
+  title: Server Error
+  description: A server error occurred
+  source_operation: openapi/datastax-devops-openapi.json#listDatabases
+- status: '400'
+  title: Bad Request
+  description: Bad request
+  source_operation: openapi/datastax-devops-openapi.json#createToken
+- status: '401'
+  title: Unauthorized
+  description: The user is unauthorized to perform the operation
+  source_operation: openapi/datastax-devops-openapi.json#createToken
+- status: '403'
+  title: Forbidden
+  description: ''
+  source_operation: openapi/datastax-devops-openapi.json#createToken
+- status: '404'
+  title: Not Found
+  description: The specified database was not found
+  source_operation: openapi/datastax-devops-openapi.json#getDatabase
+- status: '409'
+  title: Conflict
+  description: ''
+  source_operation: openapi/datastax-devops-openapi.json#addKeyspace
+- status: '422'
+  title: Unprocessable Entity
+  description: ''
+  source_operation: openapi/datastax-devops-openapi.json#createDatabase
+- status: '500'
+  title: Internal Server Error
+  description: ''
+  source_operation: openapi/datastax-devops-openapi.json#createToken

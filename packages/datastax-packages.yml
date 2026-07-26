@@ -1,0 +1,51 @@
+generated: '2026-07-18'
+method: searched
+source: npm, PyPI, pkg.go.dev, Maven Central, and github.com/datastax
+note: >-
+  First-party DataStax client libraries for the Astra DB Data API and the Astra
+  DevOps API. The Astra CLI binary is catalogued here and detailed in
+  cli/datastax-cli.yml. The MCP server package is catalogued in mcp/datastax-mcp.yml.
+packages:
+- language: python
+  registry: pypi
+  name: astrapy
+  url: https://pypi.org/project/astrapy/
+  install: pip install astrapy
+  repository: https://github.com/datastax/astrapy
+  version: 2.3.1
+  description: A Python client for the Data API on DataStax Astra DB (collections, tables, vector search, server-side embeddings).
+  official: true
+- language: javascript
+  registry: npm
+  name: "@datastax/astra-db-ts"
+  url: https://www.npmjs.com/package/@datastax/astra-db-ts
+  install: npm install @datastax/astra-db-ts
+  repository: https://github.com/datastax/astra-db-ts
+  version: 2.3.0
+  description: TypeScript/JavaScript client for the DataStax Astra DB Data API (Apache-2.0).
+  official: true
+- language: go
+  registry: pkg.go.dev
+  name: astra-db-go
+  url: https://github.com/datastax/astra-db-go
+  install: go get github.com/datastax/astra-db-go
+  repository: https://github.com/datastax/astra-db-go
+  description: Golang Data API client for DataStax Astra DB.
+  official: true
+- language: java
+  registry: github
+  name: astra-cli
+  url: https://github.com/datastax/astra-cli
+  install: brew install datastax/astra-cli/astra-cli
+  repository: https://github.com/datastax/astra-cli
+  description: Command Line Interface for DataStax Astra (Java). See cli/datastax-cli.yml.
+  official: true
+- language: javascript
+  registry: npm
+  name: "@datastax/astra-db-mcp"
+  url: https://www.npmjs.com/package/@datastax/astra-db-mcp
+  install: npx -y @datastax/astra-db-mcp
+  repository: https://github.com/datastax/astra-db-mcp
+  version: 1.2.2
+  description: Official Astra DB Model Context Protocol (MCP) server. See mcp/datastax-mcp.yml.
+  official: true

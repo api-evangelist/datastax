@@ -1,8 +1,17 @@
 aid: datastax
 name: DataStax
-description: 'DataStax is a company surfaced as a portfolio company of kleiner-perkins, lightspeed-venture-partners
-  and added to the API Evangelist network as a stub for enrichment. Sector: enterprise. This profile is
-  a lead awaiting the enrichment pipeline.'
+description: 'DataStax is the company behind Astra DB, a serverless, multi-cloud database
+  and vector-search platform built on Apache Cassandra, along with Langflow, RAGStack,
+  and the Astra Streaming (Apache Pulsar) event platform for building generative-AI and
+  real-time applications. Developers interact with Astra DB through the Data API (JSON
+  document, table, and vector operations), the legacy REST, Document, and GraphQL APIs,
+  and the Astra DevOps API for programmatic administration of databases, keyspaces,
+  access lists, roles, users, tokens, private links, and CDC. DataStax publishes official
+  client SDKs (Python astrapy, TypeScript astra-db-ts, Go astra-db-go), the Java-based
+  Astra CLI, and an official Astra DB Model Context Protocol (MCP) server for agentic
+  access. DataStax was acquired by IBM in 2025 and its Astra products are now part of
+  the IBM watsonx data portfolio, while the developer surface remains hosted on
+  datastax.com, docs.datastax.com, astra.datastax.com, and github.com/datastax.'
 url: https://raw.githubusercontent.com/api-evangelist/datastax/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,13 +20,448 @@ x-backed-by:
 - lightspeed-venture-partners
 x-tier: stub
 x-tier-reason: portfolio-lead
+x-acquired-by: ibm
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://www.datastax.com/favicon.ico
 tags:
 - Company
 - Enterprise
-apis: []
+- Database
+- Vector Database
+- Cassandra
+- Artificial Intelligence
+- RAG
+- Serverless
+- Streaming
+- Developer Tools
+apis:
+- aid: datastax:datastax-access-list-api
+  name: DataStax Access List API
+  description: View, create, modify, or delete the IP access list for an Astra database.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Access List
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-access-list-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-authentication-api
+  name: DataStax Authentication API
+  description: Generate and revoke tokens that are used to authenticate DevOps API operations.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-clone-api
+  name: DataStax Clone API
+  description: Use the DevOps API to clone databases.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Clone
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-clone-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-customer-keys-api
+  name: DataStax Customer Keys API
+  description: Manage customer keys for your Astra organization.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Customer Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-customer-keys-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-database-operations-api
+  name: DataStax Database Operations API
+  description: Use these DevOps APIs to manage Astra databases.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Database Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-database-operations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-devops-access-list-api
+  name: DataStax DevOps Access List API
+  description: >-
+    View, create, modify, or delete the access list that restricts access to the DevOps API for an Astra
+    organization.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - DevOps Access List
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-devops-access-list-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-enterprise-operations-api
+  name: DataStax Enterprise Operations API
+  description: DevOps APIs for your Astra enterprise.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Enterprise Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-enterprise-operations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-migrations-api
+  name: DataStax Migrations API
+  description: Use the DevOps API to manage SSTables-based migrations.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Migrations
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-migrations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-organization-operations-api
+  name: DataStax Organization Operations API
+  description: DevOps APIs for your Astra organization.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Organization Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-organization-operations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-pcu-api
+  name: DataStax PCU API
+  description: >-
+    Use the DevOps API to manage provisioned capacity units for eligible organizations and databases.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - PCU
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-pcu-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-private-link-api
+  name: DataStax Private Link API
+  description: >-
+    Use the DevOps Private Link APIs to manage private link endpoints for your Astra databases.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Private Link
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-private-link-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-regions-api
+  name: DataStax Regions API
+  description: Get available regions by database type, user, or organization.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Regions
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-regions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-roles-api
+  name: DataStax Roles API
+  description: Use the DevOps Roles APIs to manage roles in your Astra organization.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-roles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-scim-api
+  name: DataStax SCIM API
+  description: SCIM 2.0 endpoints for user and group provisioning and management.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - SCIM
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-scim-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-token-api
+  name: DataStax Token API
+  description: Generate and revoke tokens that are used to authenticate DevOps API operations.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-token-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-users-api
+  name: DataStax Users API
+  description: Use the DevOps Users APIs to manage users in your Astra organization.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
+- aid: datastax:datastax-vpc-peering-api
+  name: DataStax VPC Peering API
+  description: >-
+    Use the DevOps VPC Peering APIs to manage VPC peering for Managed Cluster (Classic) databases.
+  humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
+  baseURL: https://api.astra.datastax.com
+  tags:
+  - VPC Peering
+  properties:
+  - type: OpenAPI
+    url: openapi/datastax-vpc-peering-api-openapi.yml
+  - type: Documentation
+    url: https://docs.datastax.com/en/astra-api-docs/_attachments/devops-api/index.html
+  - type: Authentication
+    url: authentication/datastax-authentication.yml
+  - type: OAuthScopes
+    url: scopes/datastax-scopes.yml
+  - type: ErrorCatalog
+    url: errors/datastax-problem-types.yml
+  - type: Conventions
+    url: conventions/datastax-conventions.yml
+  - type: DataModel
+    url: data-model/datastax-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/datastax-agentic-access.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -26,3 +470,71 @@ maintainers:
 common:
 - type: Website
   url: https://www.datastax.com
+- type: DeveloperPortal
+  url: https://docs.datastax.com
+- type: Documentation
+  url: https://docs.datastax.com/en/astra-db-serverless/index.html
+- type: APIReference
+  url: https://docs.datastax.com/en/astra-db-serverless/api-reference/overview.html
+- type: GettingStarted
+  url: https://docs.datastax.com/en/astra-db-serverless/get-started/quickstart.html
+- type: SignUp
+  url: https://astra.datastax.com/signup
+- type: Login
+  url: https://astra.datastax.com/
+- type: GitHubOrganization
+  url: https://github.com/datastax
+- type: Support
+  url: https://support.datastax.com/
+- type: Pricing
+  url: https://www.datastax.com/pricing/astra-db
+- type: Blog
+  url: https://www.datastax.com/blog
+- type: TermsOfService
+  url: https://www.datastax.com/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.datastax.com/legal/privacy-policy
+- type: Postman
+  url: https://www.postman.com/datastax
+- type: Packages
+  url: packages/datastax-packages.yml
+- type: SDKs
+  url: packages/datastax-packages.yml
+- type: CLI
+  url: cli/datastax-cli.yml
+- type: MCPServer
+  url: mcp/datastax-mcp.yml
+- type: LLMsTxt
+  url: llms/datastax-llms.txt
+- type: Authentication
+  url: authentication/datastax-authentication.yml
+- type: OAuthScopes
+  url: scopes/datastax-scopes.yml
+- type: DomainSecurity
+  url: security/datastax-domain-security.yml
+- type: Conventions
+  url: conventions/datastax-conventions.yml
+- type: ErrorCatalog
+  url: errors/datastax-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/datastax-lifecycle.yml
+- type: ChangeLog
+  url: changelog/datastax-changelog.yml
+- type: Conformance
+  url: conformance/datastax-conformance.yml
+- type: DataModel
+  url: data-model/datastax-data-model.yml
+- type: Overlay
+  url: overlays/datastax-devops-overlay.yaml
+- type: AgenticAccess
+  url: agentic-access/datastax-agentic-access.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Provision an Astra database and issue a scoped token
+  url: arazzo/datastax-provision-database.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

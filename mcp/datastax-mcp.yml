@@ -1,0 +1,60 @@
+generated: '2026-07-18'
+method: searched
+status: published
+source: https://github.com/datastax/astra-db-mcp
+server:
+  name: astra-db-mcp
+  package: "@datastax/astra-db-mcp"
+  version: 1.2.2
+  transport: stdio
+  run: npx -y @datastax/astra-db-mcp
+  license: Apache-2.0
+  env:
+  - name: ASTRA_DB_APPLICATION_TOKEN
+    required: true
+    description: Astra DB application token used to authenticate Data API calls.
+  - name: ASTRA_DB_API_ENDPOINT
+    required: true
+    description: The Data API endpoint for the target database (https://DATABASE_ID-REGION.apps.astra.datastax.com).
+  - name: ASTRA_DB_KEYSPACE
+    required: false
+    description: Optional default keyspace.
+tools:
+- name: GetCollections
+  description: List collections in the database.
+- name: CreateCollection
+  description: Create a new collection.
+- name: UpdateCollection
+  description: Update a collection.
+- name: DeleteCollection
+  description: Delete a collection.
+- name: EstimateDocumentCount
+  description: Estimate the number of documents in a collection.
+- name: ListRecords
+  description: List records (documents) in a collection.
+- name: GetRecord
+  description: Get a single record by id.
+- name: CreateRecord
+  description: Create a record.
+- name: UpdateRecord
+  description: Update a record.
+- name: DeleteRecord
+  description: Delete a record.
+- name: FindRecord
+  description: Find records matching a filter.
+- name: FindDistinctValues
+  description: Find distinct values for a field.
+- name: BulkCreateRecords
+  description: Create multiple records in bulk.
+- name: BulkUpdateRecords
+  description: Update multiple records in bulk.
+- name: BulkDeleteRecords
+  description: Delete multiple records in bulk.
+- name: VectorSearch
+  description: Vector similarity search over a collection.
+- name: HybridSearch
+  description: Hybrid (vector + lexical) search over a collection.
+- name: OpenBrowser
+  description: Utility to open a browser.
+- name: HelpAddToClient
+  description: Utility to help add the server to an MCP client.

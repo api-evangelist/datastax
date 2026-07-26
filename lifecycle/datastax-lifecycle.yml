@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/datastax-devops-openapi.json
+versioning:
+  scheme: uri-path
+  current: v2
+  note: Core operations under /v2; change-data-capture (CDC) operations under /v3.
+  docs: https://docs.datastax.com/en/astra-db-serverless/api-reference/overview.html
+deprecation:
+  policy_documented: false
+  sunset_header: false
+  note: No deprecated operations are flagged in the DevOps API OpenAPI, and no formal Sunset/Deprecation header policy is published.
+deprecated_operations: []
+status_page:
+  url: https://status.datastax.com
+  public: false
+  note: >-
+    status.datastax.com redirects to datastax.statuspage.io, which is currently marked
+    inactive / team-only. Not wired as a public StatusPage pointer.
+sla:
+  documented: true
+  note: Astra DB serverless publishes availability SLAs by plan tier; see the pricing/plan documentation.

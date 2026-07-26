@@ -1,0 +1,12 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/datastax-devops-openapi.json
+skills:
+- file: datastax-provision-database.md
+  name: Provision an Astra database and download its secure bundle
+  api: openapi/datastax-devops-openapi.json
+  operations: [createDatabase, listDatabases, getDatabase, addKeyspace, generateSecureBundleURL]
+- file: datastax-manage-access.md
+  name: Manage Astra organization access — tokens, roles, and users
+  api: openapi/datastax-devops-openapi.json
+  operations: [getOrganizationRoles, createToken, getTokensForOrg, deleteToken, inviteUserToOrganization]

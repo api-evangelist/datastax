@@ -1,0 +1,22 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Astra DevOps API
+  version: 1.0.0
+extends: openapi/datastax-devops-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: datastax
+    x-apievangelist-product: Astra DB
+    x-apievangelist-agent-ready: true
+    x-apievangelist-auth: bearer-application-token
+    x-apievangelist-error-envelope: "{errors:[{ID,message}]}"
+- target: $.info
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/datastax-authentication.yml
+      scopes: scopes/datastax-scopes.yml
+      errors: errors/datastax-problem-types.yml
+      conventions: conventions/datastax-conventions.yml
+      data-model: data-model/datastax-data-model.yml
+      agentic-access: agentic-access/datastax-agentic-access.yml

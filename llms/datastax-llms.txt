@@ -1,0 +1,39 @@
+# DataStax
+
+> DataStax is the company behind Astra DB — a serverless, multi-cloud database and vector-search platform built on Apache Cassandra — plus Langflow, RAGStack, and Astra Streaming (Apache Pulsar). Developers use the Data API (JSON document/table/vector), the legacy REST/Document/GraphQL APIs, and the Astra DevOps API for administration. DataStax was acquired by IBM in 2025; the developer surface remains on datastax.com.
+
+## APIs
+
+- [Astra DevOps API](https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html): Control-plane API for databases, keyspaces, access lists, roles, users, tokens, private-link, CDC, SCIM 2.0. Base URL https://api.astra.datastax.com
+- [Data API overview](https://docs.datastax.com/en/astra-db-serverless/api-reference/overview.html): JSON document, table, and vector operations against a database.
+
+## Specs
+
+- [Astra DevOps API OpenAPI 3.0.0](openapi/datastax-devops-openapi.json): 123 operations, 137 schemas, BearerAuth application token.
+- [OpenAPI Overlay](overlays/datastax-devops-overlay.yaml): API Evangelist enhancements.
+
+## Artifacts
+
+- [Authentication](authentication/datastax-authentication.yml): HTTP bearer application token (AstraCS:).
+- [Permission scopes](scopes/datastax-scopes.yml): 15 token permission scopes.
+- [Error catalog](errors/datastax-problem-types.yml): custom {errors:[{ID,message}]} envelope.
+- [Conventions](conventions/datastax-conventions.yml): auth, pagination, versioning, error envelope.
+- [Data model](data-model/datastax-data-model.yml): entity-relationship graph.
+- [Agentic access](agentic-access/datastax-agentic-access.yml): x-agentic-access contracts for 123 operations.
+- [Agent skills](skills/_index.yml): provision-database, manage-access.
+- [Arazzo workflow](arazzo/datastax-provision-database.yml): provision database and issue token.
+
+## Tools
+
+- [astrapy (Python)](https://pypi.org/project/astrapy/)
+- [@datastax/astra-db-ts (TypeScript)](https://www.npmjs.com/package/@datastax/astra-db-ts)
+- [astra-db-go (Go)](https://github.com/datastax/astra-db-go)
+- [Astra CLI](https://github.com/datastax/astra-cli)
+- [Astra DB MCP server](https://www.npmjs.com/package/@datastax/astra-db-mcp)
+
+## Docs
+
+- [Developer docs](https://docs.datastax.com)
+- [Quickstart](https://docs.datastax.com/en/astra-db-serverless/get-started/quickstart.html)
+- [Sign up](https://astra.datastax.com/signup)
+- [GitHub](https://github.com/datastax)

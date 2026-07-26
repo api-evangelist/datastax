@@ -1,0 +1,45 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/datastax-devops-openapi.json
+docs: https://docs.datastax.com/en/astra-db-serverless/api-reference/overview.html
+scope: Astra DevOps API (control plane)
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: "Bearer AstraCS:..."
+  note: >-
+    Astra application tokens (prefix AstraCS:) carry permission scopes / roles.
+    The Data API uses a "Token:" header with the same application token; the DevOps
+    API uses "Authorization: Bearer".
+  ref: authentication/datastax-authentication.yml
+idempotency:
+  supported: false
+  note: The Astra DevOps API does not document an idempotency-key mechanism. Resource creation is keyed by name/id.
+pagination:
+  supported: true
+  style: cursor
+  note: >-
+    List endpoints such as GET /v2/databases accept a "limit" query parameter and a
+    "starting_after" cursor (the id of the last item on the previous page) for
+    forward pagination.
+  params:
+  - limit
+  - starting_after
+versioning:
+  scheme: uri-path
+  current: v2
+  note: Most operations are under /v2; change-data-capture (CDC) operations are under /v3. There is no version header.
+error_envelope:
+  format: custom
+  shape: '{ "errors": [ { "ID": <int>, "message": <string> } ] }'
+  problem_json: false
+  ref: errors/datastax-problem-types.yml
+request_tracing:
+  documented: false
+rate_limiting:
+  documented: false
+  note: Astra enforces per-organization request and provisioning limits, but the DevOps API OpenAPI does not declare rate-limit response headers.
+standards:
+  scim: '2.0'
+  scim_media_type: application/scim+json
+  ref: conformance/datastax-conformance.yml

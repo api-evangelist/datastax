@@ -1,0 +1,108 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/datastax-devops-openapi.json
+note: >-
+  Entity-relationship graph derived from the Astra DevOps API OpenAPI path hierarchy
+  and component schemas. Relationships reflect the URL nesting and id-reference fields.
+entities:
+- name: Organization
+  schema: Organization
+  identifier: organizationId
+  description: Top-level Astra tenant; owns databases, users, roles, tokens, and access lists.
+- name: Database
+  schema: Database
+  identifier: databaseID
+  description: A serverless or classic Astra database.
+- name: Datacenter
+  schema: Datacenter
+  identifier: datacenterID
+  description: A regional datacenter within a database.
+- name: Keyspace
+  schema: null
+  identifier: keyspaceName
+  description: A keyspace (schema namespace) within a database.
+- name: AccessList
+  schema: AccessListResponse
+  identifier: databaseID
+  description: IP allowlist configuration attached to a database.
+- name: Role
+  schema: Role
+  identifier: roleID
+  description: An organization role (built-in or custom) granting permission scopes.
+- name: User
+  schema: UserResponse
+  identifier: userID
+  description: A member of the organization; provisionable via SCIM 2.0.
+- name: Token
+  schema: GenerateTokenResponse
+  identifier: clientId
+  description: An application token (AstraCS:) bound to a role/scope set.
+- name: PrivateLink
+  schema: PrivateLinkDatacenterOutput
+  identifier: datacenterID
+  description: Private-link / VPC peering configuration for a datacenter.
+- name: CustomerKey
+  schema: GetParticularCustomerKey
+  identifier: keyID
+  description: Customer-managed encryption key (BYOK).
+- name: CDC
+  schema: GetCDCResponse
+  identifier: databaseID
+  description: Change-data-capture connector for a database keyspace/table.
+- name: PCUGroup
+  schema: PCUGroupTypeResponse
+  identifier: pcuGroupID
+  description: Provisioned Capacity Unit group for reserved compute.
+- name: Region
+  schema: ServerlessRegion
+  identifier: region
+  description: An available cloud region/combination for database placement.
+relationships:
+- from: Organization
+  to: Database
+  type: has_many
+  via: organizationId
+- from: Organization
+  to: Role
+  type: has_many
+  via: organizationId
+- from: Organization
+  to: User
+  type: has_many
+  via: organizationId
+- from: Organization
+  to: Token
+  type: has_many
+  via: organizationId
+- from: Database
+  to: Datacenter
+  type: has_many
+  via: databaseID
+- from: Database
+  to: Keyspace
+  type: has_many
+  via: databaseID
+- from: Database
+  to: AccessList
+  type: has_one
+  via: databaseID
+- from: Database
+  to: CDC
+  type: has_many
+  via: databaseID
+- from: Datacenter
+  to: PrivateLink
+  type: has_many
+  via: datacenterID
+- from: Token
+  to: Role
+  type: belongs_to
+  via: roles
+- from: User
+  to: Role
+  type: has_many
+  via: roles
+- from: Database
+  to: CustomerKey
+  type: belongs_to
+  via: keyID

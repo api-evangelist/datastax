@@ -1,0 +1,29 @@
+generated: '2026-07-18'
+method: searched
+note: >-
+  Probed the /.well-known/ discovery surface on all Astra/DataStax hosts. No
+  machine-readable discovery documents are published: the API host returns 403,
+  the docs host returns 404, and the dashboard/marketing hosts redirect to login
+  or to ibm.com. Recorded as absent (valid negative result); no WellKnown scoring
+  pointer is wired because no document exists.
+probes:
+- host: https://api.astra.datastax.com
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+- host: https://docs.datastax.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://astra.datastax.com
+  documents:
+  - {path: /.well-known/security.txt, status: 200, note: redirects to accounts.datastax.com login (HTML, not a well-known doc)}
+- host: https://www.datastax.com
+  documents:
+  - {path: /.well-known/security.txt, status: 200, note: redirects to ibm.com/products/datastax (HTML, not a well-known doc)}

@@ -1,0 +1,8 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/datastax-devops-openapi.json
+workflows:
+- file: datastax-provision-database.yml
+  workflowId: provisionDatabaseAndToken
+  title: Provision an Astra database and issue a scoped token
+  summary: Create a serverless Astra DB database, add a keyspace, download its secure-connect bundle, and issue a scoped application token.

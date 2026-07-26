@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Provision an Astra database and issue a scoped token
+  version: 1.0.0
+  description: >-
+    Creates a serverless Astra DB database, waits for it to become active, adds a
+    keyspace, downloads the secure-connect bundle, and issues an application token
+    scoped to the org roles — all against the Astra DevOps API.
+sourceDescriptions:
+- name: devops
+  url: ../openapi/datastax-devops-openapi.json
+  type: openapi
+workflows:
+- workflowId: provisionDatabaseAndToken
+  summary: Create a database, add a keyspace, get its bundle, and issue a token.
+  inputs:
+    type: object
+    properties:
+      databaseName: {type: string}
+      keyspace: {type: string}
+      cloudProvider: {type: string}
+      region: {type: string}
+      roleId: {type: string}
+    required: [databaseName, keyspace, cloudProvider, region]
+  steps:
+  - stepId: createDatabase
+    operationId: createDatabase
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.databaseName
+        keyspace: $inputs.keyspace
+        cloudProvider: $inputs.cloudProvider
+        region: $inputs.region
+        tier: serverless
+        capacityUnits: 1
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      databaseID: $response.header.Location
+  - stepId: waitForActive
+    operationId: getDatabase
+    parameters:
+    - name: databaseID
+      in: path
+      value: $steps.createDatabase.outputs.databaseID
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+  - stepId: addKeyspace
+    operationId: addKeyspace
+    parameters:
+    - name: databaseID
+      in: path
+      value: $steps.createDatabase.outputs.databaseID
+    - name: keyspaceName
+      in: path
+      value: $inputs.keyspace
+    successCriteria:
+    - condition: $statusCode == 201
+  - stepId: getSecureBundle
+    operationId: generateSecureBundleURL
+    parameters:
+    - name: databaseID
+      in: path
+      value: $steps.createDatabase.outputs.databaseID
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      downloadURL: $response.body#/downloadURL
+  - stepId: issueToken
+    operationId: createToken
+    requestBody:
+      contentType: application/json
+      payload:
+        roles:
+        - $inputs.roleId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      token: $response.body#/token
+      clientId: $response.body#/clientId
+  outputs:
+    databaseID: $steps.createDatabase.outputs.databaseID
+    bundleURL: $steps.getSecureBundle.outputs.downloadURL
+    clientId: $steps.issueToken.outputs.clientId

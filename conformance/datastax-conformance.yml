@@ -1,0 +1,27 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/datastax-devops-openapi.json
+standards:
+- id: scim-2.0
+  conforms: true
+  evidence: SCIM tag + application/scim+json media type on user-provisioning operations.
+- id: bearer-token
+  conforms: true
+  evidence: components.securitySchemes.BearerAuth (http, scheme bearer) applied globally.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security scheme declared; auth is a static application bearer token.
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom {errors:[{ID,message}]} envelope (application/json), not application/problem+json.
+- id: cursor-pagination
+  conforms: true
+  evidence: List endpoints accept limit + starting_after cursor parameters.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key mechanism documented.
+- id: rest
+  conforms: true
+  evidence: OpenAPI 3.0.0, resource-oriented paths with standard HTTP methods and status codes.
