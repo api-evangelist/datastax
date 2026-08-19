@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Regions API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Regions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns supported regions and availability for a given user / org",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/availableRegions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all supported tier, cloud, region, count, and capacity combinations"
+        },
+        {
+          "info": {
+            "name": "Returns the list of available regions for serverless",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/regions/serverless",
+            "params": [
+              {
+                "name": "region-type",
+                "value": "",
+                "type": "query",
+                "description": "Region type query parameter to retrieve regions supporting serverless and/or vector dbs. By default this API only returns serverless db regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Valid values for this parameter are empty region-type query parameter (default behavior to retrieve serverless regions), all (to retrieve both vector and serverless regions) and vector (to retrieve vector regions). Any invalid value will be ignored and API will show the default behavior i.e. return serverless regions only."
+              },
+              {
+                "name": "filter-by-org",
+                "value": "",
+                "type": "query",
+                "description": "Filter by org query parameter retrieves regions based on current organization ID. By default this API returns all regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Another valid values for this parameter is 'disabled' (default), i.e. retrieve serverless regions without  filtering out by current org. Any invalid value will be ignored and API will show the default behavior."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all region, cloud, name, zone and classification info available in serverless"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

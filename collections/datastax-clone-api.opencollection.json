@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Clone API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Clone",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List a database's snapshots.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/snapshots",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Optional timestamp in RFC3339 format. Sets the earliest time from which to fetch snapshots. If alone, fetches all available snapshots recorded on or after the given time. Use with 'to' to create a defined range."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Optional timestamp in RFC3339 format. Sets the latest time from which to fetch snapshots. If alone, fetches all available snapshots recorded on or before the given time. Use with 'from' to create a defined range."
+              },
+              {
+                "name": "sourceRegion",
+                "value": "",
+                "type": "query",
+                "description": "When set then identifies which region to use as the source."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List a database's snapshots."
+        },
+        {
+          "info": {
+            "name": "Start a clone operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:targetDBID/cloneFrom/:sourceDBID",
+            "params": [
+              {
+                "name": "targetDBID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the target database that you want to clone to."
+              },
+              {
+                "name": "sourceDBID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the source database that you want to clone."
+              },
+              {
+                "name": "snapshotID",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the snapshot from the source DB to use as the basis of the clone operation."
+              },
+              {
+                "name": "sourceRegion",
+                "value": "",
+                "type": "query",
+                "description": "The name of the region to use as the source, if cloning from a secondary region of a multi-region database."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Start a clone operation."
+        },
+        {
+          "info": {
+            "name": "Get the status of a clone operation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/databases/:targetDBID/cloneStatus/:operationID",
+            "params": [
+              {
+                "name": "targetDBID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the target database that you want to clone to."
+              },
+              {
+                "name": "operationID",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the clone operation."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the status of a clone operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

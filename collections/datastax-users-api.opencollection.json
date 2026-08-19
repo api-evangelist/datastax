@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Users API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an organization's users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/users"
+          },
+          "docs": "Get an organization's users"
+        },
+        {
+          "info": {
+            "name": "Invite a user to an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/organizations/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite a user to an organization or resend an invitation with new invitation details, such as an updated expiration"
+        },
+        {
+          "info": {
+            "name": "Get an organization's user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/users/:userID",
+            "params": [
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path",
+                "description": "ID for the user"
+              }
+            ]
+          },
+          "docs": "Get an organization's user"
+        },
+        {
+          "info": {
+            "name": "Remove or uninvite a user from an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/organizations/users/:userID",
+            "params": [
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path",
+                "description": "ID for the user"
+              }
+            ]
+          },
+          "docs": "Remove or uninvite a user from an organization"
+        },
+        {
+          "info": {
+            "name": "Update organization roles for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/organizations/users/:userID/roles",
+            "params": [
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path",
+                "description": "ID for the user"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update organization roles for a user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

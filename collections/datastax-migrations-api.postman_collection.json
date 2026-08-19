@@ -1,0 +1,3765 @@
+{
+  "item": [
+    {
+      "id": "729cafd7-1ba7-4538-b99f-17c88a8b3a80",
+      "name": "Migrations",
+      "description": {
+        "content": "Use the DevOps API to manage SSTables-based migrations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1230d254-acc9-4813-b28f-70225f0a073f",
+          "name": "initialize a new migration",
+          "request": {
+            "name": "initialize a new migration",
+            "description": {
+              "content": "Initialize a new SSTables based migration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "migrations",
+                "initialize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "concurrency",
+                  "value": "<string>",
+                  "description": "Sets the desired concurrency for the import."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetSubsetSizeGB",
+                  "value": "<string>",
+                  "description": "Sets the target subset size for the import."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fbf1b268-cb43-41e4-9727-9a184494d8e1",
+              "name": "SSTables based migration initialization started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"migrationID\": \"string\",\n  \"status\": \"STARTING\",\n  \"concurrency\": 8801,\n  \"targetSubsetSizeGB\": 1114.2295090762234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d15da47-74b2-4f9e-9489-2e69bce93146",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75bb56e5-6034-4d56-a658-d848594f7396",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b0cbb0c-518c-4e73-9518-39a43da6139a",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c3ff1e4-c316-4d85-b3df-4ef914b7aca3",
+          "name": "initialize a new migration",
+          "request": {
+            "name": "initialize a new migration",
+            "description": {
+              "content": "Initialize a new SSTables based migration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "datacenters",
+                ":datacenterID",
+                "migrations",
+                "initialize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "concurrency",
+                  "value": "<string>",
+                  "description": "Sets the desired concurrency for the import."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetSubsetSizeGB",
+                  "value": "<string>",
+                  "description": "Sets the target subset size for the import."
+                },
+                {
+                  "disabled": false,
+                  "key": "option.*",
+                  "value": "<string>",
+                  "description": "Optional SSTable Import parameters. E.g. ?option.targetSubsetSizeGb=6.5. These options are not exposed via the devops API."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "datacenterID",
+                  "description": "(Required) String representation of the datacenter ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1dea219-fd3e-4c07-b632-69e6cb79974a",
+              "name": "SSTables based migration initialization started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "datacenters",
+                    ":datacenterID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "option.*",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterID",
+                      "description": "(Required) String representation of the datacenter ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"migrationID\": \"string\",\n  \"status\": \"STARTING\",\n  \"concurrency\": 8801,\n  \"targetSubsetSizeGB\": 1114.2295090762234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a49b923a-bc1e-4553-b7c9-883c9de86962",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "datacenters",
+                    ":datacenterID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "option.*",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterID",
+                      "description": "(Required) String representation of the datacenter ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d07c606e-97c9-430d-8664-2b07c3c8be5b",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "datacenters",
+                    ":datacenterID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "option.*",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterID",
+                      "description": "(Required) String representation of the datacenter ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22d5f746-7a74-47e9-b2a6-657497e17949",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "datacenters",
+                    ":datacenterID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "option.*",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterID",
+                      "description": "(Required) String representation of the datacenter ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84ea1407-bf14-49ca-9fba-e7ac74e7b756",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "datacenters",
+                    ":datacenterID",
+                    "migrations",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "concurrency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetSubsetSizeGB",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "option.*",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterID",
+                      "description": "(Required) String representation of the datacenter ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e79bbd3c-e600-4194-97f8-5a0b2c83cd22",
+          "name": "launch a migration",
+          "request": {
+            "name": "launch a migration",
+            "description": {
+              "content": "Launch an SSTables based migration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "migrations",
+                ":migrationID",
+                "launch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "migrationID",
+                  "description": "(Required) String representation of the active migration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1902285-96ef-447a-a6a3-7ac62e398ed9",
+              "name": "SSTables based migration launched.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "launch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"migrationID\": \"string\",\n  \"status\": \"STARTING\",\n  \"concurrency\": 8801,\n  \"targetSubsetSizeGB\": 1114.2295090762234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc8ad947-7595-42ea-bfd6-9ac26b2a5d31",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "launch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7325c1a5-a811-42da-8651-212e4678dcae",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "launch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51314e0e-1fd7-4191-8ba2-50f8a1c1a6ba",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "launch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d3c78fd-4aeb-40ad-97a2-eefedf2d7144",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "launch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f3b3460-b5d7-433a-9f1d-81f23ecefc4a",
+              "name": "The database is not in a valid state to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "launch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf66331e-bf80-4b22-b758-fb4cae92ac15",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "launch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bcce00f4-f80e-4abc-9500-58fee7ec9a68",
+          "name": "pause a migration",
+          "request": {
+            "name": "pause a migration",
+            "description": {
+              "content": "pause a migration in the import phase",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "migrations",
+                ":migrationID",
+                "pause"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "migrationID",
+                  "description": "(Required) string representation of the active migration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c05b03a-428b-4ce1-a2f0-fa20fc979bc8",
+              "name": "pausing the migration has been initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"migrationID\": \"string\",\n  \"status\": \"STARTING\",\n  \"concurrency\": 8801,\n  \"targetSubsetSizeGB\": 1114.2295090762234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2a79722-d069-4e06-96e0-3ec78166de7c",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bbdceea-6293-4c1e-850c-0cb99e67735d",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0ec75c3-6bb0-40e1-8bbf-ad0fe7d8f008",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ba8ea15-ae7a-4425-8162-56fc61ebe695",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "889ce641-7021-4c13-97c3-9032c520fb1d",
+              "name": "The database is not in a valid state to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfdc6ac3-3682-4f30-a716-f6f5052b6ed1",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c3b334c-0efe-4c3c-b7d7-7926b26d93bf",
+          "name": "resume a paused migration",
+          "request": {
+            "name": "resume a paused migration",
+            "description": {
+              "content": "resume a migration in the paused phase",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "migrations",
+                ":migrationID",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "migrationID",
+                  "description": "(Required) string representation of the active migration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d41ee42c-08ed-4758-9e69-d8312f32982c",
+              "name": "resuming the migration has been initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"migrationID\": \"string\",\n  \"status\": \"STARTING\",\n  \"concurrency\": 8801,\n  \"targetSubsetSizeGB\": 1114.2295090762234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43a294e7-8364-4226-b53b-ee74ac50d1cb",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "661a7f23-3212-4ba0-ae7a-bc9566f89a90",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1eb76e0e-b6e5-41e1-a956-bb29933acda8",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e64dd291-8420-4f20-ae17-751f2b49af2d",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7e83692-5ad3-48f7-af33-7e3202aa48e8",
+              "name": "The database is not in a valid state to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48121dd3-9c08-4a7b-bc75-88f1e8e124a4",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89c79fb6-9b1e-43d7-956a-f7edc63e35bd",
+          "name": "abort a migration",
+          "request": {
+            "name": "abort a migration",
+            "description": {
+              "content": "abort a migration",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "migrations",
+                ":migrationID",
+                "abort"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "migrationID",
+                  "description": "(Required) string representation of the active migration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ad574b7-4aa4-4f9f-8768-6e41ea941681",
+              "name": "aborting the migration has been initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"migrationID\": \"string\",\n  \"status\": \"STARTING\",\n  \"concurrency\": 8801,\n  \"targetSubsetSizeGB\": 1114.2295090762234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0c36269-e136-40ba-9ebe-5c181345e05d",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44c8038e-4bbe-4c30-a583-cea168e72f49",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29a07d02-3726-4ef5-8915-25bc9179c9c3",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d358680-7690-43d4-940a-82b28b6ee979",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7acab234-b825-461a-ba89-d90cbeec8bff",
+              "name": "The database is not in a valid state to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dce4fb6-db3f-4434-95dd-44ccda2bc80a",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "abort"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d24da9c-228b-4062-877f-1958aa446089",
+          "name": "cleanup a migration",
+          "request": {
+            "name": "cleanup a migration",
+            "description": {
+              "content": "deletes all artifacts after a concluded migration (complete/failed/aborted)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "migrations",
+                ":migrationID",
+                "cleanup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "option.cleanupTime",
+                  "value": "<string>",
+                  "description": "Optional parameter indicating the desired time of the cleanup. Format: unix timestamp, e.g. 2024-09-06T15:30:00Z"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "migrationID",
+                  "description": "(Required) string representation of the active migration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "397ffe4d-1f50-425e-bed7-1f872049c9cf",
+              "name": "cleaning up the migration has been initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "cleanup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "option.cleanupTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"migrationID\": \"string\",\n  \"status\": \"STARTING\",\n  \"concurrency\": 8801,\n  \"targetSubsetSizeGB\": 1114.2295090762234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e10604c-60d2-4f9e-91e9-5de83cd0f8fa",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "cleanup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "option.cleanupTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dc25622-83a1-4e1c-849a-9316fc75fbf0",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "cleanup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "option.cleanupTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69b30ed4-8887-4279-a26f-e49425cc1764",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "cleanup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "option.cleanupTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "480f24d1-55f9-413e-beb1-ea0f60f01ae1",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "cleanup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "option.cleanupTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52b294e9-2cf6-4b6f-9517-14edeeb763e5",
+              "name": "The database is not in a valid state to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "cleanup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "option.cleanupTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c53325e-7e76-4d2b-b85d-c1804300a6fb",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID",
+                    "cleanup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "option.cleanupTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) string representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4907d589-c01e-494e-9741-d38fdfcce98e",
+          "name": "get migration status",
+          "request": {
+            "name": "get migration status",
+            "description": {
+              "content": "Get status information about an SSTables based migration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "migrations",
+                ":migrationID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "migrationID",
+                  "description": "(Required) String representation of the active migration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "495138a4-8a44-476c-b8f8-15fba7baf0d7",
+              "name": "Successfully received status of an SSTables based migration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"migrationID\": \"string\",\n  \"status\": \"STARTING\",\n  \"concurrency\": 8801,\n  \"targetSubsetSizeGB\": 1114.2295090762234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8abe185a-2606-4d32-a8d1-45c2bdd16832",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ef73e06-b3ea-472e-85df-fec0e1cb337c",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2833a17e-6a4b-4133-920a-0956492280c2",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4eb5d7cd-ecc7-4074-9156-adae55910743",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29f785ce-313a-40aa-adb8-8260d88add7c",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "migrations",
+                    ":migrationID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "migrationID",
+                      "description": "(Required) String representation of the active migration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.astra.datastax.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0f617ea2-868e-4df3-836b-366e4dbebf06",
+    "name": "Astra DevOps Access List Migrations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.\n\nContact Support:\n Email: ad-astra@datastax.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2686 @@
+{
+  "item": [
+    {
+      "id": "04f671b8-4f11-4458-8e17-6f5579e7e421",
+      "name": "Access List",
+      "description": {
+        "content": "View, create, modify, or delete the IP access list for an Astra database.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78da8072-96d6-4402-8675-a200512c066c",
+          "name": "Get all access lists for an organization",
+          "request": {
+            "name": "Get all access lists for an organization",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "access-lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ad04c072-4d84-4cf9-a7b5-d2d5ea24f561",
+              "name": "Access lists for an organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"organizationId\": \"303a3598-0905-4b5d-9db2-4bf2f9790973\",\n    \"databaseId\": \"8fbcfe1d-56fa-4ed0-9aff-f57029feef1b\",\n    \"addresses\": [\n      {\n        \"address\": \"137.187.23.0/24\",\n        \"enabled\": true,\n        \"description\": \"This address allows the database connections from the prod environment\",\n        \"lastUpdateDateTime\": \"2021-01-21T17:32:28Z\"\n      },\n      {\n        \"address\": \"137.187.23.0/24\",\n        \"enabled\": true,\n        \"description\": \"This address allows the database connections from the prod environment\",\n        \"lastUpdateDateTime\": \"2021-01-21T17:32:28Z\"\n      }\n    ],\n    \"configurations\": {\n      \"accessListEnabled\": false\n    }\n  },\n  {\n    \"organizationId\": \"303a3598-0905-4b5d-9db2-4bf2f9790973\",\n    \"databaseId\": \"8fbcfe1d-56fa-4ed0-9aff-f57029feef1b\",\n    \"addresses\": [\n      {\n        \"address\": \"137.187.23.0/24\",\n        \"enabled\": true,\n        \"description\": \"This address allows the database connections from the prod environment\",\n        \"lastUpdateDateTime\": \"2021-01-21T17:32:28Z\"\n      },\n      {\n        \"address\": \"137.187.23.0/24\",\n        \"enabled\": true,\n        \"description\": \"This address allows the database connections from the prod environment\",\n        \"lastUpdateDateTime\": \"2021-01-21T17:32:28Z\"\n      }\n    ],\n    \"configurations\": {\n      \"accessListEnabled\": false\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c327e2b5-e4d9-446a-984d-d6b8247f5e8a",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "300a81a4-ecd0-458c-8231-ed8aafc9429c",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "282876a8-c7d3-4107-b860-a1f63a288820",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "387ae984-60b1-4387-a0cf-0c7e53ccbfc5",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0aaabb2c-e779-45d2-b079-bf645713d34a",
+          "name": "Get the access list for a database",
+          "request": {
+            "name": "Get the access list for a database",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "access-list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "499ad411-3440-4350-b805-76b448e3fd9f",
+              "name": "Access list for a database",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"organizationId\": \"303a3598-0905-4b5d-9db2-4bf2f9790973\",\n  \"databaseId\": \"8fbcfe1d-56fa-4ed0-9aff-f57029feef1b\",\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\",\n      \"lastUpdateDateTime\": \"2021-01-21T17:32:28Z\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\",\n      \"lastUpdateDateTime\": \"2021-01-21T17:32:28Z\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bb13498-bb6a-4b26-8189-6dc1f23b8945",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e1afdd5-7e2c-43a7-8880-b8a8a89dfbb9",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "065fd6d8-b5ba-4477-a802-41aff9fa05bd",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "056e4f5c-6d96-482c-8d95-d37b1bc725a8",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5f6525b-bbbc-48b0-b8ac-5f882feac048",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7482193a-b8a8-46c6-bbca-98f7f588fa65",
+          "name": "Upsert the access list for a database. This endpoint replaces the entire access list with what is present in the request body.",
+          "request": {
+            "name": "Upsert the access list for a database. This endpoint replaces the entire access list with what is present in the request body.",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "access-list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"address\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "990f954e-30df-4179-a678-cda1ad6169c9",
+              "name": "The request succeeded and no content is returned in response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db20e770-23df-403b-bc1c-ad6e104341d6",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77f79037-c9db-46a7-a86b-1b6bbc129e36",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ad9163e-fc35-421e-ab00-2ff54cff8118",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67310ce1-70c9-44d8-b0d1-2c1357e3d67c",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccb76590-e948-4b23-85ab-d47367ea0a66",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "472afde7-2136-44f2-96cf-fc32ba002cc3",
+          "name": "Add addresses to the access list for a database",
+          "request": {
+            "name": "Add addresses to the access list for a database",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "access-list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"address\": \"<string>\",\n    \"enabled\": \"<boolean>\",\n    \"description\": \"<string>\"\n  },\n  {\n    \"address\": \"<string>\",\n    \"enabled\": \"<boolean>\",\n    \"description\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99e2e7e3-bf37-4807-8aee-d97a88a7a128",
+              "name": "The request succeeded and no content is returned in response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  },\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff3a1cca-3812-42d9-bb54-ee4e1d53d240",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  },\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5d900b0-870b-4ba1-86c9-696945c6efc0",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  },\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2670e374-2a32-4280-9018-791a0ea164eb",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  },\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef3c0886-bc0c-4ac3-bddc-b4c033435a85",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  },\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13a5e1e6-87ea-4df2-ae76-5b3b54a8e479",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  },\n  {\n    \"address\": \"137.187.23.0/24\",\n    \"enabled\": true,\n    \"description\": \"This address allows the database connections from the prod environment\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e60aba7f-429d-47dc-811b-a28f62cf837e",
+          "name": "Update the access list for a database. This endpoint updates existing fields in the access list if they exist",
+          "request": {
+            "name": "Update the access list for a database. This endpoint updates existing fields in the access list if they exist",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "access-list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"address\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ebe0793d-b1cb-49f8-9ac5-10c357e32459",
+              "name": "The request succeeded and no content is returned in response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d4ac47b7-10a6-481d-adb2-35562d6d51b1",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd3b9edb-7c20-43c6-bd68-abe473096963",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebf933b1-5ba0-4e40-954a-5f4930b500ac",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebf3869d-d297-415c-95c7-63b766003b24",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "765a9489-8b77-4c69-8c1c-e8d68507a349",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "272b93a1-ee23-4b10-b02a-0197fa79ecee",
+          "name": "Delete a list of addresses or the access list for a database. If the addresses query parameter is not present it will delete the entire access list. If the addresses query parameter is present it will delete only the given addresses from the access list",
+          "request": {
+            "name": "Delete a list of addresses or the access list for a database. If the addresses query parameter is not present it will delete the entire access list. If the addresses query parameter is present it will delete only the given addresses from the access list",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "databases",
+                ":databaseID",
+                "access-list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "<string>",
+                  "description": "Array of addresses"
+                },
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "<string>",
+                  "description": "Array of addresses"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "databaseID",
+                  "description": "(Required) String representation of the database ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "22120fdb-5ff8-4432-a34c-ac0e117c6ff6",
+              "name": "The request succeeded and no content is returned in response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "97b75e1c-7cc6-4b41-889f-b94a86b94b8a",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41033f91-8dbc-459b-aaa5-7550c117db77",
+              "name": "The user is forbidden to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7028400-366a-4c91-9803-f7b224ab14a8",
+              "name": "The specified database was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ea13ce3-9ca5-4fce-bb64-3af92a456f4a",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "databases",
+                    ":databaseID",
+                    "access-list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "databaseID",
+                      "description": "(Required) String representation of the database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "530b72e3-31ff-41bd-8295-b1571bdb3a37",
+          "name": "Validate the structure of an access list",
+          "request": {
+            "name": "Validate the structure of an access list",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "access-list",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4333fb36-e1b0-41f0-9a51-36102a7de4c6",
+              "name": "Access lists for an organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-list",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"valid\": false,\n  \"validationFailures\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7cf3e4d-10e2-4772-9990-b35a46b0c2e2",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-list",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbd75173-c250-493d-b8e2-90be32d5f03f",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-list",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ff49309-b974-4460-a46c-4aaa53b72be7",
+          "name": "Get a template of an access list",
+          "request": {
+            "name": "Get a template of an access list",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "access-list",
+                "template"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b0692e9b-6180-4f75-ba57-1a442072f537",
+              "name": "Access lists for an organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-list",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addresses\": [\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    },\n    {\n      \"address\": \"137.187.23.0/24\",\n      \"enabled\": true,\n      \"description\": \"This address allows the database connections from the prod environment\"\n    }\n  ],\n  \"configurations\": {\n    \"accessListEnabled\": \"<boolean>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "965aaa8f-a4f6-4768-9ecd-00cbedd43086",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-list",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dab87b31-b89c-4b75-a53f-9f929cfa3e42",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "access-list",
+                    "template"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.astra.datastax.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6292a0cb-7858-4a61-9462-cd9b8a4ebf08",
+    "name": "Astra DevOps Access List API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.\n\nContact Support:\n Email: ad-astra@datastax.com",
+      "type": "text/plain"
+    }
+  }
+}

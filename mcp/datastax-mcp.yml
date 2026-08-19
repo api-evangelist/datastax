@@ -4,7 +4,7 @@ status: published
 source: https://github.com/datastax/astra-db-mcp
 server:
   name: astra-db-mcp
-  package: "@datastax/astra-db-mcp"
+  package: '@datastax/astra-db-mcp'
   version: 1.2.2
   transport: stdio
   run: npx -y @datastax/astra-db-mcp
@@ -58,3 +58,12 @@ tools:
   description: Utility to open a browser.
 - name: HelpAddToClient
   description: Utility to help add the server to an MCP client.
+deployment:
+  mode: none
+  endpoint: https://DATABASE_ID-REGION.apps.astra.datastax.com
+  verified: probed
+  probe: dead
+  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
+    claim stays auditable
+  checked: '2026-08-12'
+  source: catalog MCP census

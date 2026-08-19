@@ -1,0 +1,629 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Database Operations API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of databases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/databases",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Allows filtering so that databases in listed states are returned"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Allows filtering so that databases from a given provider are returned"
+              },
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter for pagination purposes. Used as this value for starting retrieving a specific page of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter for pagination purposes. Specify the number of items for one page of data"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of databases visible to the user"
+        },
+        {
+          "info": {
+            "name": "Create a new database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Takes a user provided databaseInfo and returns the uuid for a new database"
+        },
+        {
+          "info": {
+            "name": "Finds database by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns specified database"
+        },
+        {
+          "info": {
+            "name": "Adds keyspace into database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/keyspaces/:keyspaceName",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "keyspaceName",
+                "value": "",
+                "type": "path",
+                "description": "Name of database keyspace"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds the specified keyspace to the database"
+        },
+        {
+          "info": {
+            "name": "Removes keyspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/keyspaces/:keyspaceName",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "keyspaceName",
+                "value": "",
+                "type": "path",
+                "description": "Name of database keyspace"
+              }
+            ]
+          },
+          "docs": "Removes the specified keyspace from the database"
+        },
+        {
+          "info": {
+            "name": "Alter keyspace to enable graph engine",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/keyspaces/:keyspaceName/actions/alterWithGraphEngine",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "keyspaceName",
+                "value": "",
+                "type": "path",
+                "description": "Name of database keyspace"
+              }
+            ]
+          },
+          "docs": "Alter the specified keyspace to enable graph engine capabilities. Only supports Managed Cluster (Classic) databases."
+        },
+        {
+          "info": {
+            "name": "Obtain zip for connecting to the database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/secureBundleURL",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to obtain secure-connect-*.zip for one (false) or many (true) datacenters. If false, `200` returns `CredsURL` (download URLs for one datacenter). If true, `200` returns `CredsURLList` (download URLs for multiple datacenters)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a temporary URL to download a zip file with certificates for connecting to the database. The URL expires after five minutes.<p>There are two types of the secure bundle URL: <ul><li><b>Internal</b> - Use with VPC peering connections to use private networking and avoid public internet for communication.</li> <li><b>External</b> - Use with any connection where the public internet is sufficient for communication between the application and the Astra database with MTLS.</li></ul> Both types s"
+        },
+        {
+          "info": {
+            "name": "Retrieve Remote Telemetry configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/telemetry/metrics",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ]
+          },
+          "docs": "Get the current Telemetry configuration for the database"
+        },
+        {
+          "info": {
+            "name": "Configure Astra Remote Telemetry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/telemetry/metrics",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enables metrics exporting to an external system. Note: updates replace any existing config."
+        },
+        {
+          "info": {
+            "name": "Terminates a database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/terminate",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "preparedStateOnly",
+                "value": "",
+                "type": "query",
+                "description": "For internal use only.  Used to safely terminate prepared databases."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Terminates a database"
+        },
+        {
+          "info": {
+            "name": "Resizes a database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/resize",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Resizes a Managed Cluster (Classic) database, specifying the desired total number of capacity units. This operation isn't applicable to Astra DB Serverless databases, and it has no relationship to Provisioned Capacity Units for Astra DB Serverless."
+        },
+        {
+          "info": {
+            "name": "List all database datacenters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/datacenters",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "Allows retrieving datacenters in TERMINATED state along with ACTIVE ones"
+              }
+            ]
+          },
+          "docs": "Returns the list of configured ACTIVE datacenters for the given database, if you want to get the TERMINATED along with ACTIVE send query param all=true"
+        },
+        {
+          "info": {
+            "name": "Adds datacenters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/datacenters",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deploy a multi-region database to an additional AWS, Azure, or Google Cloud datacenter."
+        },
+        {
+          "info": {
+            "name": "Terminates a datacenter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/datacenters/:datacenterID/terminate",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the datacenter ID"
+              }
+            ]
+          },
+          "docs": "Terminates a datacenter"
+        },
+        {
+          "info": {
+            "name": "Resets Password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/resetPassword",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sets a database password to the one specified in POST body"
+        },
+        {
+          "info": {
+            "name": "Updates the database engine type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/engineType",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the engine type for the specified database. This operation is only applicable to Astra DB Serverless databases."
+        },
+        {
+          "info": {
+            "name": "List all active CDC configs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v3/databases/:databaseID/cdc",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all tables with active CDC configurations for the specified database"
+        },
+        {
+          "info": {
+            "name": "Enable CDC for a Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v3/databases/:databaseID/cdc",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Configure CDC for specified tables in a given database"
+        },
+        {
+          "info": {
+            "name": "Update CDC config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v3/databases/:databaseID/cdc",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update CDC config for tables in a given database"
+        },
+        {
+          "info": {
+            "name": "Delete CDC for tables in Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v3/databases/:databaseID/cdc",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete CDC for specified tables in a given database"
+        },
+        {
+          "info": {
+            "name": "Check CDC status for a table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v3/databases/:databaseID/keyspaces/:keyspaceName/tables/:tableName/cdc",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "tableName",
+                "value": "",
+                "type": "path",
+                "description": "Name of database table"
+              },
+              {
+                "name": "keyspaceName",
+                "value": "",
+                "type": "path",
+                "description": "Name of database keyspace"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches the CDC status and configuration for the specified table in the given database"
+        },
+        {
+          "info": {
+            "name": "Create a Solr index for an E tier Managed Cluster (Classic) database.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/keyspaces/:keyspaceName/tables/:tableName/solr/createCorewithconfigs",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "keyspaceName",
+                "value": "",
+                "type": "path",
+                "description": "Name of database keyspace"
+              },
+              {
+                "name": "tableName",
+                "value": "",
+                "type": "path",
+                "description": "Name of database table"
+              },
+              {
+                "name": "generateResources",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "schema",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "solrconfig",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "If `generateResources` is set to `true`, the Solr index is automatically generated based on existing CQL table metadata. If `generateResources` is set to `false`, provide `<schema.xml>` and `<solrconfig.xml>` resources to create the search index.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

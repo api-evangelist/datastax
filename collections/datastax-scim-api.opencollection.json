@@ -1,0 +1,317 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List SCIM API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SCIM",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get SCIM Service Provider Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/scim/ServiceProviderConfig"
+          },
+          "docs": "Returns the SCIM 2.0 service provider configuration, including supported features and authentication schemes."
+        },
+        {
+          "info": {
+            "name": "Get SCIM Schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/scim/Schemas"
+          },
+          "docs": "Returns the list of SCIM 2.0 schemas supported by this service provider."
+        },
+        {
+          "info": {
+            "name": "Get SCIM Resource Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/scim/ResourceTypes"
+          },
+          "docs": "Returns the list of SCIM 2.0 resource types supported by this service provider."
+        },
+        {
+          "info": {
+            "name": "List SCIM Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/scim/users",
+            "params": [
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query",
+                "description": "1-based index of the first result in the current set of search results"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired maximum number of query results per page"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "SCIM filter expression (e.g., \"userName eq \\\"user@example.com\\\"\")"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of users in the organization. Supports filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "Create SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/scim/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user in the organization via SCIM 2.0."
+        },
+        {
+          "info": {
+            "name": "Get SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/scim/users/:userID",
+            "params": [
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific user by ID."
+        },
+        {
+          "info": {
+            "name": "Update SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/scim/users/:userID",
+            "params": [
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a user using SCIM 2.0 PUT (full replacement)."
+        },
+        {
+          "info": {
+            "name": "Patch SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.astra.datastax.com/v2/scim/users/:userID",
+            "params": [
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a user using SCIM 2.0 PATCH operations."
+        },
+        {
+          "info": {
+            "name": "Delete SCIM User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/scim/users/:userID",
+            "params": [
+              {
+                "name": "userID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the user"
+              }
+            ]
+          },
+          "docs": "Deletes a user from the organization."
+        },
+        {
+          "info": {
+            "name": "List SCIM Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/scim/groups",
+            "params": [
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query",
+                "description": "1-based index of the first result in the current set of search results"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the desired maximum number of query results per page"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "SCIM filter expression (e.g., \"displayName eq \\\"Admin\\\"\")"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of groups (roles) in the organization. Supports filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "Create SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/scim/groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new group (role) in the organization via SCIM 2.0."
+        },
+        {
+          "info": {
+            "name": "Get SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/scim/groups/:groupID",
+            "params": [
+              {
+                "name": "groupID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific group (role) by ID."
+        },
+        {
+          "info": {
+            "name": "Update SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/scim/groups/:groupID",
+            "params": [
+              {
+                "name": "groupID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a group using SCIM 2.0 PUT (full replacement)."
+        },
+        {
+          "info": {
+            "name": "Patch SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.astra.datastax.com/v2/scim/groups/:groupID",
+            "params": [
+              {
+                "name": "groupID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a group using SCIM 2.0 PATCH operations. Supports adding/removing members and updating displayName."
+        },
+        {
+          "info": {
+            "name": "Delete SCIM Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/scim/groups/:groupID",
+            "params": [
+              {
+                "name": "groupID",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the group"
+              }
+            ]
+          },
+          "docs": "Deletes a group (role) from the organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

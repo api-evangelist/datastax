@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Enterprise Operations API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enterprise Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an organization under an enterprise.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/enterprises/organizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new organization under the given enterprise."
+        },
+        {
+          "info": {
+            "name": "Get enterprise usage within a date range for a given enterprise ID and request payload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/enterprises/consumption",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provides the usage for a given enterprise ID and request payload breakdown across multiple cluster region combination within given date range (not more than 31 days)"
+        },
+        {
+          "info": {
+            "name": "Generate a report for the specified enterprise",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/enterprises/billing-reports/generate-report",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint generates a report for the specified enterprise based on the provided month and year."
+        },
+        {
+          "info": {
+            "name": "Get details of a specific report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/enterprises/billing-reports/:reportId",
+            "params": [
+              {
+                "name": "reportId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the report."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint retrieves the details of the specified report for the given enterprise."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

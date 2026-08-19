@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Organization Operations API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the current organization from the passed token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/currentOrg"
+          },
+          "docs": "Retrieve the details for the organization in the provided token"
+        },
+        {
+          "info": {
+            "name": "Retrieve Remote Audit Log Configuration or Check Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/:orgID/telemetry/auditLogs",
+            "params": [
+              {
+                "name": "orgID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the organization ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the current audit log configuration or verify the setup status for the organization."
+        },
+        {
+          "info": {
+            "name": "Configure Audit Logging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/organizations/:orgID/telemetry/auditLogs",
+            "params": [
+              {
+                "name": "orgID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the organization ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enables audit log exporting to an external system."
+        },
+        {
+          "info": {
+            "name": "Delete Audit Log Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/organizations/:orgID/telemetry/auditLogs",
+            "params": [
+              {
+                "name": "orgID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the organization ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove audit logging for the organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

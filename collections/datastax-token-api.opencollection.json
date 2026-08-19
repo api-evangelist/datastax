@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Token API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of tokens for an org",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/tokens"
+          },
+          "docs": "Get a list of tokens for an org"
+        },
+        {
+          "info": {
+            "name": "Create a new AstraCS token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new AstraCS token"
+        },
+        {
+          "info": {
+            "name": "Deletes a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/tokens",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "clientID to revoke token for"
+              }
+            ]
+          },
+          "docs": "Deletes a token"
+        },
+        {
+          "info": {
+            "name": "Get a list of clients for an org",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/clientIdSecrets"
+          },
+          "docs": "Get a list of clients for an org"
+        },
+        {
+          "info": {
+            "name": "generateTokenForClient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/clientIdSecrets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "generateTokenForClient"
+        },
+        {
+          "info": {
+            "name": "Revokes a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/clientIdSecrets/:clientId",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path",
+                "description": "clientID to revoke token for"
+              }
+            ]
+          },
+          "docs": "Revokes a token"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

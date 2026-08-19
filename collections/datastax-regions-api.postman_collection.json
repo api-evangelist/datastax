@@ -1,0 +1,437 @@
+{
+  "item": [
+    {
+      "id": "af5891c8-c94a-4d49-bd2b-f65e85a2c13d",
+      "name": "Regions",
+      "description": {
+        "content": "Get available regions by database type, user, or organization.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5baaf813-ddd0-4d66-9f29-fc81f6153860",
+          "name": "Returns supported regions and availability for a given user / org",
+          "request": {
+            "name": "Returns supported regions and availability for a given user / org",
+            "description": {
+              "content": "Returns all supported tier, cloud, region, count, and capacity combinations",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "availableRegions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "88bcc513-c439-4010-9602-64915cb68ae5",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "availableRegions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"tier\": \"Free\",\n    \"cloudProvider\": \"GCP\",\n    \"region\": \"us-east1\",\n    \"cost\": {\n      \"costPerMinCents\": 0,\n      \"costPerHourCents\": 0,\n      \"costPerDayCents\": 0,\n      \"costPerMonthCents\": 0,\n      \"costPerMinParkedCents\": 0,\n      \"costPerHourParkedCents\": 0,\n      \"costPerDayParkedCents\": 0,\n      \"costPerMonthParkedCents\": 0\n    },\n    \"databaseCountUsed\": 0,\n    \"databaseCountLimit\": 1,\n    \"capacityUnitsUsed\": 0,\n    \"capacityUnitsLimit\": 30,\n    \"defaultStoragePerCapacityUnitGb\": 500\n  },\n  {\n    \"tier\": \"Free\",\n    \"cloudProvider\": \"GCP\",\n    \"region\": \"us-east1\",\n    \"cost\": {\n      \"costPerMinCents\": 0,\n      \"costPerHourCents\": 0,\n      \"costPerDayCents\": 0,\n      \"costPerMonthCents\": 0,\n      \"costPerMinParkedCents\": 0,\n      \"costPerHourParkedCents\": 0,\n      \"costPerDayParkedCents\": 0,\n      \"costPerMonthParkedCents\": 0\n    },\n    \"databaseCountUsed\": 0,\n    \"databaseCountLimit\": 1,\n    \"capacityUnitsUsed\": 0,\n    \"capacityUnitsLimit\": 30,\n    \"defaultStoragePerCapacityUnitGb\": 500\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30d9141a-e568-46a4-af0c-8dc555746f7e",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "availableRegions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b36fa50-321c-4097-9fac-806e64e598e8",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "availableRegions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33a44f13-aaa0-42f2-b9f9-685cb502ed22",
+          "name": "Returns the list of available regions for serverless",
+          "request": {
+            "name": "Returns the list of available regions for serverless",
+            "description": {
+              "content": "Returns all region, cloud, name, zone and classification info available in serverless",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "regions",
+                "serverless"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "region-type",
+                  "value": "",
+                  "description": "Region type query parameter to retrieve regions supporting serverless and/or vector dbs. By default this API only returns serverless db regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Valid values for this parameter are empty region-type query parameter (default behavior to retrieve serverless regions), all (to retrieve both vector and serverless regions) and vector (to retrieve vector regions). Any invalid value will be ignored and API will show the default behavior i.e. return serverless regions only."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter-by-org",
+                  "value": "disabled",
+                  "description": "Filter by org query parameter retrieves regions based on current organization ID. By default this API returns all regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Another valid values for this parameter is 'disabled' (default), i.e. retrieve serverless regions without  filtering out by current org. Any invalid value will be ignored and API will show the default behavior."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6a9f9637-8c56-434a-8ed5-86cff69e8e98",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "regions",
+                    "serverless"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "region-type",
+                      "value": ""
+                    },
+                    {
+                      "key": "filter-by-org",
+                      "value": "disabled"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"cloudProvider\": \"aws\",\n    \"name\": \"us-west-2\",\n    \"displayName\": \"US West (Oregon)\",\n    \"zone\": \"na\",\n    \"classification\": \"standard\",\n    \"enabled\": true,\n    \"reservedForQualifiedUsers\": true,\n    \"region_type\": \"vector\",\n    \"pcu_types\": [\n      {\n        \"type\": \"standard\",\n        \"details\": {\n          \"vCPU\": 9090,\n          \"memory\": \"string\",\n          \"disk_cache\": \"string\"\n        }\n      },\n      {\n        \"type\": \"standard\",\n        \"details\": {\n          \"vCPU\": 6193,\n          \"memory\": \"string\",\n          \"disk_cache\": \"string\"\n        }\n      }\n    ]\n  },\n  {\n    \"cloudProvider\": \"aws\",\n    \"name\": \"us-west-2\",\n    \"displayName\": \"US West (Oregon)\",\n    \"zone\": \"na\",\n    \"classification\": \"standard\",\n    \"enabled\": true,\n    \"reservedForQualifiedUsers\": true,\n    \"region_type\": \"vector\",\n    \"pcu_types\": [\n      {\n        \"type\": \"standard\",\n        \"details\": {\n          \"vCPU\": 321,\n          \"memory\": \"string\",\n          \"disk_cache\": \"string\"\n        }\n      },\n      {\n        \"type\": \"standard\",\n        \"details\": {\n          \"vCPU\": 7913,\n          \"memory\": \"string\",\n          \"disk_cache\": \"string\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c84aadf-a118-4a80-a3bc-780a92960df3",
+              "name": "The user is unauthorized to perform the operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "regions",
+                    "serverless"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "region-type",
+                      "value": ""
+                    },
+                    {
+                      "key": "filter-by-org",
+                      "value": "disabled"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a019cfa-0b4a-43f8-a514-b6557f9e66c8",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "regions",
+                    "serverless"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "region-type",
+                      "value": ""
+                    },
+                    {
+                      "key": "filter-by-org",
+                      "value": "disabled"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.astra.datastax.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7f5fcd57-c8f8-4cd7-a408-9a9a6acce0be",
+    "name": "Astra DevOps Access List Regions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.\n\nContact Support:\n Email: ad-astra@datastax.com",
+      "type": "text/plain"
+    }
+  }
+}

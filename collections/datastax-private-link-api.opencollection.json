@@ -1,0 +1,318 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Private Link API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Private Link",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets info about all private link connections for a specific org",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/private-link"
+          },
+          "docs": "Gets info about all private link connections for a specific org"
+        },
+        {
+          "info": {
+            "name": "Gets info about all private link connections for a specific cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/private-link",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              }
+            ]
+          },
+          "docs": "Gets info about all private link connections for a cluster"
+        },
+        {
+          "info": {
+            "name": "Gets info about private link in a datacenter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/datacenters/:datacenterID/private-link",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region."
+              }
+            ]
+          },
+          "docs": "Gets info about a private link connection in a specific datacenter"
+        },
+        {
+          "info": {
+            "name": "Add an allowed principal to the private link service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/datacenters/:datacenterID/private-link",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Configure private link by providing the allowed principal to connect with"
+        },
+        {
+          "info": {
+            "name": "Add an allowed principal to the private link service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/datacenters/:datacenterID/allowed-principals",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Configure private link by providing the allowed principal to connect with"
+        },
+        {
+          "info": {
+            "name": "Remove an allowed principal from the private link service",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/datacenters/:datacenterID/allowed-principals",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove an allowed principal from the private link service"
+        },
+        {
+          "info": {
+            "name": "Accept an endpoint to the private link service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/datacenters/:datacenterID/endpoints",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Complete Private Link connection by providing your endpoint"
+        },
+        {
+          "info": {
+            "name": "Gets info about a private link endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/datacenters/:datacenterID/endpoints/:endpointID",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region."
+              },
+              {
+                "name": "endpointID",
+                "value": "",
+                "type": "path",
+                "description": "Endpoint ID"
+              }
+            ]
+          },
+          "docs": "Gets info about a private link endpoint"
+        },
+        {
+          "info": {
+            "name": "Update the description for a private link endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/datacenters/:datacenterID/endpoints/:endpointID",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region."
+              },
+              {
+                "name": "endpointID",
+                "value": "",
+                "type": "path",
+                "description": "Endpoint ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the description for a private link endpoint"
+        },
+        {
+          "info": {
+            "name": "Reject an endpoint from the private link service",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/organizations/clusters/:clusterID/datacenters/:datacenterID/endpoints/:endpointID",
+            "params": [
+              {
+                "name": "clusterID",
+                "value": "",
+                "type": "path",
+                "description": "Database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "Datacenter ID from the Astra Portal. There is a unique Datacenter ID for each database region."
+              },
+              {
+                "name": "endpointID",
+                "value": "",
+                "type": "path",
+                "description": "Endpoint ID"
+              }
+            ]
+          },
+          "docs": "Reject an endpoint from the private link service"
+        },
+        {
+          "info": {
+            "name": "Return the list of custom domains used by an organization for access via one or more private links.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/customDomains"
+          },
+          "docs": "Returns a list of custom domains used by an organization. The list contains those user defined domain names or domain name prefixes that are used as suffixes when accessing the databases in the various datacenters via private links."
+        },
+        {
+          "info": {
+            "name": "Define a new set of custom domains for usage with private links.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/organizations/customDomains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets a set of custom domains used by an organization. The input list should contain those user defined domain names or domain name prefixes that will be used as suffixes when accessing the databases in the various datacenters via private links."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Roles API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all roles for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/roles"
+          },
+          "docs": "Get all roles for an organization"
+        },
+        {
+          "info": {
+            "name": "Create a role in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/organizations/roles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a role in an organization"
+        },
+        {
+          "info": {
+            "name": "Get a role for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/roles/:roleID",
+            "params": [
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "ID for the role"
+              }
+            ]
+          },
+          "docs": "Retrieve the details for a role for a given organization"
+        },
+        {
+          "info": {
+            "name": "Update a role within an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/organizations/roles/:roleID",
+            "params": [
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "ID for the role"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a role within an organization"
+        },
+        {
+          "info": {
+            "name": "Delete a role by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/organizations/roles/:roleID",
+            "params": [
+              {
+                "name": "roleID",
+                "value": "",
+                "type": "path",
+                "description": "ID for the role"
+              }
+            ]
+          },
+          "docs": "Delete a role by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

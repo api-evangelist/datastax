@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Customer Keys API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves all Serverless keys in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/kms"
+          },
+          "docs": "A service to retrieve the existing Customer Keys of an organization."
+        },
+        {
+          "info": {
+            "name": "Creates a new Customer Key used for serverless database encryption for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/kms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A service to create a new Customer Key registration used for serverless database encryption in an organization."
+        },
+        {
+          "info": {
+            "name": "Retrieves all Managed Cluster (Classic) keys in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/kms/classic"
+          },
+          "docs": "A service to retrieve the existing Customer Keys of an organization."
+        },
+        {
+          "info": {
+            "name": "Creates a new Customer Key used for Managed Cluster (Classic) database encryption for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/kms/classic",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A service to create a new Customer Key registration used for Managed Cluster (Classic) database encryption in an organization."
+        },
+        {
+          "info": {
+            "name": "Retrieves a Serverless Customer Key in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/kms/provider/:provider/region/:region",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the provider, such as: aws."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region in which the key exists."
+              }
+            ]
+          },
+          "docs": "Retrieves a Serverless Customer Key in an organization for a given cloud-provider & region combination."
+        },
+        {
+          "info": {
+            "name": "Retrieves a Managed Cluster (Classic) Customer Key in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/kms/classic/provider/:provider/region/:region",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the provider, such as: aws."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region in which the key exists."
+              }
+            ]
+          },
+          "docs": "Retrieves a Managed Cluster (Classic) Customer Key in an organization for a given cloud-provider & region combination."
+        },
+        {
+          "info": {
+            "name": "Retrieves an array of Serverless Storage Cloud provider accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/kms/provider/:provider/region/:region/accounts",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the provider, such as: aws."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region in which the key exists."
+              }
+            ]
+          },
+          "docs": "Retrieves an array of Cloud provider accounts for a given cloud-provider & region combination to which customers need to grant their KMS keys access to for serverless keys."
+        },
+        {
+          "info": {
+            "name": "Assigns a new cloud account to an organization that will be used for Managed Cluster (Classic) database encryption",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/kms/classic/provider/:provider/accounts"
+          },
+          "docs": "Assigns a new cloud account for an organization given a cloud provider that will be used for Managed Cluster (Classic) database encryption."
+        },
+        {
+          "info": {
+            "name": "Retrieves an array of Managed Cluster (Classic) Cloud provider accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/kms/classic/provider/:provider/region/:region/accounts",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the provider, such as: aws."
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The region in which the key exists."
+              }
+            ]
+          },
+          "docs": "Retrieves an array of Cloud provider accounts for a given cloud-provider & region combination to which customers need to grant their KMS keys access to for Managed Cluster (Classic) keys."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

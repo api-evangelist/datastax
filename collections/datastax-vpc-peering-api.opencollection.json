@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List VPC Peering API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VPC Peering",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves VPC peering connection information for an Astra database in a given cloud provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/peering/provider/:provider/database/:databaseID",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the provider, such as 'aws', 'azure' or 'gcp'"
+              },
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "The ID for the database"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves VPC peering connection details (if any exist) for Astra database"
+        },
+        {
+          "info": {
+            "name": "Creates a VPC peering connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/peering/provider/:provider/database/:databaseID",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the provider, such as 'aws', 'azure' or 'gcp'"
+              },
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "The ID for the database"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a VPC peering connection between an Astra database's VPC and the VPC provided"
+        },
+        {
+          "info": {
+            "name": "Deletes an existing VPC peering connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/peering/provider/:provider/database/:databaseID",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "The name of the provider, such as 'aws', 'azure' or 'gcp'"
+              },
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "The ID for the database"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a VPC peering connection for an Astra database on the given cloud provider"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

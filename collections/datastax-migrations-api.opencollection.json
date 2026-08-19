@@ -1,0 +1,254 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List Migrations API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Migrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "initialize a new migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/migrations/initialize",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "concurrency",
+                "value": "",
+                "type": "query",
+                "description": "Sets the desired concurrency for the import."
+              },
+              {
+                "name": "targetSubsetSizeGB",
+                "value": "",
+                "type": "query",
+                "description": "Sets the target subset size for the import."
+              }
+            ]
+          },
+          "docs": "Initialize a new SSTables based migration."
+        },
+        {
+          "info": {
+            "name": "initialize a new migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/datacenters/:datacenterID/migrations/initialize",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "datacenterID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the datacenter ID"
+              },
+              {
+                "name": "concurrency",
+                "value": "",
+                "type": "query",
+                "description": "Sets the desired concurrency for the import."
+              },
+              {
+                "name": "targetSubsetSizeGB",
+                "value": "",
+                "type": "query",
+                "description": "Sets the target subset size for the import."
+              },
+              {
+                "name": "option.*",
+                "value": "",
+                "type": "query",
+                "description": "Optional SSTable Import parameters. E.g. ?option.targetSubsetSizeGb=6.5. These options are not exposed via the devops API."
+              }
+            ]
+          },
+          "docs": "Initialize a new SSTables based migration."
+        },
+        {
+          "info": {
+            "name": "launch a migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/migrations/:migrationID/launch",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "migrationID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the active migration ID"
+              }
+            ]
+          },
+          "docs": "Launch an SSTables based migration."
+        },
+        {
+          "info": {
+            "name": "pause a migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/migrations/:migrationID/pause",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "migrationID",
+                "value": "",
+                "type": "path",
+                "description": "string representation of the active migration ID"
+              }
+            ]
+          },
+          "docs": "pause a migration in the import phase"
+        },
+        {
+          "info": {
+            "name": "resume a paused migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/migrations/:migrationID/resume",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "migrationID",
+                "value": "",
+                "type": "path",
+                "description": "string representation of the active migration ID"
+              }
+            ]
+          },
+          "docs": "resume a migration in the paused phase"
+        },
+        {
+          "info": {
+            "name": "abort a migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/migrations/:migrationID/abort",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "migrationID",
+                "value": "",
+                "type": "path",
+                "description": "string representation of the active migration ID"
+              }
+            ]
+          },
+          "docs": "abort a migration"
+        },
+        {
+          "info": {
+            "name": "cleanup a migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/migrations/:migrationID/cleanup",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "migrationID",
+                "value": "",
+                "type": "path",
+                "description": "string representation of the active migration ID"
+              },
+              {
+                "name": "option.cleanupTime",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter indicating the desired time of the cleanup. Format: unix timestamp, e.g. 2024-09-06T15:30:00Z"
+              }
+            ]
+          },
+          "docs": "deletes all artifacts after a concluded migration (complete/failed/aborted)"
+        },
+        {
+          "info": {
+            "name": "get migration status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/databases/:databaseID/migrations/:migrationID",
+            "params": [
+              {
+                "name": "databaseID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the database ID"
+              },
+              {
+                "name": "migrationID",
+                "value": "",
+                "type": "path",
+                "description": "String representation of the active migration ID"
+              }
+            ]
+          },
+          "docs": "Get status information about an SSTables based migration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

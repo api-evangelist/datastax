@@ -1,0 +1,2578 @@
+{
+  "item": [
+    {
+      "id": "74594172-65d1-45aa-8c88-35de3fd96054",
+      "name": "PCU",
+      "description": {
+        "content": "Use the DevOps API to manage provisioned capacity units for eligible organizations and databases.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d3d5188c-d687-4d28-a88f-b503d5aad3db",
+          "name": "Gets the PCU groups",
+          "request": {
+            "name": "Gets the PCU groups",
+            "description": {
+              "content": "Gets the PCU groups",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "actions",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pcuGroupUUIDs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31654b7b-ca47-47b5-8743-128cc49a0257",
+              "name": "Returns the PCU group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "actions",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pcuGroupUUIDs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"orgId\": \"org-id\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"string\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"pcuType\": {\n      \"type\": \"standard\",\n      \"region\": \"eu-west-1\",\n      \"provider\": \"aws\",\n      \"details\": {\n        \"vCPU\": 9719,\n        \"memory\": \"string\",\n        \"disk_cache\": \"string\"\n      }\n    },\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some description\",\n    \"createdAt\": \"2021-06-01T12:00:00.000Z\",\n    \"updatedAt\": \"2021-06-01T12:00:00.000Z\",\n    \"createdBy\": \"user\",\n    \"updatedBy\": \"user\",\n    \"status\": \"INITIALIZING\"\n  },\n  {\n    \"uuid\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"orgId\": \"org-id\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"string\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"pcuType\": {\n      \"type\": \"standard\",\n      \"region\": \"eu-west-1\",\n      \"provider\": \"aws\",\n      \"details\": {\n        \"vCPU\": 7928,\n        \"memory\": \"string\",\n        \"disk_cache\": \"string\"\n      }\n    },\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some description\",\n    \"createdAt\": \"2021-06-01T12:00:00.000Z\",\n    \"updatedAt\": \"2021-06-01T12:00:00.000Z\",\n    \"createdBy\": \"user\",\n    \"updatedBy\": \"user\",\n    \"status\": \"INITIALIZING\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b6e7869-3668-44de-b7c8-ec769fcd0ce9",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "actions",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pcuGroupUUIDs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8ec15bf-1315-4b44-b698-f2b235c408e6",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "actions",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pcuGroupUUIDs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36f73db1-855c-44e5-b358-d47f50afa8b5",
+          "name": "Gets the PCU Types",
+          "request": {
+            "name": "Gets the PCU Types",
+            "description": {
+              "content": "Gets the PCU Types",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"region\": \"<string>\",\n  \"provider\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "422cb184-7f8c-4311-b00d-1c893076bcf9",
+              "name": "Returns the PCU Types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"region\": \"eu-west1\",\n  \"provider\": \"shared\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"type\": \"standard\",\n    \"region\": \"eu-west-1\",\n    \"provider\": \"aws\",\n    \"details\": {\n      \"vCPU\": 760,\n      \"memory\": \"string\",\n      \"disk_cache\": \"string\"\n    }\n  },\n  {\n    \"type\": \"standard\",\n    \"region\": \"eu-west-1\",\n    \"provider\": \"aws\",\n    \"details\": {\n      \"vCPU\": 1256,\n      \"memory\": \"string\",\n      \"disk_cache\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90ccfeaa-214a-45e1-8b5f-acaabfc5ef24",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"region\": \"eu-west1\",\n  \"provider\": \"shared\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffd2ecea-d51a-4cdb-98bf-3f66459c4b00",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"region\": \"eu-west1\",\n  \"provider\": \"shared\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9c6f5b7-f0de-41e2-81c8-ae7854ea8bb7",
+          "name": "Gets the PCU Group that contains the Datacenter UUID",
+          "request": {
+            "name": "Gets the PCU Group that contains the Datacenter UUID",
+            "description": {
+              "content": "Given datacenter UUID it retrieves the PCU Group that this datacenter belongs to, if any",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "actions",
+                "get",
+                ":datacenterUUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "datacenterUUID",
+                  "description": "(Required) The DatacenterUUID we want the PCU Group for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33ac9c6d-889e-4954-aeda-8b9837410a1b",
+              "name": "Returns the PCU Group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "actions",
+                    "get",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The DatacenterUUID we want the PCU Group for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"orgId\": \"org-id\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"string\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"pcuType\": {\n      \"type\": \"standard\",\n      \"region\": \"eu-west-1\",\n      \"provider\": \"aws\",\n      \"details\": {\n        \"vCPU\": 9719,\n        \"memory\": \"string\",\n        \"disk_cache\": \"string\"\n      }\n    },\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some description\",\n    \"createdAt\": \"2021-06-01T12:00:00.000Z\",\n    \"updatedAt\": \"2021-06-01T12:00:00.000Z\",\n    \"createdBy\": \"user\",\n    \"updatedBy\": \"user\",\n    \"status\": \"INITIALIZING\"\n  },\n  {\n    \"uuid\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"orgId\": \"org-id\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"string\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"pcuType\": {\n      \"type\": \"standard\",\n      \"region\": \"eu-west-1\",\n      \"provider\": \"aws\",\n      \"details\": {\n        \"vCPU\": 7928,\n        \"memory\": \"string\",\n        \"disk_cache\": \"string\"\n      }\n    },\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some description\",\n    \"createdAt\": \"2021-06-01T12:00:00.000Z\",\n    \"updatedAt\": \"2021-06-01T12:00:00.000Z\",\n    \"createdBy\": \"user\",\n    \"updatedBy\": \"user\",\n    \"status\": \"INITIALIZING\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c9c3f9f-4b8e-46b0-8358-91d63603576f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "actions",
+                    "get",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The DatacenterUUID we want the PCU Group for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab95dc60-b7c1-4b98-8a27-411f35f59d29",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "actions",
+                    "get",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The DatacenterUUID we want the PCU Group for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b8d303f-f06d-41d5-9c29-633ee856f548",
+          "name": "Deletes a PCU Group",
+          "request": {
+            "name": "Deletes a PCU Group",
+            "description": {
+              "content": "Deletes a flexible capacity PCU group, based on the given PCU Group UUID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                ":pcuGroupUUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pcuGroupUUID",
+                  "description": "(Required) The PCU Group UUID to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77de8316-f6e8-47ed-ab3c-dd2a2632a42a",
+              "name": "PCU Group deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "90742986-5dcb-4633-b1e1-ed7297462b2e",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3f509c7-3fbc-44b6-9c56-b54f48cf6811",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8dc574e0-da68-4846-8392-f04c9d635b50",
+          "name": "Creates a PCU group",
+          "request": {
+            "name": "Creates a PCU group",
+            "description": {
+              "content": "Given PCU group information, creates a PCU group",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"orgID\": \"<string>\",\n    \"title\": \"<string>\",\n    \"cloudProvider\": \"<string>\",\n    \"region\": \"<string>\",\n    \"instanceType\": \"<string>\",\n    \"provisionType\": \"<string>\",\n    \"min\": \"<integer>\",\n    \"max\": \"<integer>\",\n    \"reserved\": \"<integer>\",\n    \"description\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31c958c2-6d31-40aa-b971-8cc130442f75",
+              "name": "Returns the created PCU groups",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"orgID\": \"some-org\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"<string>\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some-description\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"orgId\": \"org-id\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"string\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"pcuType\": {\n      \"type\": \"standard\",\n      \"region\": \"eu-west-1\",\n      \"provider\": \"aws\",\n      \"details\": {\n        \"vCPU\": 9719,\n        \"memory\": \"string\",\n        \"disk_cache\": \"string\"\n      }\n    },\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some description\",\n    \"createdAt\": \"2021-06-01T12:00:00.000Z\",\n    \"updatedAt\": \"2021-06-01T12:00:00.000Z\",\n    \"createdBy\": \"user\",\n    \"updatedBy\": \"user\",\n    \"status\": \"INITIALIZING\"\n  },\n  {\n    \"uuid\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"orgId\": \"org-id\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"string\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"pcuType\": {\n      \"type\": \"standard\",\n      \"region\": \"eu-west-1\",\n      \"provider\": \"aws\",\n      \"details\": {\n        \"vCPU\": 7928,\n        \"memory\": \"string\",\n        \"disk_cache\": \"string\"\n      }\n    },\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some description\",\n    \"createdAt\": \"2021-06-01T12:00:00.000Z\",\n    \"updatedAt\": \"2021-06-01T12:00:00.000Z\",\n    \"createdBy\": \"user\",\n    \"updatedBy\": \"user\",\n    \"status\": \"INITIALIZING\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4132dc34-c681-4387-8ea7-0891e3a4da74",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"orgID\": \"some-org\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"<string>\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some-description\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ee6cc25-5a39-4878-be63-153aeca5dcda",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"orgID\": \"some-org\",\n    \"title\": \"some title\",\n    \"cloudProvider\": \"<string>\",\n    \"region\": \"us-east-1\",\n    \"instanceType\": \"standard\",\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some-description\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28c465d5-579a-4ec7-9de9-4f78d97e4a6f",
+          "name": "Updates one or more PCU groups",
+          "request": {
+            "name": "Updates one or more PCU groups",
+            "description": {
+              "content": "Given PCU group information, updates the PCU groups",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"pcuGroupUUID\": \"<string>\",\n    \"title\": \"<string>\",\n    \"instanceType\": \"<string>\",\n    \"provisionType\": \"<string>\",\n    \"min\": \"<integer>\",\n    \"max\": \"<integer>\",\n    \"reserved\": \"<integer>\",\n    \"description\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e064309c-7a77-44a0-bbd6-924b5a74bfc6",
+              "name": "PCU groups updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"pcuGroupUUID\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"title\": \"some title\",\n    \"instanceType\": \"standard\",\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some-description\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2bfaf9c7-0ca1-48a2-a32f-551555746451",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"pcuGroupUUID\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"title\": \"some title\",\n    \"instanceType\": \"standard\",\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some-description\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7dc8b0e9-0d23-4bbd-b397-eac76859c2e1",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"pcuGroupUUID\": \"9aaddbb5-4622-447c-9bc5-b036bb9d7ed8\",\n    \"title\": \"some title\",\n    \"instanceType\": \"standard\",\n    \"provisionType\": \"shared\",\n    \"min\": 1,\n    \"max\": 1,\n    \"reserved\": 1,\n    \"description\": \"some-description\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0075ac51-58c4-446c-9c76-5d0426b66e27",
+          "name": "Gets a PCU group UUID returns all associated datacenters and their status",
+          "request": {
+            "name": "Gets a PCU group UUID returns all associated datacenters and their status",
+            "description": {
+              "content": "Given a PCU group UUID, returns all associated datacenters and their status",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "association",
+                ":pcuGroupUUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pcuGroupUUID",
+                  "description": "(Required) The PCU group UUID to get the associated datacenters and their status"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "36e1392a-5a2c-4371-9a0f-ac047e89dfb0",
+              "name": "Returns the associated datacenters and their status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID to get the associated datacenters and their status"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"datacenterUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n    \"pcuGroupUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n    \"provisioningStatus\": \"Accepted\",\n    \"createdAt\": \"2021-06-01T12:00:00.000Z\",\n    \"updatedAt\": \"2021-06-01T12:00:00.000Z\",\n    \"createdBy\": \"user\",\n    \"updatedBy\": \"user\"\n  },\n  {\n    \"datacenterUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n    \"pcuGroupUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n    \"provisioningStatus\": \"Accepted\",\n    \"createdAt\": \"2021-06-01T12:00:00.000Z\",\n    \"updatedAt\": \"2021-06-01T12:00:00.000Z\",\n    \"createdBy\": \"user\",\n    \"updatedBy\": \"user\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfd1cade-bfd7-421b-867b-6b48aa8f4d6e",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID to get the associated datacenters and their status"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3f3f4da-0071-480f-a878-ece30cc90582",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID to get the associated datacenters and their status"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ae6adde-4428-4375-9ddd-2d25c93fd4ad",
+          "name": "Transfers a PCU group association",
+          "request": {
+            "name": "Transfers a PCU group association",
+            "description": {
+              "content": "Transfers a database, specified by datacenter ID, from one PCU group to another.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "association",
+                "transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromPCUGroupUUID\": \"<string>\",\n  \"toPCUGroupUUID\": \"<string>\",\n  \"datacenterUUID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "410270a6-1dda-4f6f-bc49-667bbbd14599",
+              "name": "Successfully accepted the PCU Association Transfer request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromPCUGroupUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n  \"toPCUGroupUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n  \"datacenterUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626-1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5633cf7c-33a7-4869-bfb5-c919e0124c22",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromPCUGroupUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n  \"toPCUGroupUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n  \"datacenterUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626-1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c067c42-0f95-4f74-bf72-c106e36eafaa",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromPCUGroupUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n  \"toPCUGroupUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626\",\n  \"datacenterUUID\": \"48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626-1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d08d7cf4-616e-4b91-861f-5042461f3fc5",
+          "name": "Creates a PCU group association",
+          "request": {
+            "name": "Creates a PCU group association",
+            "description": {
+              "content": "Given PCU group UUID and datacenter UUID, creates a PCU group association",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "association",
+                ":pcuGroupUUID",
+                ":datacenterUUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pcuGroupUUID",
+                  "description": "(Required) The PCU group UUID part of this association"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "datacenterUUID",
+                  "description": "(Required) The datacenter UUID part of this association"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea0d29d8-3ec4-48a9-81ca-6d1092da5a62",
+              "name": "Created PCU association",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID part of this association"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The datacenter UUID part of this association"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22ad0b9e-3497-4d68-90ee-9177284fdd50",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID part of this association"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The datacenter UUID part of this association"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20341ea9-6688-484a-9502-3a723cae998b",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID part of this association"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The datacenter UUID part of this association"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d5aece8-c18b-4724-b7a3-3e5308023622",
+          "name": "Deletes a PCU group association",
+          "request": {
+            "name": "Deletes a PCU group association",
+            "description": {
+              "content": "Given datacenter UUID and PCU group UUID, delete the association",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "association",
+                ":pcuGroupUUID",
+                ":datacenterUUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pcuGroupUUID",
+                  "description": "(Required) The PCU group UUID part of this association"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "datacenterUUID",
+                  "description": "(Required) The datacenter UUID part of this association"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c0dcb6f-8685-431e-9ef8-dfa1ac4292bb",
+              "name": "PCU association deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID part of this association"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The datacenter UUID part of this association"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad21e16e-523f-4367-bf0d-50d1a8dbb736",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID part of this association"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The datacenter UUID part of this association"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c2e21ef-c92d-49fb-a9ae-ab4750153587",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "association",
+                    ":pcuGroupUUID",
+                    ":datacenterUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU group UUID part of this association"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datacenterUUID",
+                      "description": "(Required) The datacenter UUID part of this association"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fdfc322c-c715-4d83-bb7d-c73cad2515e6",
+          "name": "Parks a PCU group",
+          "request": {
+            "name": "Parks a PCU group",
+            "description": {
+              "content": "Parks a flexible capacity PCU group",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "park",
+                ":pcuGroupUUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pcuGroupUUID",
+                  "description": "(Required) The PCU Group UUID to park"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b920f0c-ce71-4275-baac-070c2942c24d",
+              "name": "Successfully initialized the parking operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "park",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to park"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e9bbdb0b-2489-4ef3-889b-21caa00be13a",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "park",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to park"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23cc122e-645c-490c-bb18-a97f2de0b26e",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "park",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to park"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5dcf120b-8b5e-42be-aa38-ec9b692fba9d",
+          "name": "Unparks a PCU group",
+          "request": {
+            "name": "Unparks a PCU group",
+            "description": {
+              "content": "Unparks a flexible capacity PCU group",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "pcus",
+                "unpark",
+                ":pcuGroupUUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pcuGroupUUID",
+                  "description": "(Required) The PCU Group UUID to unpark"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27bdd0cc-a510-4354-9b18-4419b0570188",
+              "name": "Successfully initialized the unparking operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "unpark",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to unpark"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8bbb53da-d6fc-4b8b-ba16-b245657a8e57",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "unpark",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to unpark"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90ccae6c-1a6c-4b3c-8c4f-5ec6af55ff16",
+              "name": "A server error occurred",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pcus",
+                    "unpark",
+                    ":pcuGroupUUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pcuGroupUUID",
+                      "description": "(Required) The PCU Group UUID to unpark"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    },\n    {\n      \"message\": \"Something is broken\",\n      \"ID\": 123\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.astra.datastax.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0076c9c3-3a4f-4123-a5b5-56a50a27f5b6",
+    "name": "Astra DevOps Access List PCU API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.\n\nContact Support:\n Email: ad-astra@datastax.com",
+      "type": "text/plain"
+    }
+  }
+}

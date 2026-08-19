@@ -1,0 +1,244 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List PCU API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PCU",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets the PCU groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/pcus/actions/get",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Gets the PCU groups"
+        },
+        {
+          "info": {
+            "name": "Gets the PCU Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/pcus/types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Gets the PCU Types"
+        },
+        {
+          "info": {
+            "name": "Gets the PCU Group that contains the Datacenter UUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/pcus/actions/get/:datacenterUUID",
+            "params": [
+              {
+                "name": "datacenterUUID",
+                "value": "",
+                "type": "path",
+                "description": "The DatacenterUUID we want the PCU Group for"
+              }
+            ]
+          },
+          "docs": "Given datacenter UUID it retrieves the PCU Group that this datacenter belongs to, if any"
+        },
+        {
+          "info": {
+            "name": "Deletes a PCU Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/pcus/:pcuGroupUUID",
+            "params": [
+              {
+                "name": "pcuGroupUUID",
+                "value": "",
+                "type": "path",
+                "description": "The PCU Group UUID to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a flexible capacity PCU group, based on the given PCU Group UUID."
+        },
+        {
+          "info": {
+            "name": "Creates a PCU group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/pcus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Given PCU group information, creates a PCU group"
+        },
+        {
+          "info": {
+            "name": "Updates one or more PCU groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/pcus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Given PCU group information, updates the PCU groups"
+        },
+        {
+          "info": {
+            "name": "Gets a PCU group UUID returns all associated datacenters and their status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/pcus/association/:pcuGroupUUID",
+            "params": [
+              {
+                "name": "pcuGroupUUID",
+                "value": "",
+                "type": "path",
+                "description": "The PCU group UUID to get the associated datacenters and their status"
+              }
+            ]
+          },
+          "docs": "Given a PCU group UUID, returns all associated datacenters and their status"
+        },
+        {
+          "info": {
+            "name": "Transfers a PCU group association",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/pcus/association/transfer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transfers a database, specified by datacenter ID, from one PCU group to another."
+        },
+        {
+          "info": {
+            "name": "Creates a PCU group association",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/pcus/association/:pcuGroupUUID/:datacenterUUID",
+            "params": [
+              {
+                "name": "pcuGroupUUID",
+                "value": "",
+                "type": "path",
+                "description": "The PCU group UUID part of this association"
+              },
+              {
+                "name": "datacenterUUID",
+                "value": "",
+                "type": "path",
+                "description": "The datacenter UUID part of this association"
+              }
+            ]
+          },
+          "docs": "Given PCU group UUID and datacenter UUID, creates a PCU group association"
+        },
+        {
+          "info": {
+            "name": "Deletes a PCU group association",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/pcus/association/:pcuGroupUUID/:datacenterUUID",
+            "params": [
+              {
+                "name": "pcuGroupUUID",
+                "value": "",
+                "type": "path",
+                "description": "The PCU group UUID part of this association"
+              },
+              {
+                "name": "datacenterUUID",
+                "value": "",
+                "type": "path",
+                "description": "The datacenter UUID part of this association"
+              }
+            ]
+          },
+          "docs": "Given datacenter UUID and PCU group UUID, delete the association"
+        },
+        {
+          "info": {
+            "name": "Parks a PCU group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/pcus/park/:pcuGroupUUID",
+            "params": [
+              {
+                "name": "pcuGroupUUID",
+                "value": "",
+                "type": "path",
+                "description": "The PCU Group UUID to park"
+              }
+            ]
+          },
+          "docs": "Parks a flexible capacity PCU group"
+        },
+        {
+          "info": {
+            "name": "Unparks a PCU group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/pcus/unpark/:pcuGroupUUID",
+            "params": [
+              {
+                "name": "pcuGroupUUID",
+                "value": "",
+                "type": "path",
+                "description": "The PCU Group UUID to unpark"
+              }
+            ]
+          },
+          "docs": "Unparks a flexible capacity PCU group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

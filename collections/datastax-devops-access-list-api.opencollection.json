@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astra DevOps Access List API",
+    "version": "2.3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DevOps Access List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get DevOps API Access List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astra.datastax.com/v2/organizations/:orgId/devops-acl",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Astra DB organization."
+              }
+            ]
+          },
+          "docs": "Retrieves a DevOps API Access List for a specific organization by ID."
+        },
+        {
+          "info": {
+            "name": "Create DevOps API Access List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astra.datastax.com/v2/organizations/:orgId/devops-acl",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Astra DB organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new DevOps API Access List for a specific organization by ID."
+        },
+        {
+          "info": {
+            "name": "Replace DevOps API Access List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.astra.datastax.com/v2/organizations/:orgId/devops-acl",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Astra DB organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces an existing DevOps API Access List with a new one for a specific Astra DB organization by ID."
+        },
+        {
+          "info": {
+            "name": "Update DevOps API Access List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.astra.datastax.com/v2/organizations/:orgId/devops-acl",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Astra DB organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing DevOps API Access List for a specific Astra DB organization by ID."
+        },
+        {
+          "info": {
+            "name": "Remove entire DevOps API Access List from an Astra DB organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astra.datastax.com/v2/organizations/:orgId/devops-acl",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Astra DB organization."
+              }
+            ]
+          },
+          "docs": "Removes an entire DevOps API Access List for a specific organization by ID. This will disable the DevOps API Access List feature for the specified organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
