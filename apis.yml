@@ -419,6 +419,8 @@ apis:
   humanURL: https://docs.datastax.com/en/astra-db-serverless/api-reference/devops-api.html
   baseURL: https://api.astra.datastax.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
