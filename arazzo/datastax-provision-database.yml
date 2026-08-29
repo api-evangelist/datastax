@@ -7,8 +7,11 @@ info:
     keyspace, downloads the secure-connect bundle, and issues an application token
     scoped to the org roles — all against the Astra DevOps API.
 sourceDescriptions:
-- name: devops
-  url: ../openapi/datastax-devops-openapi.json
+- name: authenticationApi
+  url: ../openapi/datastax-authentication-api-openapi.yml
+  type: openapi
+- name: databaseOperationsApi
+  url: ../openapi/datastax-database-operations-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provisionDatabaseAndToken
