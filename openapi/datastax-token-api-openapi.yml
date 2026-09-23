@@ -1,8 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  description: 'Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.
+
+
+    To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.'
   version: 2.3.0
-  title: Astra DevOps Access List Token API
+  title: Astra DevOps Token API
   contact:
     email: ad-astra@datastax.com
 servers:
@@ -170,26 +173,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
     BadRequest:
       description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
     Ok:
       description: The request completed successfully
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   schemas:
     GenerateTokenResponse:
       type: object
@@ -231,28 +234,16 @@ components:
           type: string
           description: The description for the token. If not provided, it will be empty
           example: Token for accessing Astra DB
-    ClientRole:
+    Errors:
+      description: Errors is a collection of individual Error objects
       type: object
-      description: An individual clientID and associated roles
+      required:
+      - errors
       properties:
-        clientId:
-          type: string
-          description: the clientID
-          example: IFmJlTkNvptFzTDEQpQIEJud
-        roles:
+        errors:
           type: array
           items:
-            type: string
-            description: Role associated with the client.
-    ClientRoleList:
-      type: object
-      description: The response for a requested token
-      properties:
-        clients:
-          type: array
-          description: a list of clientId and associated roles
-          items:
-            $ref: '#/components/schemas/ClientRole'
+            $ref: '#/components/schemas/Error'
     GenerateTokenBody:
       type: object
       description: The post body to generate a token
@@ -274,6 +265,19 @@ components:
           type: string
           description: Optional description for the token. If not provided, it will be empty
           example: Token for accessing Astra DB
+    ClientRole:
+      type: object
+      description: An individual clientID and associated roles
+      properties:
+        clientId:
+          type: string
+          description: the clientID
+          example: IFmJlTkNvptFzTDEQpQIEJud
+        roles:
+          type: array
+          items:
+            type: string
+            description: Role associated with the client.
     CreateTokenBody:
       type: object
       description: The post body to create a token
@@ -299,16 +303,15 @@ components:
           type: string
           description: Optional description for the token. If not provided, it will be empty
           example: Token for accessing Astra DB
-    Errors:
-      description: Errors is a collection of individual Error objects
+    ClientRoleList:
       type: object
-      required:
-      - errors
+      description: The response for a requested token
       properties:
-        errors:
+        clients:
           type: array
+          description: a list of clientId and associated roles
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ClientRole'
     Error:
       description: ModelError information that is returned to users
       type: object

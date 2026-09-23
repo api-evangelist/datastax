@@ -1,8 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  description: 'Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.
+
+
+    To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.'
   version: 2.3.0
-  title: Astra DevOps Access List Clone API
+  title: Astra DevOps Clone API
   contact:
     email: ad-astra@datastax.com
 servers:
@@ -32,7 +35,7 @@ paths:
     get:
       tags:
       - Clone
-      summary: List a database's snapshots.
+      summary: List a database's snapshots
       description: List a database's snapshots.
       security:
       - BearerAuth:
@@ -118,7 +121,7 @@ paths:
     get:
       tags:
       - Clone
-      summary: Get the status of a clone operation.
+      summary: Get the status of a clone operation
       description: Get the status of a clone operation.
       security:
       - BearerAuth:
@@ -162,14 +165,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
       content:
         application/json:
           schema:
@@ -180,36 +183,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad request
+    Forbidden:
+      description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-  parameters:
-    DatabaseIdParam:
-      in: path
-      name: databaseID
-      required: true
-      description: String representation of the database ID
-      schema:
-        type: string
   schemas:
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
     CloneStatus:
       description: Status information about an ongoing DB Clone operation.
       type: object
@@ -233,6 +213,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+  parameters:
+    DatabaseIdParam:
+      in: path
+      name: databaseID
+      required: true
+      description: String representation of the database ID
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

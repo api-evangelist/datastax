@@ -1,8 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  description: 'Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.
+
+
+    To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.'
   version: 2.3.0
-  title: Astra DevOps Access List Private Link API
+  title: Astra DevOps Private Link API
   contact:
     email: ad-astra@datastax.com
 servers:
@@ -33,7 +36,6 @@ paths:
       tags:
       - Private Link
       summary: Gets info about all private link connections for a specific org
-      description: Gets info about all private link connections for a specific org
       operationId: ListPrivateLinksForOrg
       responses:
         '200':
@@ -216,7 +218,6 @@ paths:
       tags:
       - Private Link
       summary: Remove an allowed principal from the private link service
-      description: Remove an allowed principal from the private link service
       operationId: RemoveAllowedPrincipalFromService
       parameters:
       - name: clusterID
@@ -300,7 +301,6 @@ paths:
       tags:
       - Private Link
       summary: Gets info about a private link endpoint
-      description: Gets info about a private link endpoint
       operationId: GetPrivateLinkEndpoint
       parameters:
       - name: clusterID
@@ -344,7 +344,6 @@ paths:
       tags:
       - Private Link
       summary: Update the description for a private link endpoint
-      description: Update the description for a private link endpoint
       operationId: UpdateEndpointDescription
       parameters:
       - name: clusterID
@@ -394,7 +393,6 @@ paths:
       tags:
       - Private Link
       summary: Reject an endpoint from the private link service
-      description: Reject an endpoint from the private link service
       operationId: RejectEndpoint
       parameters:
       - name: clusterID
@@ -432,7 +430,7 @@ paths:
     get:
       tags:
       - Private Link
-      summary: Return the list of custom domains used by an organization for access via one or more private links.
+      summary: Return the list of custom domains used by an organization for access via one or…
       description: Returns a list of custom domains used by an organization. The list contains those user defined domain names or domain name prefixes that are used as suffixes when accessing the databases in the various datacenters via private links.
       operationId: getCustomDomains
       responses:
@@ -455,7 +453,7 @@ paths:
     post:
       tags:
       - Private Link
-      summary: Define a new set of custom domains for usage with private links.
+      summary: Define a new set of custom domains for usage with private links
       description: Sets a set of custom domains used by an organization. The input list should contain those user defined domain names or domain name prefixes that will be used as suffixes when accessing the databases in the various datacenters via private links.
       operationId: setCustomDomains
       requestBody:
@@ -479,6 +477,13 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    PrivateLinkCreateConfigOutput:
+      type: object
+      properties:
+        serviceName:
+          $ref: '#/components/schemas/ServiceName'
+        allowedPrincipals:
+          $ref: '#/components/schemas/AllowedPrincipals'
     PrivateLinkUpdateEndpointInput:
       type: object
       properties:
@@ -486,6 +491,14 @@ components:
           type: string
           description: User defined description of the endpoint
           example: ecomm-team-billing-app
+    PrivateLinkOrgOutput:
+      type: object
+      properties:
+        clusters:
+          type: array
+          description: List of endpoints for a cluster
+          items:
+            $ref: '#/components/schemas/PrivateLinkClusterOutput'
     PrivateLinkDatacenterOutput:
       type: object
       properties:
@@ -501,25 +514,6 @@ components:
           description: List of endpoints associated with the given org-cluster-dc combo
           items:
             $ref: '#/components/schemas/PrivateLinkEndpoint'
-    PrivateLinkClusterOutput:
-      type: object
-      properties:
-        clusterID:
-          type: string
-          description: Cluster ID for all private links connected to the cluster's datacenters
-        datacenters:
-          type: array
-          description: List of endpoints for a datacenter
-          items:
-            $ref: '#/components/schemas/PrivateLinkDatacenterOutput'
-    PrivateLinkOrgOutput:
-      type: object
-      properties:
-        clusters:
-          type: array
-          description: List of endpoints for a cluster
-          items:
-            $ref: '#/components/schemas/PrivateLinkClusterOutput'
     AllowedPrincipals:
       type: array
       description: List of principals to do action for private link
@@ -527,37 +521,16 @@ components:
       - arn:aws:iam::123456789012:role/admin
       items:
         type: string
-    ServiceName:
-      type: string
-      description: The given endpoint service for the user to connect to
-      example: com.amazonaws.vpce.us-east-1.vpce-svc-1148ea04af491da11
-    PrivateLinkCreateConfigInput:
-      type: object
-      properties:
-        allowedPrincipals:
-          $ref: '#/components/schemas/AllowedPrincipals'
-    Error:
-      description: ModelError information that is returned to users
+    Errors:
+      description: Errors is a collection of individual Error objects
       type: object
       required:
-      - id
-      - message
+      - errors
       properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
-    PrivateLinkCreateConfigOutput:
-      type: object
-      properties:
-        serviceName:
-          $ref: '#/components/schemas/ServiceName'
-        allowedPrincipals:
-          $ref: '#/components/schemas/AllowedPrincipals'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     PrivateLinkDeleteConfigInput:
       type: object
       properties:
@@ -565,6 +538,17 @@ components:
           type: string
           description: The allowed-principal
           example: arn:aws:iam::123456789012:role/admin
+    PrivateLinkCreateEndpointInput:
+      type: object
+      properties:
+        endpointID:
+          type: string
+          description: The user's endpoint created in their cloud provider account
+          example: vpce-svc-1148ea04af8675309
+        description:
+          type: string
+          description: The human readable description of the endpoint
+          example: ecomm-team-billing-app-prod
     PrivateLinkEndpoint:
       type: object
       properties:
@@ -591,27 +575,41 @@ components:
           type: string
           description: The datetime that the private link connection was created
           example: '2009-11-10T23:00:00'
-    PrivateLinkCreateEndpointInput:
+    PrivateLinkCreateConfigInput:
       type: object
       properties:
-        endpointID:
+        allowedPrincipals:
+          $ref: '#/components/schemas/AllowedPrincipals'
+    PrivateLinkClusterOutput:
+      type: object
+      properties:
+        clusterID:
           type: string
-          description: The user's endpoint created in their cloud provider account
-          example: vpce-svc-1148ea04af8675309
-        description:
-          type: string
-          description: The human readable description of the endpoint
-          example: ecomm-team-billing-app-prod
-    Errors:
-      description: Errors is a collection of individual Error objects
+          description: Cluster ID for all private links connected to the cluster's datacenters
+        datacenters:
+          type: array
+          description: List of endpoints for a datacenter
+          items:
+            $ref: '#/components/schemas/PrivateLinkDatacenterOutput'
+    Error:
+      description: ModelError information that is returned to users
       type: object
       required:
-      - errors
+      - id
+      - message
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    ServiceName:
+      type: string
+      description: The given endpoint service for the user to connect to
+      example: com.amazonaws.vpce.us-east-1.vpce-svc-1148ea04af491da11
   responses:
     ServerError:
       description: A server error occurred
@@ -619,14 +617,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
       content:
         application/json:
           schema:

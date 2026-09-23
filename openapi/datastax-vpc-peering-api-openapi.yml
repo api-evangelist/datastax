@@ -1,8 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  description: 'Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.
+
+
+    To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.'
   version: 2.3.0
-  title: Astra DevOps Access List VPC Peering API
+  title: Astra DevOps VPC Peering API
   contact:
     email: ad-astra@datastax.com
 servers:
@@ -32,7 +35,7 @@ paths:
     get:
       tags:
       - VPC Peering
-      summary: Retrieves VPC peering connection information for an Astra database in a given cloud provider
+      summary: Retrieves VPC peering connection information for an Astra database in a given…
       description: Retrieves VPC peering connection details (if any exist) for Astra database
       operationId: GetVPCPeeringConnectionDetails
       security:
@@ -171,12 +174,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
     NotFound:
       description: The specified database was not found
       content:
@@ -185,41 +182,13 @@ components:
             $ref: '#/components/schemas/Errors'
     NoContent:
       description: The request succeeded and no content is returned in response body
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   schemas:
-    AzureVPC:
-      description: Details about an Azure virtual private cloud
-      type: object
-      required:
-      - tenantId
-      - subscriptionId
-      - resourceGroupName
-      - virtualNetworkName
-      properties:
-        tenantId:
-          type: string
-          description: ID of the Azure tenant the subscription resides in
-        subscriptionId:
-          type: string
-          description: ID of the subscription the resource group and virtual network reside in
-        resourceGroupName:
-          type: string
-          description: Name of the Resource Group the virtual network resides in
-        virtualNetworkName:
-          type: string
-          description: Name of the Virtual Network the peering is connecting to
-    GoogleVPC:
-      description: Details about a GCP virtual private cloud
-      type: object
-      required:
-      - projectId
-      - vpcNetworkName
-      properties:
-        projectId:
-          type: string
-          description: ID of the GPC project the VPC belongs to
-        vpcNetworkName:
-          type: string
-          description: Unique identifier for the VPC
     VPCConnection:
       description: A VPC peering connection with an Astra database
       type: object
@@ -241,21 +210,50 @@ components:
         otherVpc:
           description: Details about the VPC peered to the Astra database's VPC
           $ref: '#/components/schemas/VPC'
-    Error:
-      description: ModelError information that is returned to users
+    Errors:
+      description: Errors is a collection of individual Error objects
       type: object
       required:
-      - id
-      - message
+      - errors
       properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    GoogleVPC:
+      description: Details about a GCP virtual private cloud
+      type: object
+      required:
+      - projectId
+      - vpcNetworkName
+      properties:
+        projectId:
           type: string
-          example: Something is broken
-          description: User-friendly description of error
+          description: ID of the GPC project the VPC belongs to
+        vpcNetworkName:
+          type: string
+          description: Unique identifier for the VPC
+    AzureVPC:
+      description: Details about an Azure virtual private cloud
+      type: object
+      required:
+      - tenantId
+      - subscriptionId
+      - resourceGroupName
+      - virtualNetworkName
+      properties:
+        tenantId:
+          type: string
+          description: ID of the Azure tenant the subscription resides in
+        subscriptionId:
+          type: string
+          description: ID of the subscription the resource group and virtual network reside in
+        resourceGroupName:
+          type: string
+          description: Name of the Resource Group the virtual network resides in
+        virtualNetworkName:
+          type: string
+          description: Name of the Virtual Network the peering is connecting to
     AmazonVPC:
       description: Details about an AWS virtual private cloud
       type: object
@@ -283,16 +281,6 @@ components:
           description: The CIDR block available for this VPC
           pattern: ^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$
           example: 137.187.23.0/24
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     VPC:
       description: Details about a virtual private cloud
       type: object
@@ -317,6 +305,21 @@ components:
           description: The CIDR block available for this VPC
           pattern: ^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$
           example: 137.187.23.0/24
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

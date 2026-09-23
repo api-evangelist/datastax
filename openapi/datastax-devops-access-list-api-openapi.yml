@@ -1,8 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.</br> </br> To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.
+  description: 'Use this REST API to manage your DataStax Astra DB organizations and perform lifecycle actions for your Astra DB databases.
+
+
+    To get started, use the /v2/clientIdSecrets endpoints to create a token to authenticate your API calls.'
   version: 2.3.0
-  title: Astra DevOps Access List API
+  title: Astra DevOps DevOps Access List API
   contact:
     email: ad-astra@datastax.com
 servers:
@@ -56,6 +59,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/ServerError'
+      operationId: getV2OrganizationsByOrgIdDevopsAcl
+      x-operation-id-source: derived
     post:
       tags:
       - DevOps Access List
@@ -96,6 +101,8 @@ paths:
           $ref: '#/components/responses/Conflict'
         '500':
           $ref: '#/components/responses/ServerError'
+      operationId: postV2OrganizationsByOrgIdDevopsAcl
+      x-operation-id-source: derived
     put:
       tags:
       - DevOps Access List
@@ -132,6 +139,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/ServerError'
+      operationId: putV2OrganizationsByOrgIdDevopsAcl
+      x-operation-id-source: derived
     patch:
       tags:
       - DevOps Access List
@@ -168,10 +177,12 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/ServerError'
+      operationId: patchV2OrganizationsByOrgIdDevopsAcl
+      x-operation-id-source: derived
     delete:
       tags:
       - DevOps Access List
-      summary: Remove entire DevOps API Access List from an Astra DB organization.
+      summary: Remove entire DevOps API Access List from an Astra DB organization
       description: Removes an entire DevOps API Access List for a specific organization by ID. This will disable the DevOps API Access List feature for the specified organization.
       parameters:
       - in: path
@@ -191,8 +202,66 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/ServerError'
+      operationId: deleteV2OrganizationsByOrgIdDevopsAcl
+      x-operation-id-source: derived
 components:
+  responses:
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Conflict:
+      description: The database is not in a valid state to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   schemas:
+    DevOpsAccessListResponse:
+      description: Response to get call
+      type: object
+      properties:
+        addresses:
+          type: array
+          description: A list of allowed addresses that can make DevOps API calls.
+          items:
+            $ref: '#/components/schemas/DevOpsAclAddress'
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     DevOpsIpAddress:
       description: Request to create an access list with a list of IP addresses.
       type: object
@@ -206,30 +275,6 @@ components:
         enabled:
           type: boolean
           description: Flag stating whether this address is in use.
-    DevOpsAccessListResponse:
-      description: Response to get call
-      type: object
-      properties:
-        addresses:
-          type: array
-          description: A list of allowed addresses that can make DevOps API calls.
-          items:
-            $ref: '#/components/schemas/DevOpsAclAddress'
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
     DevOpsAclAddress:
       description: Represents the CIDR or IP that Astra DB stores to keep track of the access list for the DevOps API.
       type: object
@@ -249,53 +294,21 @@ components:
         createdAt:
           type: string
           description: Timestamp of when this object was created.
-    Errors:
-      description: Errors is a collection of individual Error objects
+    Error:
+      description: ModelError information that is returned to users
       type: object
       required:
-      - errors
+      - id
+      - message
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-  responses:
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Conflict:
-      description: The database is not in a valid state to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html
