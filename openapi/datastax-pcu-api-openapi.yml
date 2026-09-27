@@ -330,30 +330,21 @@ paths:
         5XX:
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
   schemas:
-    Errors:
-      description: Errors is a collection of individual Error objects
+    PCUGroupTypeDetails:
       type: object
-      required:
-      - errors
+      description: This object holds the details regarding the PCU Type
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        vCPU:
+          type: integer
+          format: int32
+          description: vCPUs for this pcu type
+        memory:
+          type: string
+          description: memory for this pcu type
+        disk_cache:
+          type: string
+          description: disk cache for this pcu type
     PCUGroup:
       type: object
       description: PCU Group Model
@@ -443,20 +434,24 @@ components:
           type: string
           description: The Datacenter UUID that is part of the fromPCUGroupUUID which we want to move to the toPCUGroupUUID
           example: 48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626-1
-    PCUGroupTypeDetails:
+    PCUGroupTypeResponse:
       type: object
-      description: This object holds the details regarding the PCU Type
+      description: This object is used for the response of the PCU Group types request
       properties:
-        vCPU:
-          type: integer
-          format: int32
-          description: vCPUs for this pcu type
-        memory:
+        type:
           type: string
-          description: memory for this pcu type
-        disk_cache:
+          description: the size of the PCU Group type given the PCU Group types request
+          example: standard
+        region:
           type: string
-          description: disk cache for this pcu type
+          description: the region of that PCU Group type given the PCU Group types request
+          example: eu-west-1
+        provider:
+          type: string
+          description: the provider (cloud) of the PCU Group type given the PCU Group types request
+          example: aws
+        details:
+          $ref: '#/components/schemas/PCUGroupTypeDetails'
     PCUGroupTypesRequest:
       type: object
       description: This object is used to fetch the types available for PCU Group
@@ -480,53 +475,6 @@ components:
           items:
             type: string
             example: 1
-    PCUGroupCreateRequest:
-      type: object
-      description: PCU Group Create Request Model
-      properties:
-        orgID:
-          type: string
-          description: OrganizationID of the PCU group, ignored for authenticated users
-          example: some-org
-        title:
-          type: string
-          description: Title of the PCU group
-          example: some title
-        cloudProvider:
-          type: string
-          description: Cloud provider of the PCU group
-          example:
-          - AWS
-          - GCP
-          - AZURE
-        region:
-          type: string
-          description: Region of the PCU group
-          example: us-east-1
-        instanceType:
-          type: string
-          description: Instance type of the PCU group
-          example: standard
-        provisionType:
-          type: string
-          description: Provision type of the PCU group
-          example: shared
-        min:
-          type: integer
-          description: Minimum shared hourly PCUs in the PCU group
-          example: 1
-        max:
-          type: integer
-          description: Maximum shared hourly PCUs in the PCU group
-          example: 1
-        reserved:
-          type: integer
-          description: Absolute required PCUs in the PCU group
-          example: 1
-        description:
-          type: string
-          description: Description of the PCU group
-          example: some-description
     PCUAssociation:
       type: object
       description: PCUAssociation information
@@ -559,24 +507,6 @@ components:
           type: string
           description: User who updated the PCU association
           example: user
-    PCUGroupTypeResponse:
-      type: object
-      description: This object is used for the response of the PCU Group types request
-      properties:
-        type:
-          type: string
-          description: the size of the PCU Group type given the PCU Group types request
-          example: standard
-        region:
-          type: string
-          description: the region of that PCU Group type given the PCU Group types request
-          example: eu-west-1
-        provider:
-          type: string
-          description: the provider (cloud) of the PCU Group type given the PCU Group types request
-          example: aws
-        details:
-          $ref: '#/components/schemas/PCUGroupTypeDetails'
     Error:
       description: ModelError information that is returned to users
       type: object
@@ -628,6 +558,76 @@ components:
           type: string
           description: Description of the PCU group
           example: some-description
+    PCUGroupCreateRequest:
+      type: object
+      description: PCU Group Create Request Model
+      properties:
+        orgID:
+          type: string
+          description: OrganizationID of the PCU group, ignored for authenticated users
+          example: some-org
+        title:
+          type: string
+          description: Title of the PCU group
+          example: some title
+        cloudProvider:
+          type: string
+          description: Cloud provider of the PCU group
+          example:
+          - AWS
+          - GCP
+          - AZURE
+        region:
+          type: string
+          description: Region of the PCU group
+          example: us-east-1
+        instanceType:
+          type: string
+          description: Instance type of the PCU group
+          example: standard
+        provisionType:
+          type: string
+          description: Provision type of the PCU group
+          example: shared
+        min:
+          type: integer
+          description: Minimum shared hourly PCUs in the PCU group
+          example: 1
+        max:
+          type: integer
+          description: Maximum shared hourly PCUs in the PCU group
+          example: 1
+        reserved:
+          type: integer
+          description: Absolute required PCUs in the PCU group
+          example: 1
+        description:
+          type: string
+          description: Description of the PCU group
+          example: some-description
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

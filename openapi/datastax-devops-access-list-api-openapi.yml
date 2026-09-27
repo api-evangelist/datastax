@@ -206,8 +206,8 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
-    ServerError:
-      description: A server error occurred
+    Conflict:
+      description: The database is not in a valid state to perform the operation
       content:
         application/json:
           schema:
@@ -230,19 +230,34 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
     Forbidden:
       description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Conflict:
-      description: The database is not in a valid state to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
   schemas:
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
     DevOpsAccessListResponse:
       description: Response to get call
       type: object
@@ -252,29 +267,6 @@ components:
           description: A list of allowed addresses that can make DevOps API calls.
           items:
             $ref: '#/components/schemas/DevOpsAclAddress'
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    DevOpsIpAddress:
-      description: Request to create an access list with a list of IP addresses.
-      type: object
-      properties:
-        address:
-          type: string
-          description: Address of the CIDR or IP.
-        description:
-          type: string
-          description: Description of what this address is for.
-        enabled:
-          type: boolean
-          description: Flag stating whether this address is in use.
     DevOpsAclAddress:
       description: Represents the CIDR or IP that Astra DB stores to keep track of the access list for the DevOps API.
       type: object
@@ -294,21 +286,29 @@ components:
         createdAt:
           type: string
           description: Timestamp of when this object was created.
-    Error:
-      description: ModelError information that is returned to users
+    DevOpsIpAddress:
+      description: Request to create an access list with a list of IP addresses.
+      type: object
+      properties:
+        address:
+          type: string
+          description: Address of the CIDR or IP.
+        description:
+          type: string
+          description: Description of what this address is for.
+        enabled:
+          type: boolean
+          description: Flag stating whether this address is in use.
+    Errors:
+      description: Errors is a collection of individual Error objects
       type: object
       required:
-      - id
-      - message
+      - errors
       properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

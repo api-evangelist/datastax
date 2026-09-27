@@ -317,8 +317,8 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   responses:
-    ServerError:
-      description: A server error occurred
+    Conflict:
+      description: The database is not in a valid state to perform the operation
       content:
         application/json:
           schema:
@@ -341,29 +341,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
     Forbidden:
       description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Conflict:
-      description: The database is not in a valid state to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
   schemas:
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     MigrationStatus:
       description: Status information about an ongoing SSTables based migration.
       type: object
@@ -402,19 +392,29 @@ components:
           type: string
           example: Something is broken
           description: User-friendly description of error
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   parameters:
-    DatacenterIdParam:
-      in: path
-      name: datacenterID
-      required: true
-      description: String representation of the datacenter ID
-      schema:
-        type: string
     DatabaseIdParam:
       in: path
       name: databaseID
       required: true
       description: String representation of the database ID
+      schema:
+        type: string
+    DatacenterIdParam:
+      in: path
+      name: datacenterID
+      required: true
+      description: String representation of the datacenter ID
       schema:
         type: string
   securitySchemes:

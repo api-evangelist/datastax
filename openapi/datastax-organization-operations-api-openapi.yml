@@ -147,6 +147,14 @@ paths:
         5XX:
           $ref: '#/components/responses/ServerError'
 components:
+  parameters:
+    OrgIdParam:
+      in: path
+      name: orgID
+      required: true
+      description: String representation of the organization ID
+      schema:
+        type: string
   schemas:
     PulsarOAuth2TelemetryRequest:
       allOf:
@@ -172,6 +180,52 @@ components:
             type: string
             description: Scope for OAuth2
             example: db-telemetry
+    PulsarTokenAuthTelemetryRequest:
+      allOf:
+      - $ref: '#/components/schemas/PulsarAuthRequest'
+      - type: object
+        description: Telemetry config
+        required:
+        - token
+        properties:
+          token:
+            type: string
+            format: password
+            example: AstraTelemetry123
+            description: Bearer Token for Pulsar Authentication
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    Organization:
+      type: object
+      description: An organization
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: The organization UUID
+          example: d04d1eb2-6a52-483e-ab16-faaad3d077a9
+    PulsarTelemetryRequest:
+      description: Telemetry Config for Pulsar servers
+      type: object
+      properties:
+        pulsar:
+          $ref: '#/components/schemas/PulsarTelemetryRequestBlock'
+      required:
+      - pulsar
     PulsarAuthRequest:
       description: The base object for a Pulsar object
       type: object
@@ -198,16 +252,6 @@ components:
           type: string
           example: foobar
           description: The basic authentication name.
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     PulsarTelemetryRequestBlock:
       description: Telemetry Config
       oneOf:
@@ -218,59 +262,25 @@ components:
         mapping:
           token: '#/components/schemas/PulsarTokenAuthTelemetryRequest'
           oauth2: '#/components/schemas/PulsarOAuth2TelemetryRequest'
-    Organization:
-      type: object
-      description: An organization
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: The organization UUID
-          example: d04d1eb2-6a52-483e-ab16-faaad3d077a9
-    PulsarTokenAuthTelemetryRequest:
-      allOf:
-      - $ref: '#/components/schemas/PulsarAuthRequest'
-      - type: object
-        description: Telemetry config
-        required:
-        - token
-        properties:
-          token:
-            type: string
-            format: password
-            example: AstraTelemetry123
-            description: Bearer Token for Pulsar Authentication
-    PulsarTelemetryRequest:
-      description: Telemetry Config for Pulsar servers
-      type: object
-      properties:
-        pulsar:
-          $ref: '#/components/schemas/PulsarTelemetryRequestBlock'
-      required:
-      - pulsar
-    Error:
-      description: ModelError information that is returned to users
+    Errors:
+      description: Errors is a collection of individual Error objects
       type: object
       required:
-      - id
-      - message
+      - errors
       properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   responses:
-    ServerError:
-      description: A server error occurred
+    Conflict:
+      description: The database is not in a valid state to perform the operation
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
+    Accepted:
+      description: The request was accepted
     BadRequest:
       description: Bad request
       content:
@@ -289,28 +299,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
     Forbidden:
       description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Conflict:
-      description: The database is not in a valid state to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Accepted:
-      description: The request was accepted
-  parameters:
-    OrgIdParam:
-      in: path
-      name: orgID
-      required: true
-      description: String representation of the organization ID
-      schema:
-        type: string
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

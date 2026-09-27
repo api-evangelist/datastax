@@ -159,79 +159,65 @@ paths:
       - BearerAuth: []
 components:
   schemas:
-    EnterpriseGenerateReportResponse:
+    EnterpriseConsumptionRequest:
+      description: enterprise consumption request
       type: object
       properties:
-        reportId:
+        fromDate:
+          type: string
+          example: '2021-05-06T06:13:23.57Z'
+          description: The start of the target date range in ISO RFC3339 format
+        toDate:
+          type: string
+          example: '2021-05-06T06:13:23.57Z'
+          description: The end of the target date range in ISO RFC3339 format
+        resourceIDs:
+          type: array
+          items:
+            type: string
+          description: List of the resource IDs
+        orgIDs:
+          type: array
+          items:
+            type: string
+          description: List of the organization IDs
+    CreateOrgInEnterpriseResponse:
+      type: object
+      properties:
+        OrganizationName:
+          type: string
+          example: acme production org
+        OrganizationID:
           type: string
           format: uuid
-          description: Unique identifier for the report.
-        status:
+          example: 8f112467-7b55-4f0a-877f-c97e2bc10074
+        OrganizationEmail:
           type: string
-          description: Current status of the report.
-          enum:
-          - INITIATED
-          - COMPLETED
-          - PENDING
-          - FAILED
-        month:
+          format: email
+          example: admin@acme-enterprises.com
+        MarketplaceData:
+          type:
+          - object
+          - 'null'
+        CreatedAt:
           type: string
-          description: Month of the report.
-        year:
+          format: date-time
+          example: '2024-06-14T15:41:45.395919529Z'
+        LastModified:
           type: string
-          description: Year of the report.
-      required:
-      - reportId
-      - status
-      - month
-      - year
-    CostBreakdown:
-      description: Cost breakdown at cluster region level
-      type: object
-      required:
-      - orgId
-      - clusterID
-      - region
-      - cost
-      properties:
-        orgId:
+          format: date-time
+          example: '2024-06-14T15:41:45.395919529Z'
+        OrgType:
           type: string
-          description: Org ID
-          example: abcfc07b-3217-494e-9831-b5058a92961f
-        clusterID:
+          example: organization
+        EnterpriseId:
           type: string
-          description: Cluster ID
-          example: d75f25b7-d668-4ff9-9ed6-21a2f22f4568
-        region:
+          format: uuid
+          example: 9df02cbd-fb84-47c0-a5cf-b7a912928a4e
+        OrganizationGroupId:
           type: string
-          description: region
-          example: us-east-1
-        cost:
-          type: double
-          description: breakdown cost
-          example: '101.57878268880637'
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    EnterpriseConsumptionResponse:
-      description: enterprise consumption response
-      type: object
-      properties:
-        totalCost:
-          type: double
-          description: Total dollar amount
-        costs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CostBreakdown'
-          description: List of the cost breakdown at cluster region level
+          format: uuid
+          example: f9336a4e-e489-4db2-ab29-0939af587268
     EnterpriseReportStatusResponse:
       type: object
       properties:
@@ -278,65 +264,6 @@ components:
       - month
       - year
       - reportDetails
-    CreateOrgInEnterpriseResponse:
-      type: object
-      properties:
-        OrganizationName:
-          type: string
-          example: acme production org
-        OrganizationID:
-          type: string
-          format: uuid
-          example: 8f112467-7b55-4f0a-877f-c97e2bc10074
-        OrganizationEmail:
-          type: string
-          format: email
-          example: admin@acme-enterprises.com
-        MarketplaceData:
-          type:
-          - object
-          - 'null'
-        CreatedAt:
-          type: string
-          format: date-time
-          example: '2024-06-14T15:41:45.395919529Z'
-        LastModified:
-          type: string
-          format: date-time
-          example: '2024-06-14T15:41:45.395919529Z'
-        OrgType:
-          type: string
-          example: organization
-        EnterpriseId:
-          type: string
-          format: uuid
-          example: 9df02cbd-fb84-47c0-a5cf-b7a912928a4e
-        OrganizationGroupId:
-          type: string
-          format: uuid
-          example: f9336a4e-e489-4db2-ab29-0939af587268
-    EnterpriseConsumptionRequest:
-      description: enterprise consumption request
-      type: object
-      properties:
-        fromDate:
-          type: string
-          example: '2021-05-06T06:13:23.57Z'
-          description: The start of the target date range in ISO RFC3339 format
-        toDate:
-          type: string
-          example: '2021-05-06T06:13:23.57Z'
-          description: The end of the target date range in ISO RFC3339 format
-        resourceIDs:
-          type: array
-          items:
-            type: string
-          description: List of the resource IDs
-        orgIDs:
-          type: array
-          items:
-            type: string
-          description: List of the organization IDs
     CreateOrgInEnterpriseRequest:
       type: object
       description: The create organization in enterprise model
@@ -385,9 +312,82 @@ components:
       required:
       - month
       - year
+    EnterpriseGenerateReportResponse:
+      type: object
+      properties:
+        reportId:
+          type: string
+          format: uuid
+          description: Unique identifier for the report.
+        status:
+          type: string
+          description: Current status of the report.
+          enum:
+          - INITIATED
+          - COMPLETED
+          - PENDING
+          - FAILED
+        month:
+          type: string
+          description: Month of the report.
+        year:
+          type: string
+          description: Year of the report.
+      required:
+      - reportId
+      - status
+      - month
+      - year
+    EnterpriseConsumptionResponse:
+      description: enterprise consumption response
+      type: object
+      properties:
+        totalCost:
+          type: double
+          description: Total dollar amount
+        costs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostBreakdown'
+          description: List of the cost breakdown at cluster region level
+    CostBreakdown:
+      description: Cost breakdown at cluster region level
+      type: object
+      required:
+      - orgId
+      - clusterID
+      - region
+      - cost
+      properties:
+        orgId:
+          type: string
+          description: Org ID
+          example: abcfc07b-3217-494e-9831-b5058a92961f
+        clusterID:
+          type: string
+          description: Cluster ID
+          example: d75f25b7-d668-4ff9-9ed6-21a2f22f4568
+        region:
+          type: string
+          description: region
+          example: us-east-1
+        cost:
+          type: double
+          description: breakdown cost
+          example: '101.57878268880637'
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   responses:
-    ServerError:
-      description: A server error occurred
+    UnprocessableEntity:
+      description: The structured data in the request could not be parsed
       content:
         application/json:
           schema:
@@ -404,14 +404,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    UnprocessableEntity:
-      description: The structured data in the request could not be parsed
+    NotFound:
+      description: The specified database was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
+    ServerError:
+      description: A server error occurred
       content:
         application/json:
           schema:

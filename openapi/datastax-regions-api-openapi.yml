@@ -81,20 +81,21 @@ paths:
         5XX:
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
   schemas:
+    PCUGroupTypeDetails:
+      type: object
+      description: This object holds the details regarding the PCU Type
+      properties:
+        vCPU:
+          type: integer
+          format: int32
+          description: vCPUs for this pcu type
+        memory:
+          type: string
+          description: memory for this pcu type
+        disk_cache:
+          type: string
+          description: disk cache for this pcu type
     ServerlessRegion:
       type: object
       description: Serverless region information
@@ -140,74 +141,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PCUGroupType'
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    Costs:
-      properties:
-        costPerMinCents:
-          type: number
-          format: double
-          example: 0
-        costPerHourCents:
-          type: number
-          format: double
-          example: 0
-        costPerDayCents:
-          type: number
-          format: double
-          example: 0
-        costPerMonthCents:
-          type: number
-          format: double
-          example: 0
-        costPerMinParkedCents:
-          type: number
-          format: double
-          example: 0
-        costPerHourParkedCents:
-          type: number
-          format: double
-          example: 0
-        costPerDayParkedCents:
-          type: number
-          format: double
-          example: 0
-        costPerMonthParkedCents:
-          type: number
-          format: double
-          example: 0
-    PCUGroupType:
-      type: object
-      description: This object is used for the response of the PCU Group types request
-      properties:
-        type:
-          type: string
-          description: the size of the PCU Group type given the PCU Group types request
-          example: standard
-        details:
-          $ref: '#/components/schemas/PCUGroupTypeDetails'
-    PCUGroupTypeDetails:
-      type: object
-      description: This object holds the details regarding the PCU Type
-      properties:
-        vCPU:
-          type: integer
-          format: int32
-          description: vCPUs for this pcu type
-        memory:
-          type: string
-          description: memory for this pcu type
-        disk_cache:
-          type: string
-          description: disk cache for this pcu type
     Error:
       description: ModelError information that is returned to users
       type: object
@@ -266,15 +199,61 @@ components:
           type: integer
           example: 500
           description: Describes capacity unit storage size for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+    Costs:
+      properties:
+        costPerMinCents:
+          type: number
+          format: double
+          example: 0
+        costPerHourCents:
+          type: number
+          format: double
+          example: 0
+        costPerDayCents:
+          type: number
+          format: double
+          example: 0
+        costPerMonthCents:
+          type: number
+          format: double
+          example: 0
+        costPerMinParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerHourParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerDayParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerMonthParkedCents:
+          type: number
+          format: double
+          example: 0
+    PCUGroupType:
+      type: object
+      description: This object is used for the response of the PCU Group types request
+      properties:
+        type:
+          type: string
+          description: the size of the PCU Group type given the PCU Group types request
+          example: standard
+        details:
+          $ref: '#/components/schemas/PCUGroupTypeDetails'
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   parameters:
-    RegionTypeQueryParam:
-      in: query
-      name: region-type
-      required: false
-      schema:
-        type: string
-        default: ''
-      description: Region type query parameter to retrieve regions supporting serverless and/or vector dbs. By default this API only returns serverless db regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Valid values for this parameter are empty region-type query parameter (default behavior to retrieve serverless regions), all (to retrieve both vector and serverless regions) and vector (to retrieve vector regions). Any invalid value will be ignored and API will show the default behavior i.e. return serverless regions only.
     OrgFilteringQueryParam:
       in: query
       name: filter-by-org
@@ -283,6 +262,27 @@ components:
         type: string
         default: disabled
       description: Filter by org query parameter retrieves regions based on current organization ID. By default this API returns all regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Another valid values for this parameter is 'disabled' (default), i.e. retrieve serverless regions without  filtering out by current org. Any invalid value will be ignored and API will show the default behavior.
+    RegionTypeQueryParam:
+      in: query
+      name: region-type
+      required: false
+      schema:
+        type: string
+        default: ''
+      description: Region type query parameter to retrieve regions supporting serverless and/or vector dbs. By default this API only returns serverless db regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Valid values for this parameter are empty region-type query parameter (default behavior to retrieve serverless regions), all (to retrieve both vector and serverless regions) and vector (to retrieve vector regions). Any invalid value will be ignored and API will show the default behavior i.e. return serverless regions only.
+  responses:
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

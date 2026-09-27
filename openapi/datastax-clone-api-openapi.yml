@@ -158,13 +158,46 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  schemas:
+    CloneStatus:
+      description: Status information about an ongoing DB Clone operation.
+      type: object
+      properties:
+        operationID:
+          type: string
+          description: ID of the ongoing operation.
+        status:
+          type: string
+          enum:
+          - RUNNING
+          - DONE
+          - ERROR
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   responses:
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
     BadRequest:
       description: Bad request
       content:
@@ -183,51 +216,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
     Forbidden:
       description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-  schemas:
-    CloneStatus:
-      description: Status information about an ongoing DB Clone operation.
-      type: object
-      properties:
-        operationID:
-          type: string
-          description: ID of the ongoing operation.
-        status:
-          type: string
-          enum:
-          - RUNNING
-          - DONE
-          - ERROR
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
   parameters:
     DatabaseIdParam:
       in: path

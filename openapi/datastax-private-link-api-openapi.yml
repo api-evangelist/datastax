@@ -477,78 +477,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    PrivateLinkCreateConfigOutput:
-      type: object
-      properties:
-        serviceName:
-          $ref: '#/components/schemas/ServiceName'
-        allowedPrincipals:
-          $ref: '#/components/schemas/AllowedPrincipals'
-    PrivateLinkUpdateEndpointInput:
-      type: object
-      properties:
-        description:
-          type: string
-          description: User defined description of the endpoint
-          example: ecomm-team-billing-app
-    PrivateLinkOrgOutput:
-      type: object
-      properties:
-        clusters:
-          type: array
-          description: List of endpoints for a cluster
-          items:
-            $ref: '#/components/schemas/PrivateLinkClusterOutput'
-    PrivateLinkDatacenterOutput:
-      type: object
-      properties:
-        serviceName:
-          $ref: '#/components/schemas/ServiceName'
-        allowedPrincipals:
-          $ref: '#/components/schemas/AllowedPrincipals'
-        datacenterID:
-          type: string
-          description: Datacenter ID for the private link endpoint
-        endpoints:
-          type: array
-          description: List of endpoints associated with the given org-cluster-dc combo
-          items:
-            $ref: '#/components/schemas/PrivateLinkEndpoint'
-    AllowedPrincipals:
-      type: array
-      description: List of principals to do action for private link
-      example:
-      - arn:aws:iam::123456789012:role/admin
-      items:
-        type: string
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PrivateLinkDeleteConfigInput:
-      type: object
-      properties:
-        allowedPrincipal:
-          type: string
-          description: The allowed-principal
-          example: arn:aws:iam::123456789012:role/admin
-    PrivateLinkCreateEndpointInput:
-      type: object
-      properties:
-        endpointID:
-          type: string
-          description: The user's endpoint created in their cloud provider account
-          example: vpce-svc-1148ea04af8675309
-        description:
-          type: string
-          description: The human readable description of the endpoint
-          example: ecomm-team-billing-app-prod
     PrivateLinkEndpoint:
       type: object
       properties:
@@ -575,11 +503,21 @@ components:
           type: string
           description: The datetime that the private link connection was created
           example: '2009-11-10T23:00:00'
-    PrivateLinkCreateConfigInput:
+    PrivateLinkOrgOutput:
       type: object
       properties:
-        allowedPrincipals:
-          $ref: '#/components/schemas/AllowedPrincipals'
+        clusters:
+          type: array
+          description: List of endpoints for a cluster
+          items:
+            $ref: '#/components/schemas/PrivateLinkClusterOutput'
+    AllowedPrincipals:
+      type: array
+      description: List of principals to do action for private link
+      example:
+      - arn:aws:iam::123456789012:role/admin
+      items:
+        type: string
     PrivateLinkClusterOutput:
       type: object
       properties:
@@ -591,6 +529,35 @@ components:
           description: List of endpoints for a datacenter
           items:
             $ref: '#/components/schemas/PrivateLinkDatacenterOutput'
+    ServiceName:
+      type: string
+      description: The given endpoint service for the user to connect to
+      example: com.amazonaws.vpce.us-east-1.vpce-svc-1148ea04af491da11
+    PrivateLinkCreateEndpointInput:
+      type: object
+      properties:
+        endpointID:
+          type: string
+          description: The user's endpoint created in their cloud provider account
+          example: vpce-svc-1148ea04af8675309
+        description:
+          type: string
+          description: The human readable description of the endpoint
+          example: ecomm-team-billing-app-prod
+    PrivateLinkUpdateEndpointInput:
+      type: object
+      properties:
+        description:
+          type: string
+          description: User defined description of the endpoint
+          example: ecomm-team-billing-app
+    PrivateLinkDeleteConfigInput:
+      type: object
+      properties:
+        allowedPrincipal:
+          type: string
+          description: The allowed-principal
+          example: arn:aws:iam::123456789012:role/admin
     Error:
       description: ModelError information that is returned to users
       type: object
@@ -606,13 +573,52 @@ components:
           type: string
           example: Something is broken
           description: User-friendly description of error
-    ServiceName:
-      type: string
-      description: The given endpoint service for the user to connect to
-      example: com.amazonaws.vpce.us-east-1.vpce-svc-1148ea04af491da11
+    PrivateLinkCreateConfigOutput:
+      type: object
+      properties:
+        serviceName:
+          $ref: '#/components/schemas/ServiceName'
+        allowedPrincipals:
+          $ref: '#/components/schemas/AllowedPrincipals'
+    PrivateLinkCreateConfigInput:
+      type: object
+      properties:
+        allowedPrincipals:
+          $ref: '#/components/schemas/AllowedPrincipals'
+    PrivateLinkDatacenterOutput:
+      type: object
+      properties:
+        serviceName:
+          $ref: '#/components/schemas/ServiceName'
+        allowedPrincipals:
+          $ref: '#/components/schemas/AllowedPrincipals'
+        datacenterID:
+          type: string
+          description: Datacenter ID for the private link endpoint
+        endpoints:
+          type: array
+          description: List of endpoints associated with the given org-cluster-dc combo
+          items:
+            $ref: '#/components/schemas/PrivateLinkEndpoint'
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
   responses:
-    ServerError:
-      description: A server error occurred
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
       content:
         application/json:
           schema:
@@ -623,14 +629,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
+    ServerError:
+      description: A server error occurred
       content:
         application/json:
           schema:
