@@ -155,46 +155,78 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    Conflict:
-      description: The database is not in a valid state to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NoContent:
-      description: The request succeeded and no content is returned in response body
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
   schemas:
+    UpdateRoleRequest:
+      type: object
+      description: The updateRole model
+      required:
+      - name
+      - policy
+      properties:
+        name:
+          type: string
+        policy:
+          $ref: '#/components/schemas/Policy'
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    CreateRoleRequest:
+      type: object
+      description: The createRole model
+      required:
+      - name
+      - policy
+      properties:
+        name:
+          type: string
+        policy:
+          $ref: '#/components/schemas/Policy'
+    Role:
+      type: object
+      description: Details of a user role and its policy details
+      properties:
+        id:
+          type: string
+          description: The unique system generated identifier of the role.
+        name:
+          type: string
+          description: The name of the role.
+        policy:
+          $ref: '#/components/schemas/Policy'
+        last_update_datetime:
+          type: string
+          description: The date and time of the last update on the role.
+          format: date-time
+        last_update_userid:
+          type: string
+          description: The userID of the user who last updated the role.
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    Roles:
+      type: array
+      description: an array of roles
+      items:
+        $ref: '#/components/schemas/Role'
     Policy:
       type: object
       description: A policy for a role in Astra.
@@ -267,77 +299,6 @@ components:
           description: Effect this policy will have on the provided resource
           enum:
           - allow
-    Role:
-      type: object
-      description: Details of a user role and its policy details
-      properties:
-        id:
-          type: string
-          description: The unique system generated identifier of the role.
-        name:
-          type: string
-          description: The name of the role.
-        policy:
-          $ref: '#/components/schemas/Policy'
-        last_update_datetime:
-          type: string
-          description: The date and time of the last update on the role.
-          format: date-time
-        last_update_userid:
-          type: string
-          description: The userID of the user who last updated the role.
-    CreateRoleRequest:
-      type: object
-      description: The createRole model
-      required:
-      - name
-      - policy
-      properties:
-        name:
-          type: string
-        policy:
-          $ref: '#/components/schemas/Policy'
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
-    UpdateRoleRequest:
-      type: object
-      description: The updateRole model
-      required:
-      - name
-      - policy
-      properties:
-        name:
-          type: string
-        policy:
-          $ref: '#/components/schemas/Policy'
-    Roles:
-      type: array
-      description: an array of roles
-      items:
-        $ref: '#/components/schemas/Role'
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
   parameters:
     RoleIdParam:
       in: path
@@ -346,6 +307,45 @@ components:
       schema:
         type: string
       description: ID for the role
+  responses:
+    NoContent:
+      description: The request succeeded and no content is returned in response body
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Conflict:
+      description: The database is not in a valid state to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

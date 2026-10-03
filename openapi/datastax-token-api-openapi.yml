@@ -166,43 +166,25 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    Ok:
-      description: The request completed successfully
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
+  parameters:
+    ClientIdParam:
+      in: path
+      name: clientId
+      required: true
+      schema:
+        type: string
+      description: clientID to revoke token for
   schemas:
-    ClientRoleList:
+    Errors:
+      description: Errors is a collection of individual Error objects
       type: object
-      description: The response for a requested token
+      required:
+      - errors
       properties:
-        clients:
+        errors:
           type: array
-          description: a list of clientId and associated roles
           items:
-            $ref: '#/components/schemas/ClientRole'
+            $ref: '#/components/schemas/Error'
     GenerateTokenBody:
       type: object
       description: The post body to generate a token
@@ -215,59 +197,6 @@ components:
           items:
             type: string
             example: org-write
-        tokenExpiry:
-          type: string
-          format: date-time
-          description: Optional expiry time for the token. If not provided, the org's max token expiry is used. If that's not set, the token will be long-lived
-          example: '2025-01-01T21:29:00Z'
-        description:
-          type: string
-          description: Optional description for the token. If not provided, it will be empty
-          example: Token for accessing Astra DB
-    ClientRole:
-      type: object
-      description: An individual clientID and associated roles
-      properties:
-        clientId:
-          type: string
-          description: the clientID
-          example: IFmJlTkNvptFzTDEQpQIEJud
-        roles:
-          type: array
-          items:
-            type: string
-            description: Role associated with the client.
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
-    CreateTokenBody:
-      type: object
-      description: The post body to create a token
-      required:
-      - roles
-      properties:
-        roles:
-          type: array
-          description: The roles with which the token will be generated. Defines the token's permissions.
-          items:
-            type: string
-            example: roleID-UUID
-        orgId:
-          type: string
-          description: Optional UUID of the organization under which the token will be created. If not provided, the token is created under the organization/enterprise of the authorization token.
-          example: uuid
         tokenExpiry:
           type: string
           format: date-time
@@ -317,24 +246,95 @@ components:
           type: string
           description: The description for the token. If not provided, it will be empty
           example: Token for accessing Astra DB
-    Errors:
-      description: Errors is a collection of individual Error objects
+    Error:
+      description: ModelError information that is returned to users
       type: object
       required:
-      - errors
+      - id
+      - message
       properties:
-        errors:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
+    CreateTokenBody:
+      type: object
+      description: The post body to create a token
+      required:
+      - roles
+      properties:
+        roles:
+          type: array
+          description: The roles with which the token will be generated. Defines the token's permissions.
+          items:
+            type: string
+            example: roleID-UUID
+        orgId:
+          type: string
+          description: Optional UUID of the organization under which the token will be created. If not provided, the token is created under the organization/enterprise of the authorization token.
+          example: uuid
+        tokenExpiry:
+          type: string
+          format: date-time
+          description: Optional expiry time for the token. If not provided, the org's max token expiry is used. If that's not set, the token will be long-lived
+          example: '2025-01-01T21:29:00Z'
+        description:
+          type: string
+          description: Optional description for the token. If not provided, it will be empty
+          example: Token for accessing Astra DB
+    ClientRoleList:
+      type: object
+      description: The response for a requested token
+      properties:
+        clients:
+          type: array
+          description: a list of clientId and associated roles
+          items:
+            $ref: '#/components/schemas/ClientRole'
+    ClientRole:
+      type: object
+      description: An individual clientID and associated roles
+      properties:
+        clientId:
+          type: string
+          description: the clientID
+          example: IFmJlTkNvptFzTDEQpQIEJud
+        roles:
           type: array
           items:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    ClientIdParam:
-      in: path
-      name: clientId
-      required: true
-      schema:
-        type: string
-      description: clientID to revoke token for
+            type: string
+            description: Role associated with the client.
+  responses:
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Ok:
+      description: The request completed successfully
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

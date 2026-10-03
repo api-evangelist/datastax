@@ -299,23 +299,7 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    GetCloudProviderAccounts:
-      type: array
-      description: List of Cloud provider accounts in an organization for a cloud-provider & region combination
-      items:
-        $ref: '#/components/schemas/CloudProviderAccountDetails'
-    ExternalKMSResponse:
-      type: object
-      properties:
-        OrganizationID:
-          type: string
-        CloudProvider:
-          type: string
-        KeyID:
-          type: string
-        Region:
-          type: string
-    GCP-KMS:
+    AWS-KMS:
       type: object
       properties:
         keyID:
@@ -323,7 +307,7 @@ components:
           description: The unique identifier of the customer-key.
         region:
           type: string
-          description: The region in which the key exists.
+          description: The region in which the master key exists.
     AZURE-KMS:
       type: object
       properties:
@@ -333,15 +317,30 @@ components:
         region:
           type: string
           description: The region in which the key exists.
-    CloudProviderAccountDetails:
+    GetCloudProviderAccounts:
+      type: array
+      description: List of Cloud provider accounts in an organization for a cloud-provider & region combination
+      items:
+        $ref: '#/components/schemas/CloudProviderAccountDetails'
+    GCP-KMS:
       type: object
       properties:
-        organization_id:
+        keyID:
           type: string
-        provider_id:
+          description: The unique identifier of the customer-key.
+        region:
           type: string
-        provider:
-          type: string
+          description: The region in which the key exists.
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     GetParticularCustomerKey:
       type: object
       description: Retrieves a Customer Key for the specified provider and region combination
@@ -358,6 +357,11 @@ components:
             region:
               type: string
               example: us-east-1
+    GetAllCustomerKeys:
+      type: array
+      description: List of Customer Keys in an organization
+      items:
+        $ref: '#/components/schemas/ExternalKMSResponse'
     Error:
       description: ModelError information that is returned to users
       type: object
@@ -373,6 +377,26 @@ components:
           type: string
           example: Something is broken
           description: User-friendly description of error
+    CloudProviderAccountDetails:
+      type: object
+      properties:
+        organization_id:
+          type: string
+        provider_id:
+          type: string
+        provider:
+          type: string
+    ExternalKMSResponse:
+      type: object
+      properties:
+        OrganizationID:
+          type: string
+        CloudProvider:
+          type: string
+        KeyID:
+          type: string
+        Region:
+          type: string
     ExternalKMS:
       type: object
       properties:
@@ -387,33 +411,9 @@ components:
           $ref: '#/components/schemas/GCP-KMS'
         azure:
           $ref: '#/components/schemas/AZURE-KMS'
-    GetAllCustomerKeys:
-      type: array
-      description: List of Customer Keys in an organization
-      items:
-        $ref: '#/components/schemas/ExternalKMSResponse'
-    AWS-KMS:
-      type: object
-      properties:
-        keyID:
-          type: string
-          description: The unique identifier of the customer-key.
-        region:
-          type: string
-          description: The region in which the master key exists.
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
   responses:
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
+    Forbidden:
+      description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
@@ -424,20 +424,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
     ServerError:
       description: A server error occurred
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
       content:
         application/json:
           schema:

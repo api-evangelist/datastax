@@ -159,65 +159,6 @@ paths:
       - BearerAuth: []
 components:
   schemas:
-    EnterpriseConsumptionRequest:
-      description: enterprise consumption request
-      type: object
-      properties:
-        fromDate:
-          type: string
-          example: '2021-05-06T06:13:23.57Z'
-          description: The start of the target date range in ISO RFC3339 format
-        toDate:
-          type: string
-          example: '2021-05-06T06:13:23.57Z'
-          description: The end of the target date range in ISO RFC3339 format
-        resourceIDs:
-          type: array
-          items:
-            type: string
-          description: List of the resource IDs
-        orgIDs:
-          type: array
-          items:
-            type: string
-          description: List of the organization IDs
-    CreateOrgInEnterpriseResponse:
-      type: object
-      properties:
-        OrganizationName:
-          type: string
-          example: acme production org
-        OrganizationID:
-          type: string
-          format: uuid
-          example: 8f112467-7b55-4f0a-877f-c97e2bc10074
-        OrganizationEmail:
-          type: string
-          format: email
-          example: admin@acme-enterprises.com
-        MarketplaceData:
-          type:
-          - object
-          - 'null'
-        CreatedAt:
-          type: string
-          format: date-time
-          example: '2024-06-14T15:41:45.395919529Z'
-        LastModified:
-          type: string
-          format: date-time
-          example: '2024-06-14T15:41:45.395919529Z'
-        OrgType:
-          type: string
-          example: organization
-        EnterpriseId:
-          type: string
-          format: uuid
-          example: 9df02cbd-fb84-47c0-a5cf-b7a912928a4e
-        OrganizationGroupId:
-          type: string
-          format: uuid
-          example: f9336a4e-e489-4db2-ab29-0939af587268
     EnterpriseReportStatusResponse:
       type: object
       properties:
@@ -285,6 +226,16 @@ components:
         enterpriseID:
           type: string
           description: The UUID of the enterprise under which the organization needs to be created
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     Error:
       description: ModelError information that is returned to users
       type: object
@@ -310,32 +261,6 @@ components:
           type: string
           description: Year represented as a string.
       required:
-      - month
-      - year
-    EnterpriseGenerateReportResponse:
-      type: object
-      properties:
-        reportId:
-          type: string
-          format: uuid
-          description: Unique identifier for the report.
-        status:
-          type: string
-          description: Current status of the report.
-          enum:
-          - INITIATED
-          - COMPLETED
-          - PENDING
-          - FAILED
-        month:
-          type: string
-          description: Month of the report.
-        year:
-          type: string
-          description: Year of the report.
-      required:
-      - reportId
-      - status
       - month
       - year
     EnterpriseConsumptionResponse:
@@ -375,16 +300,91 @@ components:
           type: double
           description: breakdown cost
           example: '101.57878268880637'
-    Errors:
-      description: Errors is a collection of individual Error objects
+    EnterpriseConsumptionRequest:
+      description: enterprise consumption request
       type: object
-      required:
-      - errors
       properties:
-        errors:
+        fromDate:
+          type: string
+          example: '2021-05-06T06:13:23.57Z'
+          description: The start of the target date range in ISO RFC3339 format
+        toDate:
+          type: string
+          example: '2021-05-06T06:13:23.57Z'
+          description: The end of the target date range in ISO RFC3339 format
+        resourceIDs:
           type: array
           items:
-            $ref: '#/components/schemas/Error'
+            type: string
+          description: List of the resource IDs
+        orgIDs:
+          type: array
+          items:
+            type: string
+          description: List of the organization IDs
+    CreateOrgInEnterpriseResponse:
+      type: object
+      properties:
+        OrganizationName:
+          type: string
+          example: acme production org
+        OrganizationID:
+          type: string
+          format: uuid
+          example: 8f112467-7b55-4f0a-877f-c97e2bc10074
+        OrganizationEmail:
+          type: string
+          format: email
+          example: admin@acme-enterprises.com
+        MarketplaceData:
+          type:
+          - object
+          - 'null'
+        CreatedAt:
+          type: string
+          format: date-time
+          example: '2024-06-14T15:41:45.395919529Z'
+        LastModified:
+          type: string
+          format: date-time
+          example: '2024-06-14T15:41:45.395919529Z'
+        OrgType:
+          type: string
+          example: organization
+        EnterpriseId:
+          type: string
+          format: uuid
+          example: 9df02cbd-fb84-47c0-a5cf-b7a912928a4e
+        OrganizationGroupId:
+          type: string
+          format: uuid
+          example: f9336a4e-e489-4db2-ab29-0939af587268
+    EnterpriseGenerateReportResponse:
+      type: object
+      properties:
+        reportId:
+          type: string
+          format: uuid
+          description: Unique identifier for the report.
+        status:
+          type: string
+          description: Current status of the report.
+          enum:
+          - INITIATED
+          - COMPLETED
+          - PENDING
+          - FAILED
+        month:
+          type: string
+          description: Month of the report.
+        year:
+          type: string
+          description: Year of the report.
+      required:
+      - reportId
+      - status
+      - month
+      - year
   responses:
     UnprocessableEntity:
       description: The structured data in the request could not be parsed
@@ -398,14 +398,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
+    Forbidden:
+      description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
@@ -416,8 +410,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
       content:
         application/json:
           schema:

@@ -82,6 +82,118 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    AvailableRegionCombination:
+      type: object
+      description: AvailableRegionCombination defines a Tier, cloud provider, region combination
+      required:
+      - tier
+      - cloudProvider
+      - region
+      - cost
+      - databaseCountUsed
+      - databaseCountLimit
+      - capacityUnitsUsed
+      - capacityUnitsLimit
+      - defaultStoragePerCapacityUnitGb
+      properties:
+        tier:
+          type: string
+          example: Free
+        cloudProvider:
+          type: string
+          example: GCP
+        region:
+          type: string
+          example: us-east1
+        cost:
+          $ref: '#/components/schemas/Costs'
+        databaseCountUsed:
+          type: integer
+          example: 0
+        databaseCountLimit:
+          type: integer
+          example: 1
+        capacityUnitsUsed:
+          type: integer
+          example: 0
+          description: Describes capacity unit usage for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+        capacityUnitsLimit:
+          type: integer
+          example: 30
+          description: Describes maximum capacity units allocated to a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+        defaultStoragePerCapacityUnitGb:
+          type: integer
+          example: 500
+          description: Describes capacity unit storage size for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    PCUGroupType:
+      type: object
+      description: This object is used for the response of the PCU Group types request
+      properties:
+        type:
+          type: string
+          description: the size of the PCU Group type given the PCU Group types request
+          example: standard
+        details:
+          $ref: '#/components/schemas/PCUGroupTypeDetails'
+    Costs:
+      properties:
+        costPerMinCents:
+          type: number
+          format: double
+          example: 0
+        costPerHourCents:
+          type: number
+          format: double
+          example: 0
+        costPerDayCents:
+          type: number
+          format: double
+          example: 0
+        costPerMonthCents:
+          type: number
+          format: double
+          example: 0
+        costPerMinParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerHourParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerDayParkedCents:
+          type: number
+          format: double
+          example: 0
+        costPerMonthParkedCents:
+          type: number
+          format: double
+          example: 0
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
     PCUGroupTypeDetails:
       type: object
       description: This object holds the details regarding the PCU Type
@@ -141,127 +253,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PCUGroupType'
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
-    AvailableRegionCombination:
-      type: object
-      description: AvailableRegionCombination defines a Tier, cloud provider, region combination
-      required:
-      - tier
-      - cloudProvider
-      - region
-      - cost
-      - databaseCountUsed
-      - databaseCountLimit
-      - capacityUnitsUsed
-      - capacityUnitsLimit
-      - defaultStoragePerCapacityUnitGb
-      properties:
-        tier:
-          type: string
-          example: Free
-        cloudProvider:
-          type: string
-          example: GCP
-        region:
-          type: string
-          example: us-east1
-        cost:
-          $ref: '#/components/schemas/Costs'
-        databaseCountUsed:
-          type: integer
-          example: 0
-        databaseCountLimit:
-          type: integer
-          example: 1
-        capacityUnitsUsed:
-          type: integer
-          example: 0
-          description: Describes capacity unit usage for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
-        capacityUnitsLimit:
-          type: integer
-          example: 30
-          description: Describes maximum capacity units allocated to a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
-        defaultStoragePerCapacityUnitGb:
-          type: integer
-          example: 500
-          description: Describes capacity unit storage size for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
-    Costs:
-      properties:
-        costPerMinCents:
-          type: number
-          format: double
-          example: 0
-        costPerHourCents:
-          type: number
-          format: double
-          example: 0
-        costPerDayCents:
-          type: number
-          format: double
-          example: 0
-        costPerMonthCents:
-          type: number
-          format: double
-          example: 0
-        costPerMinParkedCents:
-          type: number
-          format: double
-          example: 0
-        costPerHourParkedCents:
-          type: number
-          format: double
-          example: 0
-        costPerDayParkedCents:
-          type: number
-          format: double
-          example: 0
-        costPerMonthParkedCents:
-          type: number
-          format: double
-          example: 0
-    PCUGroupType:
-      type: object
-      description: This object is used for the response of the PCU Group types request
-      properties:
-        type:
-          type: string
-          description: the size of the PCU Group type given the PCU Group types request
-          example: standard
-        details:
-          $ref: '#/components/schemas/PCUGroupTypeDetails'
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
   parameters:
-    OrgFilteringQueryParam:
-      in: query
-      name: filter-by-org
-      required: false
-      schema:
-        type: string
-        default: disabled
-      description: Filter by org query parameter retrieves regions based on current organization ID. By default this API returns all regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Another valid values for this parameter is 'disabled' (default), i.e. retrieve serverless regions without  filtering out by current org. Any invalid value will be ignored and API will show the default behavior.
     RegionTypeQueryParam:
       in: query
       name: region-type
@@ -270,15 +262,23 @@ components:
         type: string
         default: ''
       description: Region type query parameter to retrieve regions supporting serverless and/or vector dbs. By default this API only returns serverless db regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Valid values for this parameter are empty region-type query parameter (default behavior to retrieve serverless regions), all (to retrieve both vector and serverless regions) and vector (to retrieve vector regions). Any invalid value will be ignored and API will show the default behavior i.e. return serverless regions only.
+    OrgFilteringQueryParam:
+      in: query
+      name: filter-by-org
+      required: false
+      schema:
+        type: string
+        default: disabled
+      description: Filter by org query parameter retrieves regions based on current organization ID. By default this API returns all regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Another valid values for this parameter is 'disabled' (default), i.e. retrieve serverless regions without  filtering out by current org. Any invalid value will be ignored and API will show the default behavior.
   responses:
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
+    ServerError:
+      description: A server error occurred
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
       content:
         application/json:
           schema:
