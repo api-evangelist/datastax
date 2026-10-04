@@ -158,6 +158,43 @@ paths:
       security:
       - BearerAuth: []
 components:
+  responses:
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    UnprocessableEntity:
+      description: The structured data in the request could not be parsed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   schemas:
     EnterpriseReportStatusResponse:
       type: object
@@ -226,16 +263,6 @@ components:
         enterpriseID:
           type: string
           description: The UUID of the enterprise under which the organization needs to be created
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     Error:
       description: ModelError information that is returned to users
       type: object
@@ -251,18 +278,6 @@ components:
           type: string
           example: Something is broken
           description: User-friendly description of error
-    EnterpriseGenerateReportRequest:
-      type: object
-      properties:
-        month:
-          type: string
-          description: Month represented as a string.
-        year:
-          type: string
-          description: Year represented as a string.
-      required:
-      - month
-      - year
     EnterpriseConsumptionResponse:
       description: enterprise consumption response
       type: object
@@ -275,31 +290,32 @@ components:
           items:
             $ref: '#/components/schemas/CostBreakdown'
           description: List of the cost breakdown at cluster region level
-    CostBreakdown:
-      description: Cost breakdown at cluster region level
+    EnterpriseGenerateReportResponse:
       type: object
-      required:
-      - orgId
-      - clusterID
-      - region
-      - cost
       properties:
-        orgId:
+        reportId:
           type: string
-          description: Org ID
-          example: abcfc07b-3217-494e-9831-b5058a92961f
-        clusterID:
+          format: uuid
+          description: Unique identifier for the report.
+        status:
           type: string
-          description: Cluster ID
-          example: d75f25b7-d668-4ff9-9ed6-21a2f22f4568
-        region:
+          description: Current status of the report.
+          enum:
+          - INITIATED
+          - COMPLETED
+          - PENDING
+          - FAILED
+        month:
           type: string
-          description: region
-          example: us-east-1
-        cost:
-          type: double
-          description: breakdown cost
-          example: '101.57878268880637'
+          description: Month of the report.
+        year:
+          type: string
+          description: Year of the report.
+      required:
+      - reportId
+      - status
+      - month
+      - year
     EnterpriseConsumptionRequest:
       description: enterprise consumption request
       type: object
@@ -359,69 +375,53 @@ components:
           type: string
           format: uuid
           example: f9336a4e-e489-4db2-ab29-0939af587268
-    EnterpriseGenerateReportResponse:
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    CostBreakdown:
+      description: Cost breakdown at cluster region level
+      type: object
+      required:
+      - orgId
+      - clusterID
+      - region
+      - cost
+      properties:
+        orgId:
+          type: string
+          description: Org ID
+          example: abcfc07b-3217-494e-9831-b5058a92961f
+        clusterID:
+          type: string
+          description: Cluster ID
+          example: d75f25b7-d668-4ff9-9ed6-21a2f22f4568
+        region:
+          type: string
+          description: region
+          example: us-east-1
+        cost:
+          type: double
+          description: breakdown cost
+          example: '101.57878268880637'
+    EnterpriseGenerateReportRequest:
       type: object
       properties:
-        reportId:
-          type: string
-          format: uuid
-          description: Unique identifier for the report.
-        status:
-          type: string
-          description: Current status of the report.
-          enum:
-          - INITIATED
-          - COMPLETED
-          - PENDING
-          - FAILED
         month:
           type: string
-          description: Month of the report.
+          description: Month represented as a string.
         year:
           type: string
-          description: Year of the report.
+          description: Year represented as a string.
       required:
-      - reportId
-      - status
       - month
       - year
-  responses:
-    UnprocessableEntity:
-      description: The structured data in the request could not be parsed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

@@ -331,47 +331,55 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    PCUGroupTypeResponse:
+    Errors:
+      description: Errors is a collection of individual Error objects
       type: object
-      description: This object is used for the response of the PCU Group types request
+      required:
+      - errors
       properties:
-        type:
-          type: string
-          description: the size of the PCU Group type given the PCU Group types request
-          example: standard
-        region:
-          type: string
-          description: the region of that PCU Group type given the PCU Group types request
-          example: eu-west-1
-        provider:
-          type: string
-          description: the provider (cloud) of the PCU Group type given the PCU Group types request
-          example: aws
-        details:
-          $ref: '#/components/schemas/PCUGroupTypeDetails'
-    PCUGroupGetRequest:
-      type: object
-      description: PCU groups to get
-      properties:
-        pcuGroupUUIDs:
+        errors:
           type: array
-          description: PCU group UIDs
-          required: false
           items:
-            type: string
-            example: 1
-    PCUGroupUpdateRequest:
+            $ref: '#/components/schemas/Error'
+    PCUAssociationTransferRequest:
       type: object
-      description: PCU Group Update Request Model
+      description: PCU association transfer
       properties:
-        pcuGroupUUID:
+        fromPCUGroupUUID:
           type: string
-          description: UUID of the PCU group to update
-          example: 9aaddbb5-4622-447c-9bc5-b036bb9d7ed8
+          description: The PCU Group UUID from which we want to move an association
+          example: 48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626
+        toPCUGroupUUID:
+          type: string
+          description: The PCU Group UUID to which we want to move the association
+          example: 48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626
+        datacenterUUID:
+          type: string
+          description: The Datacenter UUID that is part of the fromPCUGroupUUID which we want to move to the toPCUGroupUUID
+          example: 48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626-1
+    PCUGroupCreateRequest:
+      type: object
+      description: PCU Group Create Request Model
+      properties:
+        orgID:
+          type: string
+          description: OrganizationID of the PCU group, ignored for authenticated users
+          example: some-org
         title:
           type: string
           description: Title of the PCU group
           example: some title
+        cloudProvider:
+          type: string
+          description: Cloud provider of the PCU group
+          example:
+          - AWS
+          - GCP
+          - AZURE
+        region:
+          type: string
+          description: Region of the PCU group
+          example: us-east-1
         instanceType:
           type: string
           description: Instance type of the PCU group
@@ -396,43 +404,6 @@ components:
           type: string
           description: Description of the PCU group
           example: some-description
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PCUGroupTypesRequest:
-      type: object
-      description: This object is used to fetch the types available for PCU Group
-      properties:
-        region:
-          type: string
-          description: region for which to get the PCU Group types
-          example: eu-west1
-        provider:
-          type: string
-          description: provider (cloud) to filter the PCU Group sizes by
-          example: shared
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
     PCUAssociation:
       type: object
       description: PCUAssociation information
@@ -479,6 +450,50 @@ components:
         disk_cache:
           type: string
           description: disk cache for this pcu type
+    PCUGroupGetRequest:
+      type: object
+      description: PCU groups to get
+      properties:
+        pcuGroupUUIDs:
+          type: array
+          description: PCU group UIDs
+          required: false
+          items:
+            type: string
+            example: 1
+    PCUGroupTypeResponse:
+      type: object
+      description: This object is used for the response of the PCU Group types request
+      properties:
+        type:
+          type: string
+          description: the size of the PCU Group type given the PCU Group types request
+          example: standard
+        region:
+          type: string
+          description: the region of that PCU Group type given the PCU Group types request
+          example: eu-west-1
+        provider:
+          type: string
+          description: the provider (cloud) of the PCU Group type given the PCU Group types request
+          example: aws
+        details:
+          $ref: '#/components/schemas/PCUGroupTypeDetails'
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
     PCUGroup:
       type: object
       description: PCU Group Model
@@ -552,29 +567,18 @@ components:
           type: string
           description: Status of the PCU Group
           example: INITIALIZING
-    PCUGroupCreateRequest:
+    PCUGroupUpdateRequest:
       type: object
-      description: PCU Group Create Request Model
+      description: PCU Group Update Request Model
       properties:
-        orgID:
+        pcuGroupUUID:
           type: string
-          description: OrganizationID of the PCU group, ignored for authenticated users
-          example: some-org
+          description: UUID of the PCU group to update
+          example: 9aaddbb5-4622-447c-9bc5-b036bb9d7ed8
         title:
           type: string
           description: Title of the PCU group
           example: some title
-        cloudProvider:
-          type: string
-          description: Cloud provider of the PCU group
-          example:
-          - AWS
-          - GCP
-          - AZURE
-        region:
-          type: string
-          description: Region of the PCU group
-          example: us-east-1
         instanceType:
           type: string
           description: Instance type of the PCU group
@@ -599,31 +603,27 @@ components:
           type: string
           description: Description of the PCU group
           example: some-description
-    PCUAssociationTransferRequest:
+    PCUGroupTypesRequest:
       type: object
-      description: PCU association transfer
+      description: This object is used to fetch the types available for PCU Group
       properties:
-        fromPCUGroupUUID:
+        region:
           type: string
-          description: The PCU Group UUID from which we want to move an association
-          example: 48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626
-        toPCUGroupUUID:
+          description: region for which to get the PCU Group types
+          example: eu-west1
+        provider:
           type: string
-          description: The PCU Group UUID to which we want to move the association
-          example: 48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626
-        datacenterUUID:
-          type: string
-          description: The Datacenter UUID that is part of the fromPCUGroupUUID which we want to move to the toPCUGroupUUID
-          example: 48de8fc3-b8ec-4ed2-8951-4aeaf4c9e626-1
+          description: provider (cloud) to filter the PCU Group sizes by
+          example: shared
   responses:
-    BadRequest:
-      description: Bad request
+    ServerError:
+      description: A server error occurred
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

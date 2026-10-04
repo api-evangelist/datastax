@@ -82,6 +82,16 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    PCUGroupType:
+      type: object
+      description: This object is used for the response of the PCU Group types request
+      properties:
+        type:
+          type: string
+          description: the size of the PCU Group type given the PCU Group types request
+          example: standard
+        details:
+          $ref: '#/components/schemas/PCUGroupTypeDetails'
     AvailableRegionCombination:
       type: object
       description: AvailableRegionCombination defines a Tier, cloud provider, region combination
@@ -125,26 +135,35 @@ components:
           type: integer
           example: 500
           description: Describes capacity unit storage size for a Managed Cluster (Classic) database. This parameter has no relationship to Provisioned Capacity Units for Astra DB Serverless.
-    Errors:
-      description: Errors is a collection of individual Error objects
+    PCUGroupTypeDetails:
+      type: object
+      description: This object holds the details regarding the PCU Type
+      properties:
+        vCPU:
+          type: integer
+          format: int32
+          description: vCPUs for this pcu type
+        memory:
+          type: string
+          description: memory for this pcu type
+        disk_cache:
+          type: string
+          description: disk cache for this pcu type
+    Error:
+      description: ModelError information that is returned to users
       type: object
       required:
-      - errors
+      - id
+      - message
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    PCUGroupType:
-      type: object
-      description: This object is used for the response of the PCU Group types request
-      properties:
-        type:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
           type: string
-          description: the size of the PCU Group type given the PCU Group types request
-          example: standard
-        details:
-          $ref: '#/components/schemas/PCUGroupTypeDetails'
+          example: Something is broken
+          description: User-friendly description of error
     Costs:
       properties:
         costPerMinCents:
@@ -179,35 +198,16 @@ components:
           type: number
           format: double
           example: 0
-    Error:
-      description: ModelError information that is returned to users
+    Errors:
+      description: Errors is a collection of individual Error objects
       type: object
       required:
-      - id
-      - message
+      - errors
       properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
-    PCUGroupTypeDetails:
-      type: object
-      description: This object holds the details regarding the PCU Type
-      properties:
-        vCPU:
-          type: integer
-          format: int32
-          description: vCPUs for this pcu type
-        memory:
-          type: string
-          description: memory for this pcu type
-        disk_cache:
-          type: string
-          description: disk cache for this pcu type
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
     ServerlessRegion:
       type: object
       description: Serverless region information
@@ -253,15 +253,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PCUGroupType'
+  responses:
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   parameters:
-    RegionTypeQueryParam:
-      in: query
-      name: region-type
-      required: false
-      schema:
-        type: string
-        default: ''
-      description: Region type query parameter to retrieve regions supporting serverless and/or vector dbs. By default this API only returns serverless db regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Valid values for this parameter are empty region-type query parameter (default behavior to retrieve serverless regions), all (to retrieve both vector and serverless regions) and vector (to retrieve vector regions). Any invalid value will be ignored and API will show the default behavior i.e. return serverless regions only.
     OrgFilteringQueryParam:
       in: query
       name: filter-by-org
@@ -270,19 +275,14 @@ components:
         type: string
         default: disabled
       description: Filter by org query parameter retrieves regions based on current organization ID. By default this API returns all regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Another valid values for this parameter is 'disabled' (default), i.e. retrieve serverless regions without  filtering out by current org. Any invalid value will be ignored and API will show the default behavior.
-  responses:
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
+    RegionTypeQueryParam:
+      in: query
+      name: region-type
+      required: false
+      schema:
+        type: string
+        default: ''
+      description: Region type query parameter to retrieve regions supporting serverless and/or vector dbs. By default this API only returns serverless db regions for backward compatibility. To retrieve vector supported regions please pass query parameter region-type=vector. Valid values for this parameter are empty region-type query parameter (default behavior to retrieve serverless regions), all (to retrieve both vector and serverless regions) and vector (to retrieve vector regions). Any invalid value will be ignored and API will show the default behavior i.e. return serverless regions only.
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

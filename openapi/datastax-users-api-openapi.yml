@@ -144,25 +144,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  parameters:
-    UserIdParam:
-      in: path
-      name: userID
-      required: true
-      schema:
-        type: string
-      description: ID for the user
   schemas:
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     Role:
       type: object
       description: Details of a user role and its policy details
@@ -182,51 +164,6 @@ components:
         last_update_userid:
           type: string
           description: The userID of the user who last updated the role.
-    UserResponse:
-      type: object
-      required:
-      - userID
-      properties:
-        userID:
-          type: string
-          example: 3476f3bb-10df-4d2f-ac2b-f05c65676724
-        email:
-          type: string
-          example: joe@datastax.com
-        status:
-          type: string
-          description: The status of a user within an organization either active or invited
-          example: active
-        roles:
-          type: array
-          description: an array of roles the user belongs to for an organization
-          items:
-            $ref: '#/components/schemas/Role'
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
-    RoleInviteRequest:
-      type: object
-      description: The roleInvite model
-      required:
-      - roles
-      properties:
-        roles:
-          type: array
-          items:
-            type: string
     UserInvite:
       type: object
       description: The userInvite model
@@ -317,6 +254,31 @@ components:
           description: Effect this policy will have on the provided resource
           enum:
           - allow
+    RoleInviteRequest:
+      type: object
+      description: The roleInvite model
+      required:
+      - roles
+      properties:
+        roles:
+          type: array
+          items:
+            type: string
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
     OrganizationUsers:
       type: object
       required:
@@ -333,17 +295,59 @@ components:
           description: an array of users in the organization
           items:
             $ref: '#/components/schemas/UserResponse'
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    UserResponse:
+      type: object
+      required:
+      - userID
+      properties:
+        userID:
+          type: string
+          example: 3476f3bb-10df-4d2f-ac2b-f05c65676724
+        email:
+          type: string
+          example: joe@datastax.com
+        status:
+          type: string
+          description: The status of a user within an organization either active or invited
+          example: active
+        roles:
+          type: array
+          description: an array of roles the user belongs to for an organization
+          items:
+            $ref: '#/components/schemas/Role'
+  parameters:
+    UserIdParam:
+      in: path
+      name: userID
+      required: true
+      schema:
+        type: string
+      description: ID for the user
   responses:
-    NoContent:
-      description: The request succeeded and no content is returned in response body
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
     Forbidden:
       description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
       content:
         application/json:
           schema:
@@ -354,14 +358,10 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
+    NoContent:
+      description: The request succeeded and no content is returned in response body
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

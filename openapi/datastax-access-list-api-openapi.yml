@@ -228,62 +228,66 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  responses:
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NoContent:
+      description: The request succeeded and no content is returned in response body
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
   schemas:
-    AddressRequest:
-      type: object
-      description: The model used to build an address for an access list
+    AccessListConfigurations:
       required:
-      - address
-      - enabled
-      - description
+      - accessListEnabled
+      type: object
       properties:
-        address:
-          pattern: ^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$
-          type: string
-          description: The address (ip address and subnet mask in CIDR notation) of the address to allow
-          example: 137.187.23.0/24
-        enabled:
+        accessListEnabled:
           type: boolean
-          description: The indication if the access address is enabled or not
-          example: true
-        description:
+    AccessListResponse:
+      type: object
+      description: The response for a requested access list
+      properties:
+        organizationId:
           type: string
-          description: Description of this addresses use
-          example: This address allows the database connections from the prod environment
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
+          description: The unique identifier of the organization
+          format: uuid
+          example: 303a3598-0905-4b5d-9db2-4bf2f9790973
+        databaseId:
           type: string
-          example: Something is broken
-          description: User-friendly description of error
-    AccessListRequest:
-      type: object
-      description: The model used to build an access list
-      properties:
+          description: The unique identifier of the database
+          format: uuid
+          example: 8fbcfe1d-56fa-4ed0-9aff-f57029feef1b
         addresses:
           type: array
           description: A listing of the allowed addresses
           items:
-            $ref: '#/components/schemas/AddressRequest'
+            $ref: '#/components/schemas/AddressResponse'
         configurations:
           $ref: '#/components/schemas/AccessListConfigurations'
     AddressResponse:
@@ -308,13 +312,6 @@ components:
           description: The last update date/time for the access list
           format: date-time
           example: '2021-01-21T17:32:28Z'
-    AccessListConfigurations:
-      required:
-      - accessListEnabled
-      type: object
-      properties:
-        accessListEnabled:
-          type: boolean
     ValidationResponse:
       type: object
       properties:
@@ -325,35 +322,64 @@ components:
           items:
             type: string
       description: The response for validation checks
-    AccessListResponse:
+    Error:
+      description: ModelError information that is returned to users
       type: object
-      description: The response for a requested access list
+      required:
+      - id
+      - message
       properties:
-        organizationId:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
           type: string
-          description: The unique identifier of the organization
-          format: uuid
-          example: 303a3598-0905-4b5d-9db2-4bf2f9790973
-        databaseId:
+          example: Something is broken
+          description: User-friendly description of error
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    AddressRequest:
+      type: object
+      description: The model used to build an address for an access list
+      required:
+      - address
+      - enabled
+      - description
+      properties:
+        address:
+          pattern: ^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$
           type: string
-          description: The unique identifier of the database
-          format: uuid
-          example: 8fbcfe1d-56fa-4ed0-9aff-f57029feef1b
+          description: The address (ip address and subnet mask in CIDR notation) of the address to allow
+          example: 137.187.23.0/24
+        enabled:
+          type: boolean
+          description: The indication if the access address is enabled or not
+          example: true
+        description:
+          type: string
+          description: Description of this addresses use
+          example: This address allows the database connections from the prod environment
+    AccessListRequest:
+      type: object
+      description: The model used to build an access list
+      properties:
         addresses:
           type: array
           description: A listing of the allowed addresses
           items:
-            $ref: '#/components/schemas/AddressResponse'
+            $ref: '#/components/schemas/AddressRequest'
         configurations:
           $ref: '#/components/schemas/AccessListConfigurations'
   parameters:
-    DatabaseIdParam:
-      in: path
-      name: databaseID
-      required: true
-      description: String representation of the database ID
-      schema:
-        type: string
     AddressesQueryParam:
       in: query
       name: addresses
@@ -363,39 +389,13 @@ components:
         items:
           type: string
       description: Array of addresses
-  responses:
-    NoContent:
-      description: The request succeeded and no content is returned in response body
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NotFound:
-      description: The specified database was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
+    DatabaseIdParam:
+      in: path
+      name: databaseID
+      required: true
+      description: String representation of the database ID
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       description: An application token must be passed in header in order to access the API. https://docs.datastax.com/en/astra-db-serverless/administration/manage-application-tokens.html

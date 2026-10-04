@@ -495,14 +495,38 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    SCIMServiceProviderMeta:
+    SCIMGroupMeta:
       type: object
       properties:
-        location:
-          type: string
         resourceType:
           type: string
-          example: ServiceProviderConfig
+          example: Group
+        created:
+          type: string
+          format: date-time
+          description: The date and time the resource was created
+        lastModified:
+          type: string
+          format: date-time
+          description: The date and time the resource was last modified
+        location:
+          type: string
+          description: The URI of the resource
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
     SCIMServiceProviderConfig:
       type: object
       description: SCIM 2.0 Service Provider Configuration
@@ -557,6 +581,83 @@ components:
             $ref: '#/components/schemas/SCIMAuthenticationScheme'
         meta:
           $ref: '#/components/schemas/SCIMServiceProviderMeta'
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SCIMServiceProviderMeta:
+      type: object
+      properties:
+        location:
+          type: string
+        resourceType:
+          type: string
+          example: ServiceProviderConfig
+    SCIMUserMeta:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          example: User
+        created:
+          type: string
+          format: date-time
+          description: The date and time the resource was created
+        lastModified:
+          type: string
+          format: date-time
+          description: The date and time the resource was last modified
+        location:
+          type: string
+          description: The URI of the resource
+    SCIMAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        multiValued:
+          type: boolean
+        description:
+          type: string
+        required:
+          type: boolean
+        caseExact:
+          type: boolean
+        mutability:
+          type: string
+        returned:
+          type: string
+        uniqueness:
+          type: string
+        subAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SCIMAttribute'
+    SCIMPatchRequest:
+      type: object
+      description: SCIM 2.0 PATCH request
+      required:
+      - schemas
+      - Operations
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SCIMPatchOperation'
     SCIMSchemasListResponse:
       type: object
       description: SCIM 2.0 Schemas List Response
@@ -577,103 +678,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SCIMSchema'
-    SCIMGroupMeta:
-      type: object
-      properties:
-        resourceType:
-          type: string
-          example: Group
-        created:
-          type: string
-          format: date-time
-          description: The date and time the resource was created
-        lastModified:
-          type: string
-          format: date-time
-          description: The date and time the resource was last modified
-        location:
-          type: string
-          description: The URI of the resource
-    SCIMSchema:
-      type: object
-      description: A SCIM 2.0 schema definition
-      required:
-      - schemas
-      - id
-      - name
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          example:
-          - urn:ietf:params:scim:schemas:core:2.0:Schema
-        id:
-          type: string
-          example: urn:ietf:params:scim:schemas:core:2.0:User
-        name:
-          type: string
-          example: User
-        description:
-          type: string
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SCIMAttribute'
-        meta:
-          $ref: '#/components/schemas/SCIMSchemaMeta'
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-    SCIMSchemaMeta:
-      type: object
-      properties:
-        location:
-          type: string
-        resourceType:
-          type: string
-          example: Schema
-    SCIMGroupMember:
-      type: object
-      description: A member of a SCIM group
-      required:
-      - value
-      - $ref
-      properties:
-        value:
-          type: string
-          format: uuid
-          description: Identifier of the member of this Group
-        $ref:
-          type: string
-          description: The URI corresponding to a SCIM resource that is a member of this Group
-        display:
-          type: string
-          description: A human-readable name for the member
-    SCIMPatchRequest:
-      type: object
-      description: SCIM 2.0 PATCH request
-      required:
-      - schemas
-      - Operations
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          example:
-          - urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-          type: array
-          items:
-            $ref: '#/components/schemas/SCIMPatchOperation'
     SCIMResourceTypesListResponse:
       type: object
       description: SCIM 2.0 Resource Types List Response
@@ -702,23 +706,6 @@ components:
         resourceType:
           type: string
           example: ResourceType
-    SCIMUserMeta:
-      type: object
-      properties:
-        resourceType:
-          type: string
-          example: User
-        created:
-          type: string
-          format: date-time
-          description: The date and time the resource was created
-        lastModified:
-          type: string
-          format: date-time
-          description: The date and time the resource was last modified
-        location:
-          type: string
-          description: The URI of the resource
     SCIMUser:
       type: object
       description: SCIM 2.0 User resource
@@ -773,6 +760,33 @@ components:
           description: A Boolean value indicating the user's administrative status
         meta:
           $ref: '#/components/schemas/SCIMUserMeta'
+    SCIMGroup:
+      type: object
+      description: SCIM 2.0 Group resource (maps to roles)
+      required:
+      - schemas
+      - id
+      - displayName
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:schemas:core:2.0:Group
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the group
+        displayName:
+          type: string
+          description: A human-readable name for the Group
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/SCIMGroupMember'
+        meta:
+          $ref: '#/components/schemas/SCIMGroupMeta'
     SCIMResourceType:
       type: object
       description: A SCIM 2.0 resource type definition
@@ -805,118 +819,42 @@ components:
           example: urn:ietf:params:scim:schemas:core:2.0:User
         meta:
           $ref: '#/components/schemas/SCIMResourceTypeMeta'
-    SCIMGroupListResponse:
+    SCIMSchema:
       type: object
-      description: SCIM 2.0 List Response for Groups
+      description: A SCIM 2.0 schema definition
       required:
       - schemas
-      - totalResults
-      - Resources
+      - id
+      - name
       properties:
         schemas:
           type: array
           items:
             type: string
           example:
-          - urn:ietf:params:scim:api:messages:2.0:ListResponse
-        totalResults:
-          type: integer
-          description: The total number of results returned
-        startIndex:
-          type: integer
-          description: The 1-based index of the first result in the current set of search results
-        itemsPerPage:
-          type: integer
-          description: The number of resources returned in a list response page
-        Resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/SCIMGroup'
-    SCIMAttribute:
-      type: object
-      properties:
+          - urn:ietf:params:scim:schemas:core:2.0:Schema
+        id:
+          type: string
+          example: urn:ietf:params:scim:schemas:core:2.0:User
         name:
           type: string
-        type:
-          type: string
-        multiValued:
-          type: boolean
+          example: User
         description:
           type: string
-        required:
-          type: boolean
-        caseExact:
-          type: boolean
-        mutability:
-          type: string
-        returned:
-          type: string
-        uniqueness:
-          type: string
-        subAttributes:
+        attributes:
           type: array
           items:
             $ref: '#/components/schemas/SCIMAttribute'
-    SCIMGroup:
-      type: object
-      description: SCIM 2.0 Group resource (maps to roles)
-      required:
-      - schemas
-      - id
-      - displayName
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          example:
-          - urn:ietf:params:scim:schemas:core:2.0:Group
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier for the group
-        displayName:
-          type: string
-          description: A human-readable name for the Group
-        members:
-          type: array
-          items:
-            $ref: '#/components/schemas/SCIMGroupMember'
         meta:
-          $ref: '#/components/schemas/SCIMGroupMeta'
-    Error:
-      description: ModelError information that is returned to users
+          $ref: '#/components/schemas/SCIMSchemaMeta'
+    SCIMSchemaMeta:
       type: object
-      required:
-      - id
-      - message
       properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
+        location:
           type: string
-          example: Something is broken
-          description: User-friendly description of error
-    SCIMPatchOperation:
-      type: object
-      description: A single SCIM PATCH operation
-      required:
-      - op
-      properties:
-        op:
+        resourceType:
           type: string
-          enum:
-          - add
-          - replace
-          - remove
-          description: The operation to perform
-        path:
-          type: string
-          description: The attribute path (e.g., "active", "name.givenName", "members")
-        value:
-          description: The value to use for the operation. Can be a string, boolean, object, or array depending on the operation and path.
+          example: Schema
     SCIMUserListResponse:
       type: object
       description: SCIM 2.0 List Response for Users
@@ -944,6 +882,50 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SCIMUser'
+    SCIMGroupMember:
+      type: object
+      description: A member of a SCIM group
+      required:
+      - value
+      - $ref
+      properties:
+        value:
+          type: string
+          format: uuid
+          description: Identifier of the member of this Group
+        $ref:
+          type: string
+          description: The URI corresponding to a SCIM resource that is a member of this Group
+        display:
+          type: string
+          description: A human-readable name for the member
+    SCIMGroupListResponse:
+      type: object
+      description: SCIM 2.0 List Response for Groups
+      required:
+      - schemas
+      - totalResults
+      - Resources
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: The total number of results returned
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
+          type: integer
+          description: The number of resources returned in a list response page
+        Resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SCIMGroup'
     SCIMAuthenticationScheme:
       type: object
       properties:
@@ -959,27 +941,25 @@ components:
           type: string
         primary:
           type: boolean
+    SCIMPatchOperation:
+      type: object
+      description: A single SCIM PATCH operation
+      required:
+      - op
+      properties:
+        op:
+          type: string
+          enum:
+          - add
+          - replace
+          - remove
+          description: The operation to perform
+        path:
+          type: string
+          description: The attribute path (e.g., "active", "name.givenName", "members")
+        value:
+          description: The value to use for the operation. Can be a string, boolean, object, or array depending on the operation and path.
   responses:
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NoContent:
-      description: The request succeeded and no content is returned in response body
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
     BadRequest:
       description: Bad request
       content:
@@ -992,6 +972,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NoContent:
+      description: The request succeeded and no content is returned in response body
     Conflict:
       description: The database is not in a valid state to perform the operation
       content:
