@@ -62,6 +62,7 @@ tags:
 - Serverless
 - Streaming
 - Developer Tools
+- Vector Search
 apis:
 - aid: datastax:datastax-access-list-api
   name: DataStax Access List API
@@ -486,6 +487,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/datastax-capability-edges.yml
+  name: DataStax Business Capability Map
 - type: ParentCompany
   url: https://apis.io/providers/ibm/
   name: IBM

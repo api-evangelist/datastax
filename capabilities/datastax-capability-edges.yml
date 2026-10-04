@@ -1,0 +1,91 @@
+slug: datastax
+provider: DataStax
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Roles
+  spec_file: datastax-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /v2/organizations/roles — "Create a role in an organization"; "Update a role within an
+    organization"; schemas Role, Policy
+  reason: Full CRUD over organisation roles and their attached policies — authorisation/role administration,
+    which is Identity & Access Management.
+- tag: SCIM
+  spec_file: datastax-scim-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /v2/scim/users — "Create SCIM User"; GET /v2/scim/groups — "List SCIM Groups"; schemas
+    SCIMUser, SCIMGroup, SCIMServiceProviderConfig
+  reason: SCIM user and group provisioning/de-provisioning against the organisation directory — joiner-mover-leaver
+    identity provisioning, i.e. Identity & Access Management. Could alternatively be read as tenant identity
+    federation, hence not 0.95.
+- tag: Users
+  spec_file: datastax-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: PUT /v2/organizations/users — "Invite a user to an organization"; "Remove or uninvite a user
+    from an organization"; "Update organization roles for a user"
+  reason: 'User invitation, removal and role assignment within an organisation — account administration
+    and access rights, i.e. Identity & Access Management. Not HR employee records: these are platform
+    user accounts.'
+- tag: VPC Peering
+  spec_file: datastax-vpc-peering-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: POST /v2/peering/provider/{provider}/database/{databaseID} — "Creates a VPC peering connection";
+    schemas AmazonVPC, AzureVPC, GoogleVPC
+  reason: Creation, retrieval and deletion of cloud VPC peering connections across AWS/Azure/GCP — network
+    infrastructure provisioning, mapping to IT Infrastructure Management.
+- tag: Authentication
+  spec_file: datastax-authentication-api-openapi.yml
+  capability_id: BC-4270.40
+  capability_id_l1: BC-4270
+  capability_name: Developer Identity & Credential Management
+  confidence: 0.7
+  evidence: POST /v2/tokens  createToken  Create a new AstraCS token; GET /v2/clientIdSecrets  getClientsForOrg;
+    DELETE /v2/clientIdSecrets/{clientId}  deleteTokenForClient  Revokes a token
+  reason: The surface issues, lists and revokes API tokens and client id/secret pairs used by developers
+    to call the platform's APIs (GenerateTokenBody, ClientRole). That is developer credential issuance
+    and stewardship for an API platform. Some overlap with generic IAM, hence 0.7.
+- tag: Database Operations
+  spec_file: datastax-database-operations-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /v2/databases  createDatabase  Create a new database; POST /v2/databases/{databaseID}/resize  resizeDatabase  Resizes
+    a database; POST /v2/databases/{databaseID}/terminate  terminateDatabase
+  reason: Create, resize, terminate, keyspace and datacenter operations over serverless cloud databases,
+    plus remote telemetry configuration. This is provisioning and operation of cloud data infrastructure,
+    i.e. IT Infrastructure Management for the consuming organisation.
+- tag: Private Link
+  spec_file: datastax-private-link-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: POST /v2/organizations/clusters/{clusterID}/datacenters/{datacenterID}/private-link — "Add
+    an allowed principal to the private link service"; "Accept an endpoint to the private link service";
+    schema PrivateLinkEndpoint
+  reason: Operations configure private network connectivity (private link services, endpoints, allowed
+    principals, custom domains) between cloud VPCs and the database. This is cloud network infrastructure
+    configuration — IT Infrastructure Management.
