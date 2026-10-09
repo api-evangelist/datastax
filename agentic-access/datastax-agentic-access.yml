@@ -1,21 +1,181 @@
-generated: '2026-07-18'
+generated: '2026-09-23'
 method: generated
-source: openapi/datastax-devops-openapi.json
+source: openapi/datastax-access-list-api-openapi.yml, openapi/datastax-authentication-api-openapi.yml,
+  openapi/datastax-clone-api-openapi.yml, openapi/datastax-customer-keys-api-openapi.yml, openapi/datastax-database-operations-api-openapi.yml,
+  openapi/datastax-devops-access-list-api-openapi.yml, openapi/datastax-enterprise-operations-api-openapi.yml,
+  openapi/datastax-migrations-api-openapi.yml, openapi/datastax-organization-operations-api-openapi.yml,
+  openapi/datastax-pcu-api-openapi.yml, openapi/datastax-private-link-api-openapi.yml, openapi/datastax-regions-api-openapi.yml,
+  openapi/datastax-roles-api-openapi.yml, openapi/datastax-scim-api-openapi.yml, openapi/datastax-token-api-openapi.yml,
+  openapi/datastax-users-api-openapi.yml, openapi/datastax-vpc-peering-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 123
+  operations: 129
   by_action_class:
-    acting: 79
-    connected: 44
+    connected: 48
+    acting: 81
   by_consequence:
-    write: 74
-    read: 44
-    safety-critical: 4
+    read: 48
+    write: 75
+    safety-critical: 5
     physical: 1
-  human_in_the_loop_required: 4
+  human_in_the_loop_required: 5
 operations:
+- path: /v2/access-lists
+  method: get
+  operationId: GetAllAccessListsForOrganization
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - accesslist-read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/databases/{databaseID}/access-list
+  method: get
+  operationId: GetAccessListForDatabase
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - accesslist-read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/databases/{databaseID}/access-list
+  method: put
+  operationId: UpsertAccessListForDatabase
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - accesslist-write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/databases/{databaseID}/access-list
+  method: post
+  operationId: AddAddressesToAccessListForDatabase
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - accesslist-write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/databases/{databaseID}/access-list
+  method: patch
+  operationId: UpdateAccessListForDatabase
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - accesslist-write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/databases/{databaseID}/access-list
+  method: delete
+  operationId: DeleteAddressesOrAccessListForDatabase
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - accesslist-write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/access-list/validate
+  method: post
+  operationId: ValidateAccessList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/access-list/template
+  method: post
+  operationId: GetAccessListTemplate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
 - path: /v2/tokens
   method: post
   operationId: createToken
@@ -180,6 +340,300 @@ operations:
     escalation:
       human-in-the-loop: required
     audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/databases/{databaseID}/snapshots
+  method: get
+  operationId: listSnapshots
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - org-db-view
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/databases/{targetDBID}/cloneFrom/{sourceDBID}
+  method: post
+  operationId: cloneFromDB
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - org-db-create
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/databases/{targetDBID}/cloneStatus/{operationID}
+  method: get
+  operationId: cloneStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - org-db-view
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kms
+  method: post
+  operationId: CreateServerlessKey
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/kms
+  method: get
+  operationId: ListServerlessKeys
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/kms/classic
+  method: post
+  operationId: CreateClassicKey
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/kms/classic
+  method: get
+  operationId: ListClassicKeys
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/kms/provider/{provider}/region/{region}
+  method: get
+  operationId: GetServerlessKey
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/kms/classic/provider/{provider}/region/{region}
+  method: get
+  operationId: GetClassicKey
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/kms/provider/{provider}/region/{region}/accounts
+  method: get
+  operationId: GetServerlessCloudAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/kms/classic/provider/{provider}/accounts
+  method: post
+  operationId: AssignCloudAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/kms/classic/provider/{provider}/region/{region}/accounts
+  method: get
+  operationId: GetClassicCloudAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
     scope:
     - accesslist-read
     - accesslist-write
@@ -622,59 +1076,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/availableRegions
-  method: get
-  operationId: listAvailableRegions
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - org-db-create
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/regions/serverless
-  method: get
-  operationId: listServerlessRegions
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - org-db-create
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/organizations/roles
-  method: get
-  operationId: getOrganizationRoles
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/organizations/roles
+- path: /v2/databases/{databaseID}/keyspaces/{keyspaceName}/tables/{tableName}/solr/createCorewithconfigs
   method: post
-  operationId: addOrganizationRole
+  operationId: createSolrIndex
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -704,9 +1108,9 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/roles/{roleID}
+- path: /v2/organizations/{orgId}/devops-acl
   method: get
-  operationId: getOrganizationRole
+  operationId: getV2OrganizationsByOrgIdDevopsAcl
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -730,9 +1134,9 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/roles/{roleID}
-  method: put
-  operationId: updateRole
+- path: /v2/organizations/{orgId}/devops-acl
+  method: post
+  operationId: postV2OrganizationsByOrgIdDevopsAcl
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -762,9 +1166,73 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/roles/{roleID}
+- path: /v2/organizations/{orgId}/devops-acl
+  method: put
+  operationId: putV2OrganizationsByOrgIdDevopsAcl
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/{orgId}/devops-acl
+  method: patch
+  operationId: patchV2OrganizationsByOrgIdDevopsAcl
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/{orgId}/devops-acl
   method: delete
-  operationId: deleteOrganizationRole
+  operationId: deleteV2OrganizationsByOrgIdDevopsAcl
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -794,9 +1262,9 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/users
-  method: put
-  operationId: inviteUserToOrganization
+- path: /v2/enterprises/organizations
+  method: post
+  operationId: createOrganizationInEnterprise
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -826,9 +1294,9 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/users
-  method: get
-  operationId: getOrganizationUsers
+- path: /v2/enterprises/consumption
+  method: post
+  operationId: GetEnterpriseConsumption
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -852,9 +1320,259 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/users/{userID}
+- path: /v2/enterprises/billing-reports/generate-report
+  method: post
+  operationId: generateReport
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/enterprises/billing-reports/{reportId}
   method: get
-  operationId: getOrganizationUser
+  operationId: getReportDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/databases/{databaseID}/migrations/initialize
+  method: post
+  operationId: initializeMigration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/databases/{databaseID}/datacenters/{datacenterID}/migrations/initialize
+  method: post
+  operationId: initializeMigrationDC
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/databases/{databaseID}/migrations/{migrationID}/launch
+  method: post
+  operationId: launchMigration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/databases/{databaseID}/migrations/{migrationID}/pause
+  method: post
+  operationId: pauseMigration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/databases/{databaseID}/migrations/{migrationID}/resume
+  method: post
+  operationId: resumeMigration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/databases/{databaseID}/migrations/{migrationID}/abort
+  method: post
+  operationId: abortMigration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/databases/{databaseID}/migrations/{migrationID}/cleanup
+  method: post
+  operationId: cleanupMigration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/databases/{databaseID}/migrations/{migrationID}
+  method: get
+  operationId: getMigrationStatus
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -878,9 +1596,83 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/users/{userID}
+- path: /v2/currentOrg
+  method: get
+  operationId: getCurrentOrganization
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/{orgID}/telemetry/auditLogs
+  method: post
+  operationId: setAuditLogExporterConfig
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - org-audits-read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/organizations/{orgID}/telemetry/auditLogs
+  method: get
+  operationId: getAuditLogExporterConfig
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - org-audits-read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/organizations/{orgID}/telemetry/auditLogs
   method: delete
-  operationId: removeUserFromOrganization
+  operationId: deleteAuditLogExporterConfig
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - org-audits-read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/pcus/actions/get
+  method: post
+  operationId: pcuGet
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -910,9 +1702,319 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/users/{userID}/roles
+- path: /v2/pcus/types
+  method: post
+  operationId: pcuGetTypes
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus/actions/get/{datacenterUUID}
+  method: get
+  operationId: pcuGroupGetByDatacenterUUID
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus/{pcuGroupUUID}
+  method: delete
+  operationId: pcuDelete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus
+  method: post
+  operationId: pcuCreate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus
   method: put
-  operationId: UpdateRolesForUserInOrganization
+  operationId: pcuUpdate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus/association/{pcuGroupUUID}
+  method: get
+  operationId: pcuAssociationGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus/association/transfer
+  method: post
+  operationId: pcuAssociationTransfer
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus/association/{pcuGroupUUID}/{datacenterUUID}
+  method: post
+  operationId: pcuAssociationCreate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus/association/{pcuGroupUUID}/{datacenterUUID}
+  method: delete
+  operationId: pcuAssociationDelete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus/park/{pcuGroupUUID}
+  method: post
+  operationId: pcuGroupPark
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/pcus/unpark/{pcuGroupUUID}
+  method: post
+  operationId: pcuGroupUnpark
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1296,8 +2398,33 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/{orgId}/devops-acl
+- path: /v2/availableRegions
   method: get
+  operationId: listAvailableRegions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - org-db-create
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/regions/serverless
+  method: get
+  operationId: listServerlessRegions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - org-db-create
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/organizations/roles
+  method: get
+  operationId: getOrganizationRoles
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1321,8 +2448,9 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/{orgId}/devops-acl
+- path: /v2/organizations/roles
   method: post
+  operationId: addOrganizationRole
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1352,8 +2480,35 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/{orgId}/devops-acl
+- path: /v2/organizations/roles/{roleID}
+  method: get
+  operationId: getOrganizationRole
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/roles/{roleID}
   method: put
+  operationId: updateRole
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1383,39 +2538,9 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/organizations/{orgId}/devops-acl
-  method: patch
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/organizations/{orgId}/devops-acl
+- path: /v2/organizations/roles/{roleID}
   method: delete
+  operationId: deleteOrganizationRole
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -1445,1297 +2570,6 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/access-lists
-  method: get
-  operationId: GetAllAccessListsForOrganization
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - accesslist-read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/databases/{databaseID}/access-list
-  method: get
-  operationId: GetAccessListForDatabase
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - accesslist-read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/databases/{databaseID}/access-list
-  method: put
-  operationId: UpsertAccessListForDatabase
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - accesslist-write
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/databases/{databaseID}/access-list
-  method: post
-  operationId: AddAddressesToAccessListForDatabase
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - accesslist-write
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/databases/{databaseID}/access-list
-  method: patch
-  operationId: UpdateAccessListForDatabase
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - accesslist-write
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/databases/{databaseID}/access-list
-  method: delete
-  operationId: DeleteAddressesOrAccessListForDatabase
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - accesslist-write
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/access-list/validate
-  method: post
-  operationId: ValidateAccessList
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/access-list/template
-  method: post
-  operationId: GetAccessListTemplate
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/currentOrg
-  method: get
-  operationId: getCurrentOrganization
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/organizations/{orgID}/telemetry/auditLogs
-  method: post
-  operationId: setAuditLogExporterConfig
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - org-audits-read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/organizations/{orgID}/telemetry/auditLogs
-  method: get
-  operationId: getAuditLogExporterConfig
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - org-audits-read
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/organizations/{orgID}/telemetry/auditLogs
-  method: delete
-  operationId: deleteAuditLogExporterConfig
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - org-audits-read
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/kms
-  method: post
-  operationId: CreateServerlessKey
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/kms
-  method: get
-  operationId: ListServerlessKeys
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/kms/classic
-  method: post
-  operationId: CreateClassicKey
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/kms/classic
-  method: get
-  operationId: ListClassicKeys
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/kms/provider/{provider}/region/{region}
-  method: get
-  operationId: GetServerlessKey
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/kms/classic/provider/{provider}/region/{region}
-  method: get
-  operationId: GetClassicKey
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/kms/provider/{provider}/region/{region}/accounts
-  method: get
-  operationId: GetServerlessCloudAccounts
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/kms/classic/provider/{provider}/accounts
-  method: post
-  operationId: AssignCloudAccount
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/kms/classic/provider/{provider}/region/{region}/accounts
-  method: get
-  operationId: GetClassicCloudAccounts
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/peering/provider/{provider}/database/{databaseID}
-  method: get
-  operationId: GetVPCPeeringConnectionDetails
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - org-db-addpeering
-    - org-db-readpeering
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/peering/provider/{provider}/database/{databaseID}
-  method: post
-  operationId: CreateVPCPeeringConnection
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - org-db-addpeering
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/peering/provider/{provider}/database/{databaseID}
-  method: delete
-  operationId: DeleteVPCPeeringConnection
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - org-db-addpeering
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/databases/{databaseID}/migrations/initialize
-  method: post
-  operationId: initializeMigration
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/databases/{databaseID}/datacenters/{datacenterID}/migrations/initialize
-  method: post
-  operationId: initializeMigrationDC
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/databases/{databaseID}/migrations/{migrationID}/launch
-  method: post
-  operationId: launchMigration
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/databases/{databaseID}/migrations/{migrationID}/pause
-  method: post
-  operationId: pauseMigration
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/databases/{databaseID}/migrations/{migrationID}/resume
-  method: post
-  operationId: resumeMigration
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/databases/{databaseID}/migrations/{migrationID}/abort
-  method: post
-  operationId: abortMigration
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/databases/{databaseID}/migrations/{migrationID}/cleanup
-  method: post
-  operationId: cleanupMigration
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/databases/{databaseID}/migrations/{migrationID}
-  method: get
-  operationId: getMigrationStatus
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/enterprises/organizations
-  method: post
-  operationId: createOrganizationInEnterprise
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/enterprises/consumption
-  method: post
-  operationId: GetEnterpriseConsumption
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/actions/get
-  method: post
-  operationId: pcuGet
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/types
-  method: post
-  operationId: pcuGetTypes
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/actions/get/{datacenterUUID}
-  method: get
-  operationId: pcuGroupGetByDatacenterUUID
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/{pcuGroupUUID}
-  method: delete
-  operationId: pcuDelete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus
-  method: post
-  operationId: pcuCreate
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus
-  method: put
-  operationId: pcuUpdate
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/association/{pcuGroupUUID}
-  method: get
-  operationId: pcuAssociationGet
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/association/transfer
-  method: post
-  operationId: pcuAssociationTransfer
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/association/{pcuGroupUUID}/{datacenterUUID}
-  method: post
-  operationId: pcuAssociationCreate
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/association/{pcuGroupUUID}/{datacenterUUID}
-  method: delete
-  operationId: pcuAssociationDelete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/park/{pcuGroupUUID}
-  method: post
-  operationId: pcuGroupPark
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/pcus/unpark/{pcuGroupUUID}
-  method: post
-  operationId: pcuGroupUnpark
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-    scope:
-    - accesslist-read
-    - accesslist-write
-    - db-cql
-    - db-keyspace-create
-    - db-manage-backupconfiguration
-    - db-manage-privateendpoint
-    - db-manage-telemetry
-    - org-admin
-    - org-db-addpeering
-    - org-db-create
-    - org-db-expand
-    - org-db-readpeering
-    - org-db-suspend
-    - org-db-terminate
-    - org-db-view
-- path: /v2/enterprises/billing-reports/generate-report
-  method: post
-  operationId: generateReport
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/enterprises/billing-reports/{reportId}
-  method: get
-  operationId: getReportDetails
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/databases/{databaseID}/snapshots
-  method: get
-  operationId: listSnapshots
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - org-db-view
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/databases/{targetDBID}/cloneFrom/{sourceDBID}
-  method: post
-  operationId: cloneFromDB
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    scope:
-    - org-db-create
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/databases/{targetDBID}/cloneStatus/{operationID}
-  method: get
-  operationId: cloneStatus
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    scope:
-    - org-db-view
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /v2/scim/ServiceProviderConfig
   method: get
   operationId: getSCIMServiceProviderConfig
@@ -3174,9 +3008,9 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
-- path: /v2/databases/{databaseID}/keyspaces/{keyspaceName}/tables/{tableName}/solr/createCorewithconfigs
+- path: /v2/tokens
   method: post
-  operationId: createSolrIndex
+  operationId: createToken
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -3206,3 +3040,348 @@ operations:
     - org-db-suspend
     - org-db-terminate
     - org-db-view
+- path: /v2/tokens
+  method: get
+  operationId: getTokensForOrg
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/tokens
+  method: delete
+  operationId: deleteToken
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/clientIdSecrets
+  method: get
+  operationId: getClientsForOrg
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/clientIdSecrets
+  method: post
+  operationId: generateTokenForClient
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/clientIdSecrets/{clientId}
+  method: delete
+  operationId: deleteTokenForClient
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/users
+  method: put
+  operationId: inviteUserToOrganization
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/users
+  method: get
+  operationId: getOrganizationUsers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/users/{userID}
+  method: get
+  operationId: getOrganizationUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/users/{userID}
+  method: delete
+  operationId: removeUserFromOrganization
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/organizations/users/{userID}/roles
+  method: put
+  operationId: UpdateRolesForUserInOrganization
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - accesslist-read
+    - accesslist-write
+    - db-cql
+    - db-keyspace-create
+    - db-manage-backupconfiguration
+    - db-manage-privateendpoint
+    - db-manage-telemetry
+    - org-admin
+    - org-db-addpeering
+    - org-db-create
+    - org-db-expand
+    - org-db-readpeering
+    - org-db-suspend
+    - org-db-terminate
+    - org-db-view
+- path: /v2/peering/provider/{provider}/database/{databaseID}
+  method: get
+  operationId: GetVPCPeeringConnectionDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - org-db-addpeering
+    - org-db-readpeering
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/peering/provider/{provider}/database/{databaseID}
+  method: post
+  operationId: CreateVPCPeeringConnection
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - org-db-addpeering
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/peering/provider/{provider}/database/{databaseID}
+  method: delete
+  operationId: DeleteVPCPeeringConnection
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - org-db-addpeering
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

@@ -1,0 +1,85 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://www.ibm.com/products/watsonx-data/pricing
+sources:
+- https://www.ibm.com/products/watsonx-data/pricing
+- https://www.datastax.com/pricing/astra-db
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: usage-other
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-10-07'
+  evidence: On-Prem Software Offering Entitlement-based pricing allows you to effectively and predictably
+    manage your costs.
+  managed_tier: Subscription
+published: true
+note: IBM watsonx.data pricing page (includes Cassandra/Astra DB engine). Priced in Resource Units (USD
+  1 per RU) with engine size tiers in RUs/hr; core support services cost 3.00 RUs/hr per account not included.
+  BYOC and on-prem require contacting sales.
+plan_count: 4
+currency: USD
+plans:
+- name: Pay Per Use
+  price_text: Starting at $1.00 USD Per Resource Unit
+  price: 1.0
+  currency: USD
+  period: per-use
+  unit: Resource Unit
+  included_quota: Instance deployed on AWS. Pay only for what you use.
+- name: Subscription
+  price_text: Starting at $83.30 USD Per month
+  price: 83.3
+  currency: USD
+  period: month
+  included_quota: Instance deployed on AWS.
+- name: Bring Your Own Cloud (BYOC)
+  price_text: Contact sales
+  period: none
+- name: On-Prem Software Offering
+  price_text: Contact sales
+  period: none
+rate_limit_statements:
+- Usage/metering is tracked at a per-minute level.
+- metered on a per-second basis with a 1-minute minimum charge
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Pay Per Use
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Subscription
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Bring Your Own Cloud (BYOC)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: On-Prem Software Offering
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
