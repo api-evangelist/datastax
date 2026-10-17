@@ -228,68 +228,22 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    NotFound:
-      description: The specified database was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    Unauthorized:
-      description: The user is unauthorized to perform the operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-    NoContent:
-      description: The request succeeded and no content is returned in response body
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
   schemas:
-    AccessListConfigurations:
+    Error:
+      description: ModelError information that is returned to users
+      type: object
       required:
-      - accessListEnabled
-      type: object
+      - id
+      - message
       properties:
-        accessListEnabled:
-          type: boolean
-    AccessListResponse:
-      type: object
-      description: The response for a requested access list
-      properties:
-        organizationId:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
           type: string
-          description: The unique identifier of the organization
-          format: uuid
-          example: 303a3598-0905-4b5d-9db2-4bf2f9790973
-        databaseId:
-          type: string
-          description: The unique identifier of the database
-          format: uuid
-          example: 8fbcfe1d-56fa-4ed0-9aff-f57029feef1b
-        addresses:
-          type: array
-          description: A listing of the allowed addresses
-          items:
-            $ref: '#/components/schemas/AddressResponse'
-        configurations:
-          $ref: '#/components/schemas/AccessListConfigurations'
+          example: Something is broken
+          description: User-friendly description of error
     AddressResponse:
       type: object
       description: The response for a requested address in an access list
@@ -312,41 +266,6 @@ components:
           description: The last update date/time for the access list
           format: date-time
           example: '2021-01-21T17:32:28Z'
-    ValidationResponse:
-      type: object
-      properties:
-        valid:
-          type: boolean
-        validationFailures:
-          type: array
-          items:
-            type: string
-      description: The response for validation checks
-    Error:
-      description: ModelError information that is returned to users
-      type: object
-      required:
-      - id
-      - message
-      properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
-          type: string
-          example: Something is broken
-          description: User-friendly description of error
-    Errors:
-      description: Errors is a collection of individual Error objects
-      type: object
-      required:
-      - errors
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
     AddressRequest:
       type: object
       description: The model used to build an address for an access list
@@ -368,6 +287,27 @@ components:
           type: string
           description: Description of this addresses use
           example: This address allows the database connections from the prod environment
+    AccessListResponse:
+      type: object
+      description: The response for a requested access list
+      properties:
+        organizationId:
+          type: string
+          description: The unique identifier of the organization
+          format: uuid
+          example: 303a3598-0905-4b5d-9db2-4bf2f9790973
+        databaseId:
+          type: string
+          description: The unique identifier of the database
+          format: uuid
+          example: 8fbcfe1d-56fa-4ed0-9aff-f57029feef1b
+        addresses:
+          type: array
+          description: A listing of the allowed addresses
+          items:
+            $ref: '#/components/schemas/AddressResponse'
+        configurations:
+          $ref: '#/components/schemas/AccessListConfigurations'
     AccessListRequest:
       type: object
       description: The model used to build an access list
@@ -379,6 +319,66 @@ components:
             $ref: '#/components/schemas/AddressRequest'
         configurations:
           $ref: '#/components/schemas/AccessListConfigurations'
+    ValidationResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        validationFailures:
+          type: array
+          items:
+            type: string
+      description: The response for validation checks
+    AccessListConfigurations:
+      required:
+      - accessListEnabled
+      type: object
+      properties:
+        accessListEnabled:
+          type: boolean
+    Errors:
+      description: Errors is a collection of individual Error objects
+      type: object
+      required:
+      - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+  responses:
+    Forbidden:
+      description: The user is forbidden to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    ServerError:
+      description: A server error occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The user is unauthorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: The specified database was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    NoContent:
+      description: The request succeeded and no content is returned in response body
   parameters:
     AddressesQueryParam:
       in: query

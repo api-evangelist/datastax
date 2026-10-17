@@ -162,6 +162,21 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    Error:
+      description: ModelError information that is returned to users
+      type: object
+      required:
+      - id
+      - message
+      properties:
+        ID:
+          type: integer
+          example: 123
+          description: API specific error code
+        message:
+          type: string
+          example: Something is broken
+          description: User-friendly description of error
     GoogleVPC:
       description: Details about a GCP virtual private cloud
       type: object
@@ -175,27 +190,6 @@ components:
         vpcNetworkName:
           type: string
           description: Unique identifier for the VPC
-    AzureVPC:
-      description: Details about an Azure virtual private cloud
-      type: object
-      required:
-      - tenantId
-      - subscriptionId
-      - resourceGroupName
-      - virtualNetworkName
-      properties:
-        tenantId:
-          type: string
-          description: ID of the Azure tenant the subscription resides in
-        subscriptionId:
-          type: string
-          description: ID of the subscription the resource group and virtual network reside in
-        resourceGroupName:
-          type: string
-          description: Name of the Resource Group the virtual network resides in
-        virtualNetworkName:
-          type: string
-          description: Name of the Virtual Network the peering is connecting to
     AmazonVPC:
       description: Details about an AWS virtual private cloud
       type: object
@@ -223,21 +217,48 @@ components:
           description: The CIDR block available for this VPC
           pattern: ^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$
           example: 137.187.23.0/24
-    Error:
-      description: ModelError information that is returned to users
+    AzureVPC:
+      description: Details about an Azure virtual private cloud
       type: object
       required:
-      - id
-      - message
+      - tenantId
+      - subscriptionId
+      - resourceGroupName
+      - virtualNetworkName
       properties:
-        ID:
-          type: integer
-          example: 123
-          description: API specific error code
-        message:
+        tenantId:
           type: string
-          example: Something is broken
-          description: User-friendly description of error
+          description: ID of the Azure tenant the subscription resides in
+        subscriptionId:
+          type: string
+          description: ID of the subscription the resource group and virtual network reside in
+        resourceGroupName:
+          type: string
+          description: Name of the Resource Group the virtual network resides in
+        virtualNetworkName:
+          type: string
+          description: Name of the Virtual Network the peering is connecting to
+    VPCConnection:
+      description: A VPC peering connection with an Astra database
+      type: object
+      required:
+      - connectionId
+      - status
+      - currentVpc
+      - otherVpc
+      properties:
+        connectionId:
+          type: string
+          description: A unique identifier for the peering connection
+        status:
+          type: string
+          description: The current status of the connection
+        currentVpc:
+          description: Details about the VPC where the Astra database is running
+          $ref: '#/components/schemas/VPC'
+        otherVpc:
+          description: Details about the VPC peered to the Astra database's VPC
+          $ref: '#/components/schemas/VPC'
     VPC:
       description: Details about a virtual private cloud
       type: object
@@ -272,36 +293,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Error'
-    VPCConnection:
-      description: A VPC peering connection with an Astra database
-      type: object
-      required:
-      - connectionId
-      - status
-      - currentVpc
-      - otherVpc
-      properties:
-        connectionId:
-          type: string
-          description: A unique identifier for the peering connection
-        status:
-          type: string
-          description: The current status of the connection
-        currentVpc:
-          description: Details about the VPC where the Astra database is running
-          $ref: '#/components/schemas/VPC'
-        otherVpc:
-          description: Details about the VPC peered to the Astra database's VPC
-          $ref: '#/components/schemas/VPC'
   responses:
-    NotFound:
-      description: The specified database was not found
+    Forbidden:
+      description: The user is forbidden to perform the operation
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    Forbidden:
-      description: The user is forbidden to perform the operation
+    ServerError:
+      description: A server error occurred
       content:
         application/json:
           schema:
@@ -312,8 +312,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Errors'
-    ServerError:
-      description: A server error occurred
+    NotFound:
+      description: The specified database was not found
       content:
         application/json:
           schema:
