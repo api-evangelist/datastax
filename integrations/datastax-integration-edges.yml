@@ -13,6 +13,7 @@ checked:
 - https://rubygems.org/api/v1
 - docker-hub/integrations/docker-hub-integration-edges.yml
 - jetbrains/integrations/jetbrains-integration-edges.yml
+- terraform/integrations/terraform-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -144,6 +145,25 @@ edges:
   detected: '2026-10-20'
   detected_by: mirror-platform-listings.py
   category: IDE / developer extension marketplace listing
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/datastax/astra
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - datastax/astra
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (Terraform partner tier)
 source:
 - https://registry.npmjs.org
 - https://pypi.org/pypi
