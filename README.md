@@ -64,6 +64,170 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-DataStax is a company surfaced as a portfolio company of kleiner-perkins, lightspeed-venture-partners and added to the API Evangelist network as a stub for enrichment. Sector: enterprise. This profile is a lead awaiting the enrichment pipeline.
+DataStax is the company behind Astra DB, a serverless, multi-cloud database and vector-search platform built on Apache Cassandra, along with Langflow, RAGStack, and the Astra Streaming (Apache Pulsar) event platform for building generative-AI and real-time applications. Developers interact with Astra DB through the Data API (JSON document, table, and vector operations), the legacy REST, Document, and GraphQL APIs, and the Astra DevOps API for programmatic administration of databases, keyspaces, access lists, roles, users, tokens, private links, and CDC. DataStax publishes official client SDKs (Python astrapy, TypeScript astra-db-ts, Go astra-db-go), the Java-based Astra CLI, and an official Astra DB Model Context Protocol (MCP) server for agentic access. DataStax was acquired by IBM in 2025 and its Astra products are now part of the IBM watsonx data portfolio, while the developer surface remains hosted on datastax.com, docs.datastax.com, astra.datastax.com, and github.com/datastax.
 
-Backed by: kleiner-perkins, lightspeed-venture-partners — https://www.datastax.com
+**Areas:** Company · Enterprise · Database · Vector Search · Cassandra · Artificial Intelligence · RAG · Serverless · Streaming · Developer Tools
+
+## DataStax on APIs.io
+
+Everything profiled for DataStax is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/datastax/](https://apis.io/providers/datastax/)** — or go straight to one of the APIs or properties below.
+
+### APIs (17)
+
+- [DataStax Access List API](https://apis.io/apis/datastax/datastax-access-list-api/) — View, create, modify, or delete the IP access list for an Astra database.
+- [DataStax Authentication API](https://apis.io/apis/datastax/datastax-authentication-api/) — Generate and revoke tokens that are used to authenticate DevOps API operations.
+- [DataStax Clone API](https://apis.io/apis/datastax/datastax-clone-api/) — Use the DevOps API to clone databases.
+- [DataStax Customer Keys API](https://apis.io/apis/datastax/datastax-customer-keys-api/) — Manage customer keys for your Astra organization.
+- [DataStax Database Operations API](https://apis.io/apis/datastax/datastax-database-operations-api/) — Use these DevOps APIs to manage Astra databases.
+- [DataStax DevOps Access List API](https://apis.io/apis/datastax/datastax-devops-access-list-api/) — View, create, modify, or delete the access list that restricts access to the DevOps API for an Astra organization.
+- [DataStax Enterprise Operations API](https://apis.io/apis/datastax/datastax-enterprise-operations-api/) — DevOps APIs for your Astra enterprise.
+- [DataStax Migrations API](https://apis.io/apis/datastax/datastax-migrations-api/) — Use the DevOps API to manage SSTables-based migrations.
+- [DataStax Organization Operations API](https://apis.io/apis/datastax/datastax-organization-operations-api/) — DevOps APIs for your Astra organization.
+- [DataStax PCU API](https://apis.io/apis/datastax/datastax-pcu-api/) — Use the DevOps API to manage provisioned capacity units for eligible organizations and databases.
+- [DataStax Private Link API](https://apis.io/apis/datastax/datastax-private-link-api/) — Use the DevOps Private Link APIs to manage private link endpoints for your Astra databases.
+- [DataStax Regions API](https://apis.io/apis/datastax/datastax-regions-api/) — Get available regions by database type, user, or organization.
+- [DataStax Roles API](https://apis.io/apis/datastax/datastax-roles-api/) — Use the DevOps Roles APIs to manage roles in your Astra organization.
+- [DataStax SCIM API](https://apis.io/apis/datastax/datastax-scim-api/) — SCIM 2.0 endpoints for user and group provisioning and management.
+- [DataStax Token API](https://apis.io/apis/datastax/datastax-token-api/) — Generate and revoke tokens that are used to authenticate DevOps API operations.
+- [DataStax Users API](https://apis.io/apis/datastax/datastax-users-api/) — Use the DevOps Users APIs to manage users in your Astra organization.
+- [DataStax VPC Peering API](https://apis.io/apis/datastax/datastax-vpc-peering-api/) — Use the DevOps VPC Peering APIs to manage VPC peering for Managed Cluster (Classic) databases.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (1)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Provision an Astra database and issue a scoped token](https://apis.io/arazzos/datastax/datastax-provision-database/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [astra-db-mcp](https://apis.io/servers/datastax/astra-db-mcp/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Datastax Agentic Access](https://apis.io/agentic-access/datastax/datastax-agentic-access/)
+
+#### Collections (17)
+
+Postman and Open Collection request collections.
+
+- [Astra DevOps Access List API](https://apis.io/collections/datastax/open-datastax-access-list-api/)
+- [Astra DevOps Access List Authentication API](https://apis.io/collections/datastax/open-datastax-authentication-api/)
+- [Astra DevOps Access List Clone API](https://apis.io/collections/datastax/open-datastax-clone-api/)
+- [Astra DevOps Access List Customer Keys API](https://apis.io/collections/datastax/open-datastax-customer-keys-api/)
+- [Astra DevOps Access List Database Operations API](https://apis.io/collections/datastax/open-datastax-database-operations-api/)
+- [Astra DevOps Access List API](https://apis.io/collections/datastax/open-datastax-devops-access-list-api/)
+- [Astra DevOps Access List Enterprise Operations API](https://apis.io/collections/datastax/open-datastax-enterprise-operations-api/)
+- [Astra DevOps Access List Migrations API](https://apis.io/collections/datastax/open-datastax-migrations-api/)
+- [Astra DevOps Access List Organization Operations API](https://apis.io/collections/datastax/open-datastax-organization-operations-api/)
+- [Astra DevOps Access List PCU API](https://apis.io/collections/datastax/open-datastax-pcu-api/)
+- [Astra DevOps Access List Private Link API](https://apis.io/collections/datastax/open-datastax-private-link-api/)
+- [Astra DevOps Access List Regions API](https://apis.io/collections/datastax/open-datastax-regions-api/)
+- [Astra DevOps Access List Roles API](https://apis.io/collections/datastax/open-datastax-roles-api/)
+- [Astra DevOps Access List SCIM API](https://apis.io/collections/datastax/open-datastax-scim-api/)
+- [Astra DevOps Access List Token API](https://apis.io/collections/datastax/open-datastax-token-api/)
+- [Astra DevOps Access List Users API](https://apis.io/collections/datastax/open-datastax-users-api/)
+- [Astra DevOps Access List VPC Peering API](https://apis.io/collections/datastax/open-datastax-vpc-peering-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Datastax Devops Overlay](https://apis.io/overlays/datastax/datastax-devops-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Datastax Authentication](https://apis.io/security/datastax/datastax-authentication/)
+- [Datastax Domain Security](https://apis.io/security/datastax/datastax-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Datastax Scopes](https://apis.io/scopes/datastax/datastax-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Datastax Plans Pricing](https://apis.io/plans/datastax/datastax-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.datastax.com)
+- [Documentation](https://docs.datastax.com/en/astra-db-serverless/index.html)
+- [Getting started](https://docs.datastax.com/en/astra-db-serverless/get-started/quickstart.html)
+- [API reference](https://docs.datastax.com/en/astra-db-serverless/api-reference/overview.html)
+- [Pricing](https://www.datastax.com/pricing/astra-db)
+- [Sign up](https://astra.datastax.com/signup)
+- [Support](https://support.datastax.com/)
+- [Blog](https://www.datastax.com/blog)
+- [Terms of service](https://www.datastax.com/legal/terms-of-service)
+- [Privacy policy](https://www.datastax.com/legal/privacy-policy)
+- [GitHub](https://github.com/datastax)
+
+## API Evangelist rating
+
+**Kin Score 52.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 54.8 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 70.8 |
+| Access clarity | 44.7 |
+
+**Agent readiness 23.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/datastax/](https://apis.io/providers/datastax/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DataStax: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/datastax/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
